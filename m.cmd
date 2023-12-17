@@ -1,2 +1,3 @@
 @echo off
-node app.js
+@REM node app.js
+npm start
