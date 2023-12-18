@@ -1,6 +1,7 @@
-npm init -y
-npm install typescript --save-dev
-npm install ts-node --save-dev
-npx tsc --init
-npm install express
-npm install @types/express --save-dev
+@REM npm init -y
+@REM npm install typescript --save-dev
+@REM npm install ts-node --save-dev
+@REM npx tsc --init
+@REM npm install express
+@REM npm install @types/express --save-dev
+npm install swagger-autogen swagger-ui-express @types/swagger-ui-express

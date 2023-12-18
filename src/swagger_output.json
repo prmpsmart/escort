@@ -1,0 +1,906 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v1.0.0",
+    "title": "Lazer Escort REST API Documentation",
+    "description": "Implementation of Swagger with TypeScript"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/client_signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortSignupRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortSignupRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/recover_password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/change_password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/profile": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/upgrade_pro": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpgradeProRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UpgradeProRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/find_escorts": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindEscortsRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FindEscortsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/services/advertize": {
+      "post": {
+        "tags": [
+          "Services"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdvertizeRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AdvertizeRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/services/get_in_touch": {
+      "post": {
+        "tags": [
+          "Services"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetInTouchRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GetInTouchRequest"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username_email": {
+            "type": "string",
+            "example": "prmpsmart@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "pass-string"
+          }
+        },
+        "required": [
+          "username_email",
+          "password"
+        ],
+        "xml": {
+          "name": "LoginRequest"
+        }
+      },
+      "ClientSignupRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "Mirac"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Tim"
+          },
+          "username": {
+            "type": "string",
+            "example": "prmpsmart"
+          },
+          "email": {
+            "type": "string",
+            "example": "prmpsmart@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "pass-string"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "username",
+          "email",
+          "password"
+        ],
+        "xml": {
+          "name": "ClientSignupRequest"
+        }
+      },
+      "EscortSignupRequest": {
+        "type": "object",
+        "properties": {
+          "working_name": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "prmpsmart@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "pass-string"
+          }
+        },
+        "required": [
+          "working_name",
+          "email",
+          "password"
+        ],
+        "xml": {
+          "name": "EscortSignupRequest"
+        }
+      },
+      "RecoverPasswordRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "prmpsmart@gmail.com"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "xml": {
+          "name": "RecoverPasswordRequest"
+        }
+      },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "prmpsmart@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "pass-string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "xml": {
+          "name": "ChangePasswordRequest"
+        }
+      },
+      "UpgradeProRequest": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "example": [
+              "base64 encoded image string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "height": {
+            "type": "number",
+            "example": 9.8
+          },
+          "country": {
+            "type": "string",
+            "example": "Germany"
+          },
+          "birthday": {
+            "type": "string",
+            "example": "26/07/1999"
+          },
+          "hair_color": {
+            "type": "string",
+            "example": "brown"
+          },
+          "gender": {
+            "type": "string",
+            "example": "male"
+          }
+        },
+        "required": [
+          "images",
+          "height",
+          "country",
+          "birthday",
+          "hair_color",
+          "gender"
+        ],
+        "xml": {
+          "name": "UpgradeProRequest"
+        }
+      },
+      "FindEscortsRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Mirac Pete"
+          },
+          "username": {
+            "type": "string",
+            "example": "petmir"
+          },
+          "looking_for": {
+            "type": "string",
+            "example": "Natey"
+          },
+          "age_start": {
+            "type": "number",
+            "example": 18
+          },
+          "age_end": {
+            "type": "number",
+            "example": 45
+          },
+          "distance": {
+            "type": "string",
+            "example": "89km"
+          },
+          "gender": {
+            "type": "string",
+            "example": "female"
+          }
+        },
+        "required": [
+          "name",
+          "username",
+          "looking_for",
+          "age_start",
+          "age_end",
+          "distance",
+          "gender"
+        ],
+        "xml": {
+          "name": "FindEscortsRequest"
+        }
+      },
+      "AdvertizeRequest": {
+        "type": "object",
+        "properties": {
+          "who_are_you": {
+            "type": "string",
+            "example": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "send_copy": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "website": {
+            "type": "string",
+            "example": "string"
+          },
+          "city": {
+            "type": "string",
+            "example": "string"
+          },
+          "query": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "required": [
+          "who_are_you",
+          "name",
+          "number",
+          "email",
+          "send_copy",
+          "website",
+          "city",
+          "query"
+        ],
+        "xml": {
+          "name": "AdvertizeRequest"
+        }
+      },
+      "GetInTouchRequest": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "string"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "string"
+          },
+          "message": {
+            "type": "string",
+            "example": "boolean"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "number",
+          "message"
+        ],
+        "xml": {
+          "name": "GetInTouchRequest"
+        }
+      },
+      "UserProfile": {
+        "type": "object",
+        "properties": {
+          "personal_details": {
+            "type": "object",
+            "properties": {
+              "gender": {
+                "type": "string",
+                "example": "string"
+              },
+              "sexuality": {
+                "type": "string",
+                "example": "string"
+              },
+              "age": {
+                "type": "string",
+                "example": "number"
+              },
+              "nationality": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "physical_details": {
+            "type": "object",
+            "properties": {
+              "chest": {
+                "type": "string",
+                "example": "string"
+              },
+              "waist": {
+                "type": "string",
+                "example": "string"
+              },
+              "hips": {
+                "type": "string",
+                "example": "string"
+              },
+              "ethnicity": {
+                "type": "string",
+                "example": "string"
+              },
+              "hair_colour": {
+                "type": "string",
+                "example": "string"
+              },
+              "height": {
+                "type": "string",
+                "example": "number"
+              },
+              "weight": {
+                "type": "string",
+                "example": "number"
+              },
+              "eye_colour": {
+                "type": "string",
+                "example": "string"
+              },
+              "genetalia": {
+                "type": "string",
+                "example": "string"
+              },
+              "cup_size": {
+                "type": "string",
+                "example": "string"
+              },
+              "breast_implant": {
+                "type": "string",
+                "example": "string"
+              },
+              "body_type": {
+                "type": "string",
+                "example": "string"
+              },
+              "body_art": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "languages": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "booking_notes": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "incall": {
+                "type": "string",
+                "example": "string"
+              },
+              "outcall": {
+                "type": "object",
+                "properties": {
+                  "location": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "i_travel_to": {
+                    "type": "string",
+                    "example": "string"
+                  }
+                }
+              }
+            }
+          },
+          "price": {
+            "type": "object",
+            "properties": {
+              "incall": {
+                "type": "object",
+                "properties": {
+                  "hour_1": {
+                    "type": "string",
+                    "example": "float"
+                  },
+                  "hour_2": {
+                    "type": "string",
+                    "example": "float"
+                  },
+                  "hour_3": {
+                    "type": "string",
+                    "example": "float"
+                  }
+                }
+              },
+              "outcall": {
+                "type": "object",
+                "properties": {
+                  "hour_1": {
+                    "type": "string",
+                    "example": "float"
+                  },
+                  "hour_2": {
+                    "type": "string",
+                    "example": "float"
+                  },
+                  "hour_3": {
+                    "type": "string",
+                    "example": "float"
+                  }
+                }
+              }
+            }
+          },
+          "availability": {
+            "type": "object",
+            "properties": {
+              "monday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "tueday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "wednesday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "thurday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "friday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "saturday": {
+                "type": "string",
+                "example": "boolean"
+              },
+              "dunurday": {
+                "type": "string",
+                "example": "boolean"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "UserProfile"
+        }
+      }
+    },
+    "definitions": {
+      "UserNotFound": {
+        "message": "User not found"
+      },
+      "UserExists": {
+        "message": "User already exists"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

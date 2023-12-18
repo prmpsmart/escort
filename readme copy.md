@@ -7,7 +7,7 @@
     username_email: str
     password: str
     ```
-- /register
+- /signup
   - method: `post`
   - body
     ```py
@@ -53,7 +53,6 @@
     gender: str
     ```
 - /profile
-
   - method: `get`
   - reponse
 
@@ -92,26 +91,25 @@
         incall: {
             hour_1: float
             hour_2: float
-            hour_2: float
+            hour_3: float
         }
         outcall: {
             hour_1: float
             hour_2: float
-            hour_2: float
+            hour_3: float
         }
     }
     availability: {
-      monday: all
-      tueday: all
-      wednesday: all
-      thurday: all
-      friday: all
-      saturday: all
-      dunurday: all
+      monday: bool
+      tueday: bool
+      wednesday: bool
+      thurday: bool
+      friday: bool
+      saturday: bool
+      dunurday: bool
 
     }
     ```
-
 - /advertize
 
   - method: `post`
@@ -127,7 +125,6 @@
     city: str
     query: str
     ```
-
 - /get_in_touch
 
   - method: `post`
