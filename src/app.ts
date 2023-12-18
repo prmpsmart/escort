@@ -10,8 +10,11 @@ export const app = express();
 app.use("/", routers);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 app.use(bodyParser.json());
+app.on("ready", (parent) => {
+  console.log("Server is running");
+});
 
 // app.listen(port, () => {
-//   console.log(`Server is running at http://localhost:${port}`);
-//   console.log(`Swagger is running at http://localhost:${port}/docs`);
+// console.log(`Server is running at http://localhost:${port}`);
+// console.log(`Swagger is running at http://localhost:${port}/docs`);
 // });
