@@ -7,11 +7,11 @@ servicesRouter.use("/", checkToken);
 
 interface AdvertizeRequest extends AuthRequest {
   body: {
-    who_are_you: string;
+    whoAreYou: string;
     name: string;
     number: string;
     email: string;
-    send_copy: boolean;
+    sendCopy: boolean;
     website: string;
     city: string;
     query: string;
@@ -33,17 +33,15 @@ servicesRouter.post("/advertize", (req: AdvertizeRequest, res: Response) => {
 
 interface GetInTouchRequest extends AuthRequest {
   body: {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     number: string;
     message: boolean;
   };
 }
-servicesRouter.post(
-  "/get_in_touch",
-  (req: GetInTouchRequest, res: Response) => {
-    /**
+servicesRouter.post("/getInTouch", (req: GetInTouchRequest, res: Response) => {
+  /**
       #swagger.requestBody = {
           required: true,
           schema: { $ref: "#/components/schemas/GetInTouchRequest" }
@@ -53,6 +51,5 @@ servicesRouter.post(
           schema: { $ref: '#/definitions/UserNotExists' }
       }
        */
-    res.status(200).json({});
-  }
-);
+  res.status(200).json({});
+});

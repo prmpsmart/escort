@@ -16,18 +16,18 @@ const doc = {
     schemas: {
       // Requests
       LoginRequest: {
-        $username_email: "prmpsmart@gmail.com",
+        $usernameEmail: "prmpsmart@gmail.com",
         $password: "pass-string",
       },
       ClientSignupRequest: {
-        $first_name: "Mirac",
-        $last_name: "Tim",
+        $firstName: "Mirac",
+        $lastName: "Tim",
         $username: "prmpsmart",
         $email: "prmpsmart@gmail.com",
         $password: "pass-string",
       },
       EscortSignupRequest: {
-        $working_name: "string",
+        $workingName: "string",
         $email: "prmpsmart@gmail.com",
         $password: "pass-string",
       },
@@ -43,77 +43,81 @@ const doc = {
         $height: 9.8,
         $country: "Germany",
         $birthday: "26/07/1999",
-        $hair_color: "brown",
+        $hairColor: "brown",
         $gender: "male",
       },
       FindEscortsRequest: {
         $name: "Mirac Pete",
         $username: "petmir",
-        $looking_for: "Natey",
-        $age_start: 18,
-        $age_end: 45,
+        $lookingFor: "Natey",
+        $ageStart: 18,
+        $ageEnd: 45,
         $distance: "89km",
         $gender: "female",
       },
       AdvertizeRequest: {
-        $who_are_you: "string",
+        $whoAreYou: "string",
         $name: "string",
         $number: "string",
         $email: "string",
-        $send_copy: "boolean",
+        $sendCopy: "boolean",
         $website: "string",
         $city: "string",
         $query: "string",
       },
       GetInTouchRequest: {
-        $first_name: "string",
-        $last_name: "string",
+        $firstName: "string",
+        $lastName: "string",
         $email: "string",
         $number: "string",
         $message: "boolean",
       },
       // Responses
+      LoginResponse: {
+        token: "string",
+        message: "string",
+      },
       UserProfile: {
-        personal_details: {
+        personalDetails: {
           gender: "string",
           sexuality: "string",
           age: "number",
           nationality: "string",
         },
-        physical_details: {
+        physicalDetails: {
           chest: "string",
           waist: "string",
           hips: "string",
           ethnicity: "string",
-          hair_colour: "string",
+          hairColour: "string",
           height: "number",
           weight: "number",
-          eye_colour: "string",
+          eyeColour: "string",
           genetalia: "string",
-          cup_size: "string",
-          breast_implant: "string",
-          body_type: "string",
-          body_art: "string",
+          cupSize: "string",
+          breastImplant: "string",
+          bodyType: "string",
+          bodyArt: "string",
         },
         languages: ["string"],
-        booking_notes: ["string"],
+        bookingNotes: ["string"],
         location: {
           incall: "string",
           outcall: {
             location: "string",
-            i_travel_to: "string",
+            iTravelTo: "string",
           },
         },
         price: {
           incall: {
-            hour_1: "float",
-            hour_2: "float",
-            hour_3: "float",
+            hour1: "float",
+            hour2: "float",
+            hour3: "float",
           },
           outcall: {
-            hour_1: "float",
-            hour_2: "float",
-            hour_3: "float",
+            hour1: "float",
+            hour2: "float",
+            hour3: "float",
           },
         },
         availability: {
@@ -127,24 +131,27 @@ const doc = {
         },
       },
     },
-    definitions: {
-      UserNotFound: {
-        message: "User not found",
-      },
-      UserExists: {
-        message: "User already exists",
-      },
+  },
+  definitions: {
+    InvalidCredentials: {
+      message: "Invalid credentials",
     },
-    securitySchemes: {
-      bearerAuth: {
-        type: "http",
-        scheme: "bearer",
-      },
+    UserNotFound: {
+      message: "User not found",
+    },
+    UserExists: {
+      message: "User already exists",
+    },
+  },
+  securitySchemes: {
+    bearerAuth: {
+      type: "http",
+      scheme: "bearer",
     },
   },
 };
 
-const outputFile = "./swagger_output.json";
+const outputFile = "./swaggerOutput.json";
 const endpointsFiles = ["./src/routers/index.ts"];
 
 swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc);

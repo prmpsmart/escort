@@ -1,7 +1,7 @@
 import express from "express";
-import { authRouter } from "./auth_router";
-import { servicesRouter } from "./services_router";
-import { userRouter } from "./user_router";
+import { authRouter } from "./authRouter";
+import { servicesRouter } from "./servicesRouter";
+import { userRouter } from "./userRouter";
 
 export const routers = express.Router();
 

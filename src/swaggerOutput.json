@@ -20,7 +20,19 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
           "404": {
             "description": "Not Found",
@@ -33,6 +45,21 @@
               "application/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
                 }
               }
             }
@@ -49,6 +76,49 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/clientSignup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientSignupRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientSignupRequest"
               }
             }
           }
@@ -353,7 +423,7 @@
         }
       }
     },
-    "/services/get_in_touch": {
+    "/services/getInTouch": {
       "post": {
         "tags": [
           "Services"
@@ -402,7 +472,7 @@
       "LoginRequest": {
         "type": "object",
         "properties": {
-          "username_email": {
+          "usernameEmail": {
             "type": "string",
             "example": "prmpsmart@gmail.com"
           },
@@ -412,7 +482,7 @@
           }
         },
         "required": [
-          "username_email",
+          "usernameEmail",
           "password"
         ],
         "xml": {
@@ -422,11 +492,11 @@
       "ClientSignupRequest": {
         "type": "object",
         "properties": {
-          "first_name": {
+          "firstName": {
             "type": "string",
             "example": "Mirac"
           },
-          "last_name": {
+          "lastName": {
             "type": "string",
             "example": "Tim"
           },
@@ -444,8 +514,8 @@
           }
         },
         "required": [
-          "first_name",
-          "last_name",
+          "firstName",
+          "lastName",
           "username",
           "email",
           "password"
@@ -457,7 +527,7 @@
       "EscortSignupRequest": {
         "type": "object",
         "properties": {
-          "working_name": {
+          "workingName": {
             "type": "string",
             "example": "string"
           },
@@ -471,7 +541,7 @@
           }
         },
         "required": [
-          "working_name",
+          "workingName",
           "email",
           "password"
         ],
@@ -538,7 +608,7 @@
             "type": "string",
             "example": "26/07/1999"
           },
-          "hair_color": {
+          "hairColor": {
             "type": "string",
             "example": "brown"
           },
@@ -552,7 +622,7 @@
           "height",
           "country",
           "birthday",
-          "hair_color",
+          "hairColor",
           "gender"
         ],
         "xml": {
@@ -570,15 +640,15 @@
             "type": "string",
             "example": "petmir"
           },
-          "looking_for": {
+          "lookingFor": {
             "type": "string",
             "example": "Natey"
           },
-          "age_start": {
+          "ageStart": {
             "type": "number",
             "example": 18
           },
-          "age_end": {
+          "ageEnd": {
             "type": "number",
             "example": 45
           },
@@ -594,9 +664,9 @@
         "required": [
           "name",
           "username",
-          "looking_for",
-          "age_start",
-          "age_end",
+          "lookingFor",
+          "ageStart",
+          "ageEnd",
           "distance",
           "gender"
         ],
@@ -607,7 +677,7 @@
       "AdvertizeRequest": {
         "type": "object",
         "properties": {
-          "who_are_you": {
+          "whoAreYou": {
             "type": "string",
             "example": "string"
           },
@@ -623,7 +693,7 @@
             "type": "string",
             "example": "string"
           },
-          "send_copy": {
+          "sendCopy": {
             "type": "string",
             "example": "boolean"
           },
@@ -641,11 +711,11 @@
           }
         },
         "required": [
-          "who_are_you",
+          "whoAreYou",
           "name",
           "number",
           "email",
-          "send_copy",
+          "sendCopy",
           "website",
           "city",
           "query"
@@ -657,11 +727,11 @@
       "GetInTouchRequest": {
         "type": "object",
         "properties": {
-          "first_name": {
+          "firstName": {
             "type": "string",
             "example": "string"
           },
-          "last_name": {
+          "lastName": {
             "type": "string",
             "example": "string"
           },
@@ -679,8 +749,8 @@
           }
         },
         "required": [
-          "first_name",
-          "last_name",
+          "firstName",
+          "lastName",
           "email",
           "number",
           "message"
@@ -689,10 +759,26 @@
           "name": "GetInTouchRequest"
         }
       },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "string"
+          },
+          "message": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "LoginResponse"
+        }
+      },
       "UserProfile": {
         "type": "object",
         "properties": {
-          "personal_details": {
+          "personalDetails": {
             "type": "object",
             "properties": {
               "gender": {
@@ -713,7 +799,7 @@
               }
             }
           },
-          "physical_details": {
+          "physicalDetails": {
             "type": "object",
             "properties": {
               "chest": {
@@ -732,7 +818,7 @@
                 "type": "string",
                 "example": "string"
               },
-              "hair_colour": {
+              "hairColour": {
                 "type": "string",
                 "example": "string"
               },
@@ -744,7 +830,7 @@
                 "type": "string",
                 "example": "number"
               },
-              "eye_colour": {
+              "eyeColour": {
                 "type": "string",
                 "example": "string"
               },
@@ -752,19 +838,19 @@
                 "type": "string",
                 "example": "string"
               },
-              "cup_size": {
+              "cupSize": {
                 "type": "string",
                 "example": "string"
               },
-              "breast_implant": {
+              "breastImplant": {
                 "type": "string",
                 "example": "string"
               },
-              "body_type": {
+              "bodyType": {
                 "type": "string",
                 "example": "string"
               },
-              "body_art": {
+              "bodyArt": {
                 "type": "string",
                 "example": "string"
               }
@@ -779,7 +865,7 @@
               "type": "string"
             }
           },
-          "booking_notes": {
+          "bookingNotes": {
             "type": "array",
             "example": [
               "string"
@@ -802,7 +888,7 @@
                     "type": "string",
                     "example": "string"
                   },
-                  "i_travel_to": {
+                  "iTravelTo": {
                     "type": "string",
                     "example": "string"
                   }
@@ -816,15 +902,15 @@
               "incall": {
                 "type": "object",
                 "properties": {
-                  "hour_1": {
+                  "hour1": {
                     "type": "string",
                     "example": "float"
                   },
-                  "hour_2": {
+                  "hour2": {
                     "type": "string",
                     "example": "float"
                   },
-                  "hour_3": {
+                  "hour3": {
                     "type": "string",
                     "example": "float"
                   }
@@ -833,15 +919,15 @@
               "outcall": {
                 "type": "object",
                 "properties": {
-                  "hour_1": {
+                  "hour1": {
                     "type": "string",
                     "example": "float"
                   },
-                  "hour_2": {
+                  "hour2": {
                     "type": "string",
                     "example": "float"
                   },
-                  "hour_3": {
+                  "hour3": {
                     "type": "string",
                     "example": "float"
                   }
@@ -886,21 +972,49 @@
         "xml": {
           "name": "UserProfile"
         }
-      }
-    },
-    "definitions": {
+      },
+      "InvalidCredentials": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Invalid credentials"
+          }
+        },
+        "xml": {
+          "name": "InvalidCredentials"
+        }
+      },
       "UserNotFound": {
-        "message": "User not found"
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User not found"
+          }
+        },
+        "xml": {
+          "name": "UserNotFound"
+        }
       },
       "UserExists": {
-        "message": "User already exists"
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User already exists"
+          }
+        },
+        "xml": {
+          "name": "UserExists"
+        }
       }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    }
+  },
+  "securitySchemes": {
+    "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer"
     }
   }
 }

@@ -4,7 +4,7 @@ import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { routers } from "./routers/index.js";
-import swaggerOutput from "./swagger_output.json";
+import swaggerOutput from "./swaggerOutput.json";
 
 dotenv.config();
 

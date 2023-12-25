@@ -2,26 +2,47 @@ const axios = require("axios");
 
 const host = "http://localhost:3000";
 
-async function login() {
+async function call(func) {
   try {
-    const response = await axios.post(`${host}/auth/login`, {
-      username: "prmpsmart",
-      email: "prmpsmart@gmail.com",
-    });
-    console.log("Data fetched successfully:", response.data);
+    const response = await func;
+    console.log(
+      `Response :: ${response.status} :: ${
+        response.statusText
+      } :: ${JSON.stringify(response.data)}`
+    );
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Axios error:", error.message);
+
       if (error.response) {
-        // console.error("Response data:", error.response.data);
-        console.error("Response status:", error.response.status);
-        // console.error("Response headers:", error.response.headers);
+        console.error(
+          `Response :: ${error.response.status} :: ${
+            error.response.statusText
+          } :: ${JSON.stringify(error.response.data)}`
+        );
       }
     } else {
-      // Handle generic error
-      // console.error("Error fetching data:", error.message);
+      console.error("Error with the request:");
     }
   }
 }
 
-login();
+async function login() {
+  call(
+    axios.post(`${host}/auth/login`, {
+      username: "prmpsmart",
+      email: "prmpsmart@gmail.com",
+    })
+  );
+}
+
+async function client_signup() {
+  call(
+    axios.post(`${host}/auth/client_signup`, {
+      username: "prmpsmart",
+      email: "prmpsmart@gmail.com",
+    })
+  );
+}
+
+client_signup();
