@@ -124,7 +124,7 @@ interface EscortSignupRequest extends Request {
   };
 }
 
-authRouter.post("/client_signup", (req: EscortSignupRequest, res: Response) => {
+authRouter.post("/escortSignup", (req: EscortSignupRequest, res: Response) => {
   /**
     #swagger.requestBody = {
         required: true,
@@ -146,7 +146,7 @@ interface RecoverPasswordRequest extends Request {
 }
 
 authRouter.post(
-  "/recover_password",
+  "/recoverPassword",
   (req: RecoverPasswordRequest, res: Response) => {
     /**
     #swagger.requestBody = {
@@ -171,7 +171,7 @@ interface ChangePasswordRequest extends Request {
 }
 
 authRouter.post(
-  "/change_password",
+  "/changePassword",
   (req: ChangePasswordRequest, res: Response) => {
     /**
     #swagger.requestBody = {

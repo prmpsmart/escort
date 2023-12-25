@@ -22,11 +22,11 @@ interface UpgradeProRequest extends AuthRequest {
     height: number;
     country: string;
     birthday: string;
-    hair_color: string;
+    hairColor: string;
     gender: string;
   };
 }
-userRouter.post("/upgrade_pro", (req: UpgradeProRequest, res: Response) => {
+userRouter.post("/upgradePro", (req: UpgradeProRequest, res: Response) => {
   /**
       #swagger.requestBody = {
           required: true,
@@ -44,14 +44,14 @@ interface FindEscortsRequest extends AuthRequest {
   body: {
     name: string;
     username: number;
-    looking_for: string;
-    age_start: number;
-    age_end: number;
+    lookingFor: string;
+    ageStart: number;
+    ageEnd: number;
     distance: number;
     gender: string;
   };
 }
-userRouter.post("/find_escorts", (req: FindEscortsRequest, res: Response) => {
+userRouter.post("/findEscorts", (req: FindEscortsRequest, res: Response) => {
   /**
       #swagger.requestBody = {
           required: true,
@@ -66,4 +66,4 @@ userRouter.post("/find_escorts", (req: FindEscortsRequest, res: Response) => {
 });
 
 // advertize
-// get_in_touch
+// getInTouch
