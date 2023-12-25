@@ -1,14 +1,46 @@
-class Escort {
-  constructor(
-    public id: string = "",
-    public first_name: string,
-    public last_name: string,
-    public username: string,
-    public email: string,
-    public password: string
-  ) {}
+import { Document, Schema, model } from "mongoose";
 
-  get fullName(): string {
-    return `${this.first_name} ${this.last_name}`;
-  }
+interface Escort extends Document {
+  workingName: string;
+  email: string;
+  password: string;
+  createdAt: Date;
+
+  getFullName(): string;
 }
+
+const clientSchema = new Schema<Escort>({
+  workingName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+clientSchema.methods.getFullName = function (): string {
+  return `${this.firstName} ${this.lastName}`;
+};
+
+clientSchema.pre("save", function (next) {
+  if (!this.createdAt) {
+    this.createdAt = new Date();
+  }
+
+  next();
+});
+
+const Escort = model<Escort>("Escort", clientSchema);
+
+export default Escort;

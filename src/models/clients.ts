@@ -9,8 +9,6 @@ interface Client extends Document {
   createdAt: Date;
 
   getFullName(): string;
-
-  login(email: string, password: string): Promise<Client>;
 }
 
 const clientSchema = new Schema<Client>({
@@ -40,14 +38,6 @@ const clientSchema = new Schema<Client>({
     default: Date.now,
   },
 });
-
-clientSchema.statics.login = function (
-  email: string,
-  password: string
-): boolean {
-  // login logic
-  return false;
-};
 
 clientSchema.methods.getFullName = function (): string {
   return `${this.firstName} ${this.lastName}`;

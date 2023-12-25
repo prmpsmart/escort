@@ -6,6 +6,7 @@
     ```py
     username_email: str
     password: str
+    escort: bool
     ```
 - /signup
   - method: `post`
@@ -53,6 +54,7 @@
     gender: str
     ```
 - /profile
+
   - method: `get`
   - reponse
 
@@ -110,6 +112,7 @@
 
     }
     ```
+
 - /advertize
 
   - method: `post`
@@ -125,6 +128,7 @@
     city: str
     query: str
     ```
+
 - /get_in_touch
 
   - method: `post`

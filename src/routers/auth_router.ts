@@ -1,24 +1,44 @@
 import { Request, Response, Router } from "express";
+import Client from "../models/clients";
+import Escort from "../models/escorts";
+
 export const authRouter = Router();
-export const authVerifyRouter = Router();
 
 interface LoginRequest extends Request {
   body: {
-    username: number;
-    email: string;
+    username_email: number;
+    password: string;
+    escort: boolean;
   };
 }
-authRouter.post("/login", (req: LoginRequest, res: Response) => {
-  /**
-    #swagger.requestBody = {
-        required: true,
-        schema: { $ref: "#/components/schemas/LoginRequest" }
-    }
 
-    #swagger.responses[404] = {
-        schema: { $ref: '#/definitions/UserNotFound' }
-    }
-     */
+authRouter.post("/login", async (req: LoginRequest, res: Response) => {
+  /**
+ #swagger.requestBody = {
+     required: true,
+     schema: { $ref: "#/components/schemas/LoginRequest" }
+   }
+
+  #swagger.responses[404] = {
+     schema: { $ref: '#/definitions/UserNotFound' }
+   }
+   */
+
+  const username_email = req.body.username_email;
+  const password = req.body.password;
+
+  const user: Client | null =
+    (await Client.findOne({
+      $or: [{ email: username_email }, { username: username_email }],
+    })) ||
+    (await Escort.findOne({
+      $or: [{ email: username_email }, { username: username_email }],
+    }));
+  if (user) {
+    console.log(user);
+  } else {
+    console.log(user);
+  }
 
   res.status(200).json({});
 });
@@ -54,6 +74,7 @@ interface EscortSignupRequest extends Request {
     password: string;
   };
 }
+
 authRouter.post("/client_signup", (req: EscortSignupRequest, res: Response) => {
   /**
     #swagger.requestBody = {
@@ -74,6 +95,7 @@ interface RecoverPasswordRequest extends Request {
     email: string;
   };
 }
+
 authRouter.post(
   "/recover_password",
   (req: RecoverPasswordRequest, res: Response) => {
@@ -98,6 +120,7 @@ interface ChangePasswordRequest extends Request {
     password: string;
   };
 }
+
 authRouter.post(
   "/change_password",
   (req: ChangePasswordRequest, res: Response) => {

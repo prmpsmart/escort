@@ -1,6 +1,6 @@
-import * as bodyParser from "body-parser";
+import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { routers } from "./routers/index.js";
@@ -15,9 +15,15 @@ mongoose.connect(`${process.env.mongoUri}`).then((value) => {
   console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
 });
 
+app.use(bodyParser.json());
 app.use("/", routers);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
-app.use(bodyParser.json());
+
+// Error-handling middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

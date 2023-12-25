@@ -6,20 +6,20 @@ import { userRouter } from "./user_router";
 export const routers = express.Router();
 
 routers.use(
-  "/api/auth",
+  "/auth",
   authRouter
   /**
     #swagger.tags = ['Auth']
      */
 );
 routers.use(
-  "/api/users",
+  "/users",
   userRouter /**
     #swagger.tags = ['Users']
      */
 );
 routers.use(
-  "/api/services",
+  "/services",
   servicesRouter /**
     #swagger.tags = ['Services']
      */

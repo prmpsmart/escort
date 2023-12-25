@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/api/auth/login": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Auth"
@@ -55,7 +55,7 @@
         }
       }
     },
-    "/api/auth/client_signup": {
+    "/auth/client_signup": {
       "post": {
         "tags": [
           "Auth"
@@ -98,7 +98,7 @@
         }
       }
     },
-    "/api/auth/recover_password": {
+    "/auth/recover_password": {
       "post": {
         "tags": [
           "Auth"
@@ -141,7 +141,7 @@
         }
       }
     },
-    "/api/auth/change_password": {
+    "/auth/change_password": {
       "post": {
         "tags": [
           "Auth"
@@ -184,7 +184,7 @@
         }
       }
     },
-    "/api/users/profile": {
+    "/users/profile": {
       "get": {
         "tags": [
           "Users"
@@ -224,7 +224,7 @@
         }
       }
     },
-    "/api/users/upgrade_pro": {
+    "/users/upgrade_pro": {
       "post": {
         "tags": [
           "Users"
@@ -267,7 +267,7 @@
         }
       }
     },
-    "/api/users/find_escorts": {
+    "/users/find_escorts": {
       "post": {
         "tags": [
           "Users"
@@ -310,7 +310,7 @@
         }
       }
     },
-    "/api/services/advertize": {
+    "/services/advertize": {
       "post": {
         "tags": [
           "Services"
@@ -353,7 +353,7 @@
         }
       }
     },
-    "/api/services/get_in_touch": {
+    "/services/get_in_touch": {
       "post": {
         "tags": [
           "Services"
