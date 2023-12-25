@@ -13,6 +13,7 @@ const clientSchema = new Schema<Escort>({
   workingName: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,

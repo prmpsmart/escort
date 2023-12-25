@@ -8,7 +8,7 @@ const doc = {
   },
   servers: [
     {
-      url: "http://localhost:8080",
+      url: "http://localhost:3000",
       description: "",
     },
   ],
@@ -73,7 +73,16 @@ const doc = {
         $message: "boolean",
       },
       // Responses
-      LoginResponse: {
+      ClientLoginResponse: {
+        firstName: "string",
+        lastName: "string",
+        email: "string",
+        token: "string",
+        message: "string",
+      },
+      EscortLoginResponse: {
+        workingName: "string",
+        email: "string",
         token: "string",
         message: "string",
       },

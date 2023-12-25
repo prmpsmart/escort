@@ -7,12 +7,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
+      "url": "http://localhost:3000",
       "description": ""
     }
   ],
   "paths": {
-    "/auth/login": {
+    "/auth/clientLogin": {
       "post": {
         "tags": [
           "Auth"
@@ -24,15 +24,91 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/ClientLoginResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/ClientLoginResponse"
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/escortLogin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found",
@@ -90,7 +166,19 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict",
@@ -106,6 +194,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -125,7 +216,7 @@
         }
       }
     },
-    "/auth/client_signup": {
+    "/auth/escortSignup": {
       "post": {
         "tags": [
           "Auth"
@@ -133,7 +224,19 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict",
@@ -149,6 +252,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -162,92 +268,6 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/EscortSignupRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/recover_password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecoverPasswordRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/RecoverPasswordRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/auth/change_password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequest"
               }
             }
           }
@@ -294,7 +314,7 @@
         }
       }
     },
-    "/users/upgrade_pro": {
+    "/users/upgradePro": {
       "post": {
         "tags": [
           "Users"
@@ -337,7 +357,7 @@
         }
       }
     },
-    "/users/find_escorts": {
+    "/users/findEscorts": {
       "post": {
         "tags": [
           "Users"
@@ -759,9 +779,21 @@
           "name": "GetInTouchRequest"
         }
       },
-      "LoginResponse": {
+      "ClientLoginResponse": {
         "type": "object",
         "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "string"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
           "token": {
             "type": "string",
             "example": "string"
@@ -772,7 +804,31 @@
           }
         },
         "xml": {
-          "name": "LoginResponse"
+          "name": "ClientLoginResponse"
+        }
+      },
+      "EscortLoginResponse": {
+        "type": "object",
+        "properties": {
+          "workingName": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "token": {
+            "type": "string",
+            "example": "string"
+          },
+          "message": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "EscortLoginResponse"
         }
       },
       "UserProfile": {

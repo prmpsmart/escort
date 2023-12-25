@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
+// import { createIndexes } from "./models/index.js";
 import { routers } from "./routers/index.js";
 import swaggerOutput from "./swaggerOutput.json";
 
@@ -11,7 +12,8 @@ dotenv.config();
 export const app = express();
 const port = 3000;
 
-mongoose.connect(`${process.env.mongoUri}`).then((value) => {
+mongoose.connect(`${process.env.mongoUri}`).then(async (value) => {
+  // await createIndexes(value.connections[0]);
   console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
 });
 

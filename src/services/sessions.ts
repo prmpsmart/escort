@@ -5,7 +5,7 @@ class Session {
   public id: string;
 
   constructor(public user: Client | Escort) {
-    this.id = "";
+    this.id = user.id;
   }
 }
 
