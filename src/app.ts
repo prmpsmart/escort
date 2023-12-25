@@ -1,11 +1,19 @@
 import * as bodyParser from "body-parser";
+import dotenv from "dotenv";
 import express from "express";
+import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
-import { routers } from "./routers";
+import { routers } from "./routers/index.js";
 import swaggerOutput from "./swagger_output.json";
+
+dotenv.config();
 
 export const app = express();
 const port = 3000;
+
+mongoose.connect(`${process.env.mongoUri}`).then((value) => {
+  console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
+});
 
 app.use("/", routers);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
