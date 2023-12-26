@@ -12,101 +12,6 @@
     }
   ],
   "paths": {
-    "/client/findMatches": {
-      "get": {
-        "tags": [
-          "Home Screen"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/client/getUsers": {
-      "get": {
-        "tags": [
-          "Home Screen"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/client/login": {
       "post": {
         "tags": [
@@ -420,6 +325,116 @@
         }
       }
     },
+    "/client/findMatches": {
+      "post": {
+        "tags": [
+          "Home Screen"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindMatchesRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/FindMatchesRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/getUsers": {
+      "get": {
+        "tags": [
+          "Home Screen"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/client/upgradePro": {
       "post": {
         "tags": [
@@ -481,7 +496,7 @@
     "/client/userProfile/{id}": {
       "get": {
         "tags": [
-          "Payment"
+          "Single Escorts"
         ],
         "description": "",
         "parameters": [
@@ -544,7 +559,7 @@
       }
     },
     "/client/payment": {
-      "get": {
+      "post": {
         "tags": [
           "Payment"
         ],
@@ -585,6 +600,180 @@
           }
         }
       }
+    },
+    "/client/sendQuery": {
+      "post": {
+        "tags": [
+          "Advert"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendQueryRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SendQueryRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/buyAdFree": {
+      "post": {
+        "tags": [
+          "Advert"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyAdFreeRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyAdFreeRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/contactUs": {
+      "post": {
+        "tags": [
+          "Contact Us"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactUsRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactUsRequest"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -594,11 +783,11 @@
         "properties": {
           "usernameEmail": {
             "type": "string",
-            "example": "prmpsmart@gmail.com"
+            "example": "string"
           },
           "password": {
             "type": "string",
-            "example": "pass-string"
+            "example": "string"
           }
         },
         "required": [
@@ -622,15 +811,15 @@
           },
           "username": {
             "type": "string",
-            "example": "prmpsmart"
+            "example": "string"
           },
           "email": {
             "type": "string",
-            "example": "prmpsmart@gmail.com"
+            "example": "string"
           },
           "password": {
             "type": "string",
-            "example": "pass-string"
+            "example": "string"
           }
         },
         "required": [
@@ -653,11 +842,11 @@
           },
           "email": {
             "type": "string",
-            "example": "prmpsmart@gmail.com"
+            "example": "string"
           },
           "password": {
             "type": "string",
-            "example": "pass-string"
+            "example": "string"
           }
         },
         "required": [
@@ -674,7 +863,7 @@
         "properties": {
           "email": {
             "type": "string",
-            "example": "prmpsmart@gmail.com"
+            "example": "string"
           }
         },
         "required": [
@@ -689,11 +878,11 @@
         "properties": {
           "email": {
             "type": "string",
-            "example": "prmpsmart@gmail.com"
+            "example": "string"
           },
           "password": {
             "type": "string",
-            "example": "pass-string"
+            "example": "string"
           }
         },
         "required": [
@@ -702,6 +891,34 @@
         ],
         "xml": {
           "name": "ChangePasswordRequest"
+        }
+      },
+      "ContactUsRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "string"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "number"
+          },
+          "message": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "ContactUsRequest"
         }
       },
       "UpgradeProRequest": {
@@ -747,6 +964,21 @@
         ],
         "xml": {
           "name": "UpgradeProRequest"
+        }
+      },
+      "BuyAdFreeRequest": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "string",
+            "example": "number"
+          }
+        },
+        "required": [
+          "duration"
+        ],
+        "xml": {
+          "name": "BuyAdFreeRequest"
         }
       },
       "FindEscortsRequest": {

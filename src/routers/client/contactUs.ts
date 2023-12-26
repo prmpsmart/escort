@@ -29,27 +29,3 @@ contactUsRouter.post("/contactUs", (req: ContactUsRequest, res: Response) => {
   const json = {};
   res.status(200).json(json);
 });
-
-interface BuyAdFreeRequest extends Request {
-  body: {
-    duration: number;
-  };
-}
-
-contactUsRouter.post("/buyAdFree", (req: BuyAdFreeRequest, res: Response) => {
-  /**
-    #swagger.requestBody = {
-    required: true,
-    schema: { $ref: "#/components/schemas/BuyAdFreeRequest" }
-    }
-    #swagger.responses[401] = {
-        schema: { $ref: '#/definitions/InvalidSession' }
-    }
-    #swagger.responses[404] = {
-        schema: { $ref: '#/definitions/UserNotExists' }
-    }
-    */
-
-  const json = {};
-  res.status(200).json(json);
-});
