@@ -41,9 +41,33 @@ const doc = {
         username: "string",
         email: "string",
         number: "string",
-        numberlanguage: "string",
+        language: "string",
         ageVerified: "boolean",
         adFree: "boolean",
+      },
+      EditProfileRequest: {
+        $modelName: "string",
+        $country: "string",
+        $city: "string",
+        $image: "string",
+        description: "string",
+        $profileType: "string",
+        $age: "number",
+        $weight: "number",
+        $height: "number",
+        $availableFor: "string",
+        $breastSize: "number",
+        $breastType: "string",
+        $nationality: "string",
+        $travel: "string",
+        $languages: ["string"],
+        $tatoo: "string",
+        $piercing: "string",
+        isPornStar: "boolean",
+        services: "string",
+
+        meetingWith: "string",
+        cellPhones: ["string"],
       },
       NotificationSettingsRequest: {
         showVisitorsNotifications: "boolean",
@@ -140,7 +164,17 @@ const doc = {
         $number: "string",
         $message: "boolean",
       },
+      AddImageRequest: {
+        images: ["string"],
+      },
+      AddVideoRequest: {
+        videos: ["string"],
+      },
       // Responses
+      ViewGalleryResponse: {
+        images: ["string"],
+        videos: ["string"],
+      },
       SettingsResponse: {
         username: "string",
         email: "string",
@@ -184,6 +218,20 @@ const doc = {
         email: "string",
         token: "string",
         message: "string",
+      },
+      DashboardResponse: {
+        remainingInterests: "number",
+        remainingContactView: "number",
+        currentEscort: "number",
+        imageUploaded: "number",
+        interestRequests: "number",
+        currentPackage: {
+          tier: "string",
+          advertPost: "number",
+          contactView: "number",
+          imageUpload: "number",
+          expiryDate: "number",
+        },
       },
       FindMatchesResponse: {
         matches: [

@@ -89,13 +89,13 @@ interface ProfileRequest extends Request {
     username: string;
     email: string;
     number: string;
-    numberlanguage: string;
+    language: string;
     ageVerified: boolean;
     adFree: boolean;
   };
 }
 
-settingsRouter.post("/privacy", (req: ProfileRequest, res: Response) => {
+settingsRouter.post("/profile", (req: ProfileRequest, res: Response) => {
   /**
     #swagger.requestBody = {
     required: true,

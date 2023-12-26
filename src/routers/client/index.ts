@@ -10,9 +10,9 @@ import { singleEscortRouter } from "./singleEscort";
 import { upgradeProRouter } from "./uploadProfileImage";
 import { userLadyStarRouter } from "./userLadyStar";
 
-export const clientRouters = express.Router();
+export const clientRouter = express.Router();
 
-clientRouters.use(
+clientRouter.use(
   "/",
   loginRouter
   /**
@@ -20,9 +20,9 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(checkToken);
+clientRouter.use(checkToken);
 
-clientRouters.use(
+clientRouter.use(
   "/",
   homeRouter
   /**
@@ -30,7 +30,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   upgradeProRouter
   /**
@@ -38,7 +38,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   singleEscortRouter
   /**
@@ -46,7 +46,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   paymentRouter
   /**
@@ -54,7 +54,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   advertRouter
   /**
@@ -62,7 +62,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   contactUsRouter
   /**
@@ -70,7 +70,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   settingsRouter
   /**
@@ -78,7 +78,7 @@ clientRouters.use(
   */
 );
 
-clientRouters.use(
+clientRouter.use(
   "/",
   userLadyStarRouter
   /**

@@ -876,6 +876,64 @@
           "content": {
             "application/json": {
               "schema": {
+                "$ref": "#/components/schemas/PrivacyRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivacyRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/profile": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
                 "$ref": "#/components/schemas/ProfileRequest"
               }
             },
@@ -983,6 +1041,541 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/NotificationSettingsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/ladiesStars": {
+      "post": {
+        "tags": [
+          "User Ladystar"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LadieStarsResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/LadieStarsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LadieStarsRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LadieStarsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/dashboard": {
+      "get": {
+        "tags": [
+          "Escort Dashboard"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/escortLogin": {
+      "post": {
+        "tags": [
+          "Escort Sign Up and Login"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/signup": {
+      "post": {
+        "tags": [
+          "Escort Sign Up and Login"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortSignupRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortSignupRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/addImage": {
+      "get": {
+        "tags": [
+          "Add Image"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddImageRequest"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddImageRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/viewGallery": {
+      "get": {
+        "tags": [
+          "View Gallery"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewGalleryResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewGalleryResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/addVideo": {
+      "get": {
+        "tags": [
+          "Add Video"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddVideoRequest"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddVideoRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escort/profile": {
+      "post": {
+        "tags": [
+          "Escort Profile"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProfileRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProfileRequest"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Escort Profile"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProfileRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EditProfileRequest"
               }
             }
           }
@@ -1117,7 +1710,7 @@
             "type": "string",
             "example": "string"
           },
-          "numberlanguage": {
+          "language": {
             "type": "string",
             "example": "string"
           },
@@ -1132,6 +1725,126 @@
         },
         "xml": {
           "name": "ProfileRequest"
+        }
+      },
+      "EditProfileRequest": {
+        "type": "object",
+        "properties": {
+          "modelName": {
+            "type": "string",
+            "example": "string"
+          },
+          "country": {
+            "type": "string",
+            "example": "string"
+          },
+          "city": {
+            "type": "string",
+            "example": "string"
+          },
+          "image": {
+            "type": "string",
+            "example": "string"
+          },
+          "description": {
+            "type": "string",
+            "example": "string"
+          },
+          "profileType": {
+            "type": "string",
+            "example": "string"
+          },
+          "age": {
+            "type": "string",
+            "example": "number"
+          },
+          "weight": {
+            "type": "string",
+            "example": "number"
+          },
+          "height": {
+            "type": "string",
+            "example": "number"
+          },
+          "availableFor": {
+            "type": "string",
+            "example": "string"
+          },
+          "breastSize": {
+            "type": "string",
+            "example": "number"
+          },
+          "breastType": {
+            "type": "string",
+            "example": "string"
+          },
+          "nationality": {
+            "type": "string",
+            "example": "string"
+          },
+          "travel": {
+            "type": "string",
+            "example": "string"
+          },
+          "languages": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "tatoo": {
+            "type": "string",
+            "example": "string"
+          },
+          "piercing": {
+            "type": "string",
+            "example": "string"
+          },
+          "isPornStar": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "services": {
+            "type": "string",
+            "example": "string"
+          },
+          "meetingWith": {
+            "type": "string",
+            "example": "string"
+          },
+          "cellPhones": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "modelName",
+          "country",
+          "city",
+          "image",
+          "profileType",
+          "age",
+          "weight",
+          "height",
+          "availableFor",
+          "breastSize",
+          "breastType",
+          "nationality",
+          "travel",
+          "languages",
+          "tatoo",
+          "piercing"
+        ],
+        "xml": {
+          "name": "EditProfileRequest"
         }
       },
       "NotificationSettingsRequest": {
@@ -1268,6 +1981,46 @@
         ],
         "xml": {
           "name": "UpgradeProRequest"
+        }
+      },
+      "SendQueryRequest": {
+        "type": "object",
+        "properties": {
+          "whoAmI": {
+            "type": "string",
+            "example": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "number"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "sendEmail": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "website": {
+            "type": "string",
+            "example": "string"
+          },
+          "city": {
+            "type": "string",
+            "example": "string"
+          },
+          "query": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "SendQueryRequest"
         }
       },
       "BuyAdFreeRequest": {
@@ -1514,6 +2267,66 @@
           "name": "GetInTouchRequest"
         }
       },
+      "AddImageRequest": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "xml": {
+          "name": "AddImageRequest"
+        }
+      },
+      "AddVideoRequest": {
+        "type": "object",
+        "properties": {
+          "videos": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "xml": {
+          "name": "AddVideoRequest"
+        }
+      },
+      "ViewGalleryResponse": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "videos": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "xml": {
+          "name": "ViewGalleryResponse"
+        }
+      },
       "SettingsResponse": {
         "type": "object",
         "properties": {
@@ -1675,6 +2488,59 @@
         },
         "xml": {
           "name": "EscortLoginResponse"
+        }
+      },
+      "DashboardResponse": {
+        "type": "object",
+        "properties": {
+          "remainingInterests": {
+            "type": "string",
+            "example": "number"
+          },
+          "remainingContactView": {
+            "type": "string",
+            "example": "number"
+          },
+          "currentEscort": {
+            "type": "string",
+            "example": "number"
+          },
+          "imageUploaded": {
+            "type": "string",
+            "example": "number"
+          },
+          "interestRequests": {
+            "type": "string",
+            "example": "number"
+          },
+          "currentPackage": {
+            "type": "object",
+            "properties": {
+              "tier": {
+                "type": "string",
+                "example": "string"
+              },
+              "advertPost": {
+                "type": "string",
+                "example": "number"
+              },
+              "contactView": {
+                "type": "string",
+                "example": "number"
+              },
+              "imageUpload": {
+                "type": "string",
+                "example": "number"
+              },
+              "expiryDate": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "DashboardResponse"
         }
       },
       "FindMatchesResponse": {

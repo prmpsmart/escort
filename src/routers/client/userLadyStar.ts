@@ -26,7 +26,7 @@ userLadyStarRouter.post(
        schema: { $ref: "#/components/schemas/LadieStarsRequest" }
     }
     #swagger.responses[200] = {
-        schema: { $ref: '#/definitions/LadieStarsResponse' }
+        schema: { $ref: '#/components/schemas/LadieStarsResponse' }
     }
     #swagger.responses[401] = {
         schema: { $ref: '#/definitions/InvalidSession' }

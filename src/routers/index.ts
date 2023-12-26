@@ -1,32 +1,21 @@
 import express from "express";
-import { clientRouters } from "./client";
+import { clientRouter } from "./client";
+import { escortRouter } from "./escort";
 
 export const routers = express.Router();
 
 routers.use(
   "/client",
-  clientRouters
+  clientRouter
   /**
     #swagger.tags = ['Client']
      */
 );
 
-// routers.use(
-//   "/auth",
-//   authRouter
-//   /**
-//     #swagger.tags = ['Auth', 'Router']
-//      */
-// );
-// routers.use(
-//   "/users",
-//   userRouter /**
-//     #swagger.tags = ['Users']
-//      */
-// );
-// routers.use(
-//   "/services",
-//   servicesRouter /**
-//     #swagger.tags = ['Services', 'Router']
-//      */
-// );
+routers.use(
+  "/escort",
+  escortRouter
+  /**
+    #swagger.tags = ['Escort']
+     */
+);

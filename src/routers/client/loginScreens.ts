@@ -6,11 +6,10 @@ import { getUser } from "../../utils/usersUtils";
 
 export const loginRouter = Router();
 
-interface LoginRequest extends Request {
+export interface LoginRequest extends Request {
   body: {
     usernameEmail: string;
     password: string;
-    isEscort: boolean;
   };
 }
 
@@ -52,10 +51,6 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
     invalidRequest = true;
     invalidRequestMessage = "`password`: `string` not provided";
   }
-  if (req.body.isEscort == undefined) {
-    invalidRequest = true;
-    invalidRequestMessage = "`isEscort`: `boolean` not provided";
-  }
 
   if (invalidRequest) {
     res.status(400).json({
@@ -64,20 +59,26 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
   } else {
     const user: Client | null = await getUser(req.body.usernameEmail);
     if (user) {
-      if (user.password == req.body.password) {
-        const session = Sessions.addSession(user);
+      if (user.username) {
+        if (user.password == req.body.password) {
+          const session = Sessions.addSession(user);
 
-        const json: LoginResponse = {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          username: user.username,
-          email: user.email,
+          const json: LoginResponse = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
 
-          token: session.id,
-          message: "Login Successful",
-        };
+            token: session.id,
+            message: "Login Successful",
+          };
 
-        return res.status(200).json(json);
+          return res.status(200).json(json);
+        } else {
+          return res.status(406).json({
+            message: "Invalid credentials",
+          });
+        }
       } else {
         return res.status(406).json({
           message: "Invalid credentials",
