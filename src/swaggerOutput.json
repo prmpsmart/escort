@@ -24,12 +24,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/Users"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/Users"
                 }
               }
             }
@@ -477,6 +477,114 @@
           }
         }
       }
+    },
+    "/client/userProfile/{id}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/payment": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -646,31 +754,107 @@
         "properties": {
           "name": {
             "type": "string",
-            "example": "Mirac Pete"
+            "example": "string"
           },
           "username": {
             "type": "string",
-            "example": "petmir"
+            "example": "string"
           },
           "lookingFor": {
             "type": "string",
-            "example": "Natey"
+            "example": "string"
           },
           "ageStart": {
-            "type": "number",
-            "example": 18
+            "type": "string",
+            "example": "number"
           },
           "ageEnd": {
-            "type": "number",
-            "example": 45
+            "type": "string",
+            "example": "number"
           },
           "distance": {
             "type": "string",
-            "example": "89km"
+            "example": "number"
           },
-          "gender": {
+          "age": {
             "type": "string",
-            "example": "female"
+            "example": "number"
+          },
+          "hair": {
+            "type": "string",
+            "example": "string"
+          },
+          "rates": {
+            "type": "string",
+            "example": "number"
+          },
+          "breast": {
+            "type": "string",
+            "example": "string"
+          },
+          "travel": {
+            "type": "string",
+            "example": "string"
+          },
+          "weight": {
+            "type": "string",
+            "example": "number"
+          },
+          "height": {
+            "type": "string",
+            "example": "number"
+          },
+          "services": {
+            "type": "string",
+            "example": "string"
+          },
+          "ethnic": {
+            "type": "string",
+            "example": "string"
+          },
+          "languages": {
+            "type": "string",
+            "example": "string"
+          },
+          "preferences": {
+            "type": "string",
+            "example": "string"
+          },
+          "withReviews": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "verfied": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "newComers": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "withVideos": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "pornStar": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "independent": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "seenLastWeek": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "doWithGirl": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "couple": {
+            "type": "string",
+            "example": "boolean"
           }
         },
         "required": [
@@ -679,8 +863,7 @@
           "lookingFor",
           "ageStart",
           "ageEnd",
-          "distance",
-          "gender"
+          "distance"
         ],
         "xml": {
           "name": "FindEscortsRequest"
@@ -866,6 +1049,74 @@
           "name": "EscortLoginResponse"
         }
       },
+      "FindMatchesResponse": {
+        "type": "object",
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "location": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "withReviews": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "verfied": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "newComers": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "withVideos": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "pornStar": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "independent": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "seenLastWeek": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "doWithGirl": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "couple": {
+                  "type": "string",
+                  "example": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "FindMatchesResponse"
+        }
+      },
       "UserProfile": {
         "type": "object",
         "properties": {
@@ -995,15 +1246,15 @@
                 "properties": {
                   "hour1": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   },
                   "hour2": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   },
                   "hour3": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   }
                 }
               },
@@ -1012,15 +1263,15 @@
                 "properties": {
                   "hour1": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   },
                   "hour2": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   },
                   "hour3": {
                     "type": "string",
-                    "example": "float"
+                    "example": "number"
                   }
                 }
               }
@@ -1058,10 +1309,39 @@
                 "example": "boolean"
               }
             }
+          },
+          "services": {
+            "type": "array",
+            "example": [
+              "69",
+              "blowjob",
+              "couples services",
+              "dildo play",
+              "erotic massage",
+              "golden shower",
+              "hardcore domina",
+              "striptease",
+              "threesome"
+            ],
+            "items": {
+              "type": "string"
+            }
           }
         },
         "xml": {
           "name": "UserProfile"
+        }
+      },
+      "InvalidSession": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Invalid Session : Login again"
+          }
+        },
+        "xml": {
+          "name": "InvalidSession"
         }
       },
       "BadRequest": {

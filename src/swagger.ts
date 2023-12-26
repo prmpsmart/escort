@@ -16,27 +16,34 @@ const doc = {
     schemas: {
       // Requests
       LoginRequest: {
-        $usernameEmail: "prmpsmart@gmail.com",
-        $password: "pass-string",
+        $usernameEmail: "string",
+        $password: "string",
       },
       ClientSignupRequest: {
         $firstName: "Mirac",
         $lastName: "Tim",
-        $username: "prmpsmart",
-        $email: "prmpsmart@gmail.com",
-        $password: "pass-string",
+        $username: "string",
+        $email: "string",
+        $password: "string",
       },
       EscortSignupRequest: {
         $workingName: "string",
-        $email: "prmpsmart@gmail.com",
-        $password: "pass-string",
+        $email: "string",
+        $password: "string",
       },
       RecoverPasswordRequest: {
-        $email: "prmpsmart@gmail.com",
+        $email: "string",
       },
       ChangePasswordRequest: {
-        $email: "prmpsmart@gmail.com",
-        $password: "pass-string",
+        $email: "string",
+        $password: "string",
+      },
+      ContactUsRequest: {
+        firstName: "string",
+        lastName: "string",
+        email: "string",
+        number: "number",
+        message: "string",
       },
       UpgradeProRequest: {
         $images: ["base64 encoded image string"],
@@ -45,6 +52,9 @@ const doc = {
         $birthday: "26/07/1999",
         $hairColor: "brown",
         $gender: "male",
+      },
+      BuyAdFreeRequest: {
+        $duration: "number",
       },
       FindEscortsRequest: {
         $name: "string",
@@ -119,6 +129,26 @@ const doc = {
         token: "string",
         message: "string",
       },
+      FindMatchesResponse: {
+        matches: [
+          {
+            id: "string",
+            name: "string",
+            image: "string",
+            location: "string",
+
+            withReviews: "boolean",
+            verfied: "boolean",
+            newComers: "boolean",
+            withVideos: "boolean",
+            pornStar: "boolean",
+            independent: "boolean",
+            seenLastWeek: "boolean",
+            doWithGirl: "boolean",
+            couple: "boolean",
+          },
+        ],
+      },
       UserProfile: {
         personalDetails: {
           gender: "string",
@@ -152,14 +182,14 @@ const doc = {
         },
         price: {
           incall: {
-            hour1: "float",
-            hour2: "float",
-            hour3: "float",
+            hour1: "number",
+            hour2: "number",
+            hour3: "number",
           },
           outcall: {
-            hour1: "float",
-            hour2: "float",
-            hour3: "float",
+            hour1: "number",
+            hour2: "number",
+            hour3: "number",
           },
         },
         availability: {
@@ -171,6 +201,17 @@ const doc = {
           saturday: "boolean",
           dunurday: "boolean",
         },
+        services: [
+          "69",
+          "blowjob",
+          "couples services",
+          "dildo play",
+          "erotic massage",
+          "golden shower",
+          "hardcore domina",
+          "striptease",
+          "threesome",
+        ],
       },
     },
   },

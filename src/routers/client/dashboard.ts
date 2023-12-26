@@ -36,6 +36,11 @@ interface FindEscortsRequest extends Request {
 }
 
 interface Match {
+  id: string;
+  name: string;
+  image: string;
+  location: string;
+
   withReviews: boolean;
   verfied: boolean;
   newComers: boolean;
@@ -51,12 +56,16 @@ interface FindMatchesResponse {
   matches: Array<Match>;
 }
 
-dashboardRouter.get(
+dashboardRouter.post(
   "/findMatches",
   (req: FindEscortsRequest, res: Response) => {
     /**
+      #swagger.requestBody = {
+        required: true,
+        schema: { $ref: "#/components/schemas/FindEscortsRequest" }
+      }
       #swagger.responses[200] = {
-          schema: { $ref: '#/components/schemas/FindEscortsRequest' }
+          schema: { $ref: '#/components/schemas/FindMatchesResponse' }
       }
       #swagger.responses[401] = {
           schema: { $ref: '#/definitions/InvalidSession' }
@@ -69,6 +78,11 @@ dashboardRouter.get(
     const json: FindMatchesResponse = {
       matches: [
         {
+          id: "string",
+          name: "string",
+          image: "string",
+          location: "string",
+
           withReviews: true,
           verfied: true,
           newComers: true,

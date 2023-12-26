@@ -13,8 +13,12 @@ interface FindMatchesRequest extends Request {
 
 interface FindMatchesResponse {}
 
-homeRouter.get("/findMatches", (req: FindMatchesRequest, res: Response) => {
+homeRouter.post("/findMatches", (req: FindMatchesRequest, res: Response) => {
   /**
+      #swagger.requestBody = {
+        required: true,
+        schema: { $ref: "#/components/schemas/FindMatchesRequest" }
+      }
       #swagger.responses[200] = {
           schema: { $ref: '#/components/schemas/Users' }
       }
@@ -67,7 +71,7 @@ interface Users {
   users: [User?];
 }
 
-homeRouter.get("/getUsers", (req: FindMatchesRequest, res: Response) => {
+homeRouter.get("/getUsers", (req: Request, res: Response) => {
   /**
       #swagger.responses[200] = {
           schema: { $ref: '#/components/schemas/Users' }

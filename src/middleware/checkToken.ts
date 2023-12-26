@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { Sessions } from "../services/sessions";
 
 // Extend the Request interface to include the 'token' property
 export interface AuthRequest extends Request {
@@ -24,13 +25,16 @@ export const checkToken = (
   const authHeader = req.headers["authorization"];
 
   // Check if the Authorization header exists and starts with 'Bearer '
+  let token: string = "";
+
   if (authHeader && authHeader.startsWith("Bearer ")) {
     // Extract the token from the header
-    const token = authHeader.split(" ")[1];
+    token = authHeader.split(" ")[1];
+  }
 
-    // Attach the token to the request for further processing, e.g., authentication
+  // Attach the token to the request for further processing, e.g., authentication
+  if (token && Sessions.sessionsIds.has(token)) {
     req.token = token;
-
     // Call the next middleware or route handler
     return next();
   }
