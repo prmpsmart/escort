@@ -4,6 +4,7 @@ import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 // import { createIndexes } from "./models/index.js";
+import cors from "cors";
 import { routers } from "./routers/index.js";
 import swaggerOutput from "./swaggerOutput.json";
 
@@ -22,6 +23,12 @@ mongoose
     console.log(`Connection to Mongo Server error ${reason}`);
   });
 
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(bodyParser.json());
 app.use("/", routers);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));

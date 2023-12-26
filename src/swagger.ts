@@ -3,8 +3,8 @@ import swaggerAutogen from "swagger-autogen";
 const doc = {
   info: {
     version: "v1.0.0",
-    title: "Lazer Escort REST API Documentation",
-    description: "Implementation of Swagger with TypeScript",
+    title: "Lazer Escort",
+    description: "Lazer Escort REST API Documentation",
   },
   servers: [
     {
@@ -83,6 +83,10 @@ const doc = {
         $email: "string",
         $password: "string",
       },
+      UserChangePasswordRequest: {
+        $oldPassword: "string",
+        $newPassword: "string",
+      },
       ContactUsRequest: {
         firstName: "string",
         lastName: "string",
@@ -98,15 +102,26 @@ const doc = {
         $hairColor: "brown",
         $gender: "male",
       },
+      PackageRequest: {
+        $name: "string",
+        $expressLimit: "any",
+        $showLimit: "any",
+        $uploadLimit: "any",
+        $validityPeriod: "any",
+        $price: "number",
+      },
+      ActiveUsersRequest: {
+        $usernameEmail: "string",
+      },
       SendQueryRequest: {
-        whoAmI: "string",
-        name: "string",
-        number: "number",
-        email: "string",
-        sendEmail: "boolean",
-        website: "string",
-        city: "string",
-        query: "string",
+        $whoAmI: "string",
+        $name: "string",
+        $number: "number",
+        $email: "string",
+        $sendEmail: "boolean",
+        $website: "string",
+        $city: "string",
+        $query: "string",
       },
       BuyAdFreeRequest: {
         $duration: "number",
@@ -116,6 +131,9 @@ const doc = {
         interestedGender: "string",
         ageStart: "number",
         ageEnd: "number",
+      },
+      PackagesRequest: {
+        name: "string",
       },
       FindEscortsRequest: {
         $name: "string",
@@ -213,6 +231,15 @@ const doc = {
         token: "string",
         message: "string",
       },
+      UsersResponse: {
+        $name: "string",
+        $id: "string",
+        $email: "string",
+        $phone: "string",
+        $country: "string",
+        $joinedAt: "number",
+        $balance: "number",
+      },
       EscortLoginResponse: {
         workingName: "string",
         email: "string",
@@ -232,6 +259,32 @@ const doc = {
           imageUpload: "number",
           expiryDate: "number",
         },
+      },
+      AdminDashboardResponse: {
+        totalUsers: "number",
+        activeUsers: "number",
+        emailUnverfiedUsers: "number",
+        mobileUnverfiedUsers: "number",
+        totalPayment: "number",
+        pendingPayment: "number",
+        rejectedPayment: "number",
+        paymentCharge: "number",
+        purchasedPackage: "number",
+        totalInterests: "number",
+        ignoredProfiles: "number",
+        reports: "number",
+      },
+      PackagesResponse: {
+        packages: [
+          {
+            name: "string",
+            expressLimit: "any",
+            showLimit: "any",
+            uploadLimit: "any",
+            validityPeriod: "any",
+            price: "number",
+          },
+        ],
       },
       FindMatchesResponse: {
         matches: [

@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "v1.0.0",
-    "title": "Lazer Escort REST API Documentation",
-    "description": "Implementation of Swagger with TypeScript"
+    "title": "Lazer Escort",
+    "description": "Lazer Escort REST API Documentation"
   },
   "servers": [
     {
@@ -1315,12 +1315,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddImageRequest"
+                  "$ref": "#/components/schemas/Response"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddImageRequest"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -1352,6 +1352,21 @@
                 "schema": {
                   "$ref": "#/components/schemas/UserNotExists"
                 }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddImageRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AddImageRequest"
               }
             }
           }
@@ -1425,12 +1440,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddVideoRequest"
+                  "$ref": "#/components/schemas/Response"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddVideoRequest"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -1462,6 +1477,21 @@
                 "schema": {
                   "$ref": "#/components/schemas/UserNotExists"
                 }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddVideoRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/AddVideoRequest"
               }
             }
           }
@@ -1576,6 +1606,339 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/EditProfileRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/dashboard": {
+      "get": {
+        "tags": [
+          "Admin Dashboard"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDashboardResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminDashboardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/packages": {
+      "get": {
+        "tags": [
+          "Admin All Packages"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackagesResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackagesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackagesRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PackagesRequest"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChangePasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChangePasswordRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/package": {
+      "post": {
+        "tags": [
+          "Admin All Packages"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackagesResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackagesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "tags": [
+          "Admin Active Users"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveUsersRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveUsersRequest"
               }
             }
           }
@@ -1910,6 +2273,26 @@
           "name": "ChangePasswordRequest"
         }
       },
+      "UserChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "example": "string"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "required": [
+          "oldPassword",
+          "newPassword"
+        ],
+        "xml": {
+          "name": "UserChangePasswordRequest"
+        }
+      },
       "ContactUsRequest": {
         "type": "object",
         "properties": {
@@ -1983,6 +2366,61 @@
           "name": "UpgradeProRequest"
         }
       },
+      "PackageRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "expressLimit": {
+            "type": "string",
+            "example": "any"
+          },
+          "showLimit": {
+            "type": "string",
+            "example": "any"
+          },
+          "uploadLimit": {
+            "type": "string",
+            "example": "any"
+          },
+          "validityPeriod": {
+            "type": "string",
+            "example": "any"
+          },
+          "price": {
+            "type": "string",
+            "example": "number"
+          }
+        },
+        "required": [
+          "name",
+          "expressLimit",
+          "showLimit",
+          "uploadLimit",
+          "validityPeriod",
+          "price"
+        ],
+        "xml": {
+          "name": "PackageRequest"
+        }
+      },
+      "ActiveUsersRequest": {
+        "type": "object",
+        "properties": {
+          "usernameEmail": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "required": [
+          "usernameEmail"
+        ],
+        "xml": {
+          "name": "ActiveUsersRequest"
+        }
+      },
       "SendQueryRequest": {
         "type": "object",
         "properties": {
@@ -2019,6 +2457,16 @@
             "example": "string"
           }
         },
+        "required": [
+          "whoAmI",
+          "name",
+          "number",
+          "email",
+          "sendEmail",
+          "website",
+          "city",
+          "query"
+        ],
         "xml": {
           "name": "SendQueryRequest"
         }
@@ -2060,6 +2508,18 @@
         },
         "xml": {
           "name": "FindMatchesRequest"
+        }
+      },
+      "PackagesRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "PackagesRequest"
         }
       },
       "FindEscortsRequest": {
@@ -2466,6 +2926,51 @@
           "name": "ClientLoginResponse"
         }
       },
+      "UsersResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "id": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "phone": {
+            "type": "string",
+            "example": "string"
+          },
+          "country": {
+            "type": "string",
+            "example": "string"
+          },
+          "joinedAt": {
+            "type": "string",
+            "example": "number"
+          },
+          "balance": {
+            "type": "string",
+            "example": "number"
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "email",
+          "phone",
+          "country",
+          "joinedAt",
+          "balance"
+        ],
+        "xml": {
+          "name": "UsersResponse"
+        }
+      },
       "EscortLoginResponse": {
         "type": "object",
         "properties": {
@@ -2541,6 +3046,102 @@
         },
         "xml": {
           "name": "DashboardResponse"
+        }
+      },
+      "AdminDashboardResponse": {
+        "type": "object",
+        "properties": {
+          "totalUsers": {
+            "type": "string",
+            "example": "number"
+          },
+          "activeUsers": {
+            "type": "string",
+            "example": "number"
+          },
+          "emailUnverfiedUsers": {
+            "type": "string",
+            "example": "number"
+          },
+          "mobileUnverfiedUsers": {
+            "type": "string",
+            "example": "number"
+          },
+          "totalPayment": {
+            "type": "string",
+            "example": "number"
+          },
+          "pendingPayment": {
+            "type": "string",
+            "example": "number"
+          },
+          "rejectedPayment": {
+            "type": "string",
+            "example": "number"
+          },
+          "paymentCharge": {
+            "type": "string",
+            "example": "number"
+          },
+          "purchasedPackage": {
+            "type": "string",
+            "example": "number"
+          },
+          "totalInterests": {
+            "type": "string",
+            "example": "number"
+          },
+          "ignoredProfiles": {
+            "type": "string",
+            "example": "number"
+          },
+          "reports": {
+            "type": "string",
+            "example": "number"
+          }
+        },
+        "xml": {
+          "name": "AdminDashboardResponse"
+        }
+      },
+      "PackagesResponse": {
+        "type": "object",
+        "properties": {
+          "packages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "expressLimit": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "showLimit": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "uploadLimit": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "validityPeriod": {
+                  "type": "string",
+                  "example": "any"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "number"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "PackagesResponse"
         }
       },
       "FindMatchesResponse": {

@@ -8,8 +8,12 @@ interface AddImageRequest extends Request {
 
 addImageRouter.get("/addImage", (req: AddImageRequest, res: Response) => {
   /**
+    #swagger.requestBody = {
+    required: true,
+    schema: { $ref: "#/components/schemas/AddImageRequest" }
+    }
     #swagger.responses[200] = {
-        schema: { $ref: '#/components/schemas/AddImageRequest' }
+        schema: { $ref: '#/components/schemas/Response' }
     }
     #swagger.responses[401] = {
         schema: { $ref: '#/definitions/InvalidSession' }

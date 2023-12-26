@@ -1,4 +1,5 @@
 import express from "express";
+import { adminRouter } from "./admin";
 import { clientRouter } from "./client";
 import { escortRouter } from "./escort";
 
@@ -17,5 +18,13 @@ routers.use(
   escortRouter
   /**
     #swagger.tags = ['Escort']
+     */
+);
+
+routers.use(
+  "/admin",
+  adminRouter
+  /**
+    #swagger.tags = ['Admin']
      */
 );
