@@ -774,6 +774,220 @@
           }
         }
       }
+    },
+    "/client/settings": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/privacy": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/deleteAccount": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/notification": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationSettingsRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationSettingsRequest"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -856,6 +1070,96 @@
         ],
         "xml": {
           "name": "EscortSignupRequest"
+        }
+      },
+      "PrivacyRequest": {
+        "type": "object",
+        "properties": {
+          "showProfileOnSearchEngine": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showProfileOnRandomUsers": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showProfileOnFindMatchPage": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "confirmFriendRequest": {
+            "type": "string",
+            "example": "boolean"
+          }
+        },
+        "required": [
+          "showProfileOnSearchEngine",
+          "showProfileOnRandomUsers",
+          "showProfileOnFindMatchPage",
+          "confirmFriendRequest"
+        ],
+        "xml": {
+          "name": "PrivacyRequest"
+        }
+      },
+      "ProfileRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "string"
+          },
+          "numberlanguage": {
+            "type": "string",
+            "example": "string"
+          },
+          "ageVerified": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "adFree": {
+            "type": "string",
+            "example": "boolean"
+          }
+        },
+        "xml": {
+          "name": "ProfileRequest"
+        }
+      },
+      "NotificationSettingsRequest": {
+        "type": "object",
+        "properties": {
+          "showVisitorsNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showGiftsNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showLoginNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showLikesNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showMessagesNotifications": {
+            "type": "string",
+            "example": "boolean"
+          }
+        },
+        "xml": {
+          "name": "NotificationSettingsRequest"
         }
       },
       "RecoverPasswordRequest": {
@@ -979,6 +1283,30 @@
         ],
         "xml": {
           "name": "BuyAdFreeRequest"
+        }
+      },
+      "FindMatchesRequest": {
+        "type": "object",
+        "properties": {
+          "gender": {
+            "type": "string",
+            "example": "string"
+          },
+          "interestedGender": {
+            "type": "string",
+            "example": "string"
+          },
+          "ageStart": {
+            "type": "string",
+            "example": "number"
+          },
+          "ageEnd": {
+            "type": "string",
+            "example": "number"
+          }
+        },
+        "xml": {
+          "name": "FindMatchesRequest"
         }
       },
       "FindEscortsRequest": {
@@ -1184,6 +1512,74 @@
         ],
         "xml": {
           "name": "GetInTouchRequest"
+        }
+      },
+      "SettingsResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "number": {
+            "type": "string",
+            "example": "string"
+          },
+          "numberlanguage": {
+            "type": "string",
+            "example": "string"
+          },
+          "ageVerified": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "adFree": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showProfileOnSearchEngine": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showProfileOnRandomUsers": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showProfileOnFindMatchPage": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "confirmFriendRequest": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showVisitorsNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showGiftsNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showLoginNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showLikesNotifications": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "showMessagesNotifications": {
+            "type": "string",
+            "example": "boolean"
+          }
+        },
+        "xml": {
+          "name": "SettingsResponse"
         }
       },
       "Response": {

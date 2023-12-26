@@ -31,6 +31,27 @@ const doc = {
         $email: "string",
         $password: "string",
       },
+      PrivacyRequest: {
+        $showProfileOnSearchEngine: "boolean",
+        $showProfileOnRandomUsers: "boolean",
+        $showProfileOnFindMatchPage: "boolean",
+        $confirmFriendRequest: "boolean",
+      },
+      ProfileRequest: {
+        username: "string",
+        email: "string",
+        number: "string",
+        numberlanguage: "string",
+        ageVerified: "boolean",
+        adFree: "boolean",
+      },
+      NotificationSettingsRequest: {
+        showVisitorsNotifications: "boolean",
+        showGiftsNotifications: "boolean",
+        showLoginNotifications: "boolean",
+        showLikesNotifications: "boolean",
+        showMessagesNotifications: "boolean",
+      },
       RecoverPasswordRequest: {
         $email: "string",
       },
@@ -53,8 +74,24 @@ const doc = {
         $hairColor: "brown",
         $gender: "male",
       },
+      SendQueryRequest: {
+        whoAmI: "string",
+        name: "string",
+        number: "number",
+        email: "string",
+        sendEmail: "boolean",
+        website: "string",
+        city: "string",
+        query: "string",
+      },
       BuyAdFreeRequest: {
         $duration: "number",
+      },
+      FindMatchesRequest: {
+        gender: "string",
+        interestedGender: "string",
+        ageStart: "number",
+        ageEnd: "number",
       },
       FindEscortsRequest: {
         $name: "string",
@@ -104,6 +141,25 @@ const doc = {
         $message: "boolean",
       },
       // Responses
+      SettingsResponse: {
+        username: "string",
+        email: "string",
+        number: "string",
+        numberlanguage: "string",
+        ageVerified: "boolean",
+        adFree: "boolean",
+
+        showProfileOnSearchEngine: "boolean",
+        showProfileOnRandomUsers: "boolean",
+        showProfileOnFindMatchPage: "boolean",
+        confirmFriendRequest: "boolean",
+
+        showVisitorsNotifications: "boolean",
+        showGiftsNotifications: "boolean",
+        showLoginNotifications: "boolean",
+        showLikesNotifications: "boolean",
+        showMessagesNotifications: "boolean",
+      },
       Response: {
         message: "string",
       },
