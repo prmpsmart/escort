@@ -156,6 +156,6 @@ const escortSchema = new Schema<Escort>({
   services: { type: [String], default: [] },
 });
 
-const EscortModel = model<Escort>("Escort", escortSchema);
+const Escort = model<Escort>("Escort", escortSchema);
 
-export default EscortModel;
+export default Escort;

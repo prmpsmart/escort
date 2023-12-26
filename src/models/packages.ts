@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-j
+
 interface Client extends Document {
   firstName: string;
   lastName: string;
