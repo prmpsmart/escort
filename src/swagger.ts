@@ -47,13 +47,34 @@ const doc = {
         $gender: "male",
       },
       FindEscortsRequest: {
-        $name: "Mirac Pete",
-        $username: "petmir",
-        $lookingFor: "Natey",
-        $ageStart: 18,
-        $ageEnd: 45,
-        $distance: "89km",
-        $gender: "female",
+        $name: "string",
+        $username: "string",
+        $lookingFor: "string",
+        $ageStart: "number",
+        $ageEnd: "number",
+        $distance: "number",
+
+        age: "number",
+        hair: "string",
+        rates: "number",
+        breast: "string",
+        travel: "string",
+        weight: "number",
+        height: "number",
+        services: "string",
+        ethnic: "string",
+        languages: "string",
+        preferences: "string",
+
+        withReviews: "boolean",
+        verfied: "boolean",
+        newComers: "boolean",
+        withVideos: "boolean",
+        pornStar: "boolean",
+        independent: "boolean",
+        seenLastWeek: "boolean",
+        doWithGirl: "boolean",
+        couple: "boolean",
       },
       AdvertizeRequest: {
         $whoAreYou: "string",
@@ -73,6 +94,18 @@ const doc = {
         $message: "boolean",
       },
       // Responses
+      Response: {
+        message: "string",
+      },
+      Users: [
+        {
+          image: "string",
+          location: "string",
+          name: "string",
+          age: "string",
+          id: "number",
+        },
+      ],
       ClientLoginResponse: {
         firstName: "string",
         lastName: "string",
@@ -142,6 +175,12 @@ const doc = {
     },
   },
   definitions: {
+    InvalidSession: {
+      message: "Invalid Session : Login again",
+    },
+    BadRequest: {
+      message: "Bad request : Wrong format of payloads.",
+    },
     InvalidCredentials: {
       message: "Invalid credentials",
     },

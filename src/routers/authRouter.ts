@@ -7,7 +7,7 @@ import { getUser } from "../utils/usersUtils";
 
 export const authRouter = Router();
 
-export const Users = {};
+// export const Users = {};
 
 interface LoginRequest extends Request {
   body: {
@@ -113,7 +113,7 @@ authRouter.post("/escortLogin", async (req: LoginRequest, res: Response) => {
   return await login(req, res);
 });
 
-export interface ClientSignupRequest extends Request {
+interface ClientSignupRequest extends Request {
   body: {
     firstName: string;
     lastName: string;

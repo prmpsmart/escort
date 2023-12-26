@@ -12,10 +12,15 @@ dotenv.config();
 export const app = express();
 const port = 3000;
 
-mongoose.connect(`${process.env.mongoUri}`).then(async (value) => {
-  // await createIndexes(value.connections[0]);
-  console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
-});
+mongoose
+  .connect(`${process.env.mongoUri}`)
+  .then(async (value) => {
+    // await createIndexes(value.connections[0]);
+    console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
+  })
+  .catch((reason) => {
+    console.log(`Connection to Mongo Server error ${reason}`);
+  });
 
 app.use(bodyParser.json());
 app.use("/", routers);
