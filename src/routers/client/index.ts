@@ -8,6 +8,7 @@ import { paymentRouter } from "./payment";
 import { settingsRouter } from "./settings";
 import { singleEscortRouter } from "./singleEscort";
 import { upgradeProRouter } from "./uploadProfileImage";
+import { userLadyStarRouter } from "./userLadyStar";
 
 export const clientRouters = express.Router();
 
@@ -74,5 +75,13 @@ clientRouters.use(
   settingsRouter
   /**
     #swagger.tags = ['Settings']
+  */
+);
+
+clientRouters.use(
+  "/",
+  userLadyStarRouter
+  /**
+    #swagger.tags = ['User Ladystar']
   */
 );
