@@ -7,8 +7,6 @@ interface Clients extends Document {
   email: string;
   password: string;
   createdAt: Date;
-
-  getFullName(): string;
 }
 
 const clientsSchema = new Schema<Clients>({
@@ -39,10 +37,6 @@ const clientsSchema = new Schema<Clients>({
     default: Date.now,
   },
 });
-
-clientsSchema.methods.getFullName = function (): string {
-  return `${this.firstName} ${this.lastName}`;
-};
 
 clientsSchema.pre("save", function (next) {
   if (!this.createdAt) {

@@ -3118,19 +3118,19 @@
                 },
                 "expressLimit": {
                   "type": "string",
-                  "example": "any"
+                  "example": "string"
                 },
                 "showLimit": {
                   "type": "string",
-                  "example": "any"
+                  "example": "string"
                 },
                 "uploadLimit": {
                   "type": "string",
-                  "example": "any"
+                  "example": "string"
                 },
                 "validityPeriod": {
                   "type": "string",
-                  "example": "any"
+                  "example": "string"
                 },
                 "price": {
                   "type": "string",

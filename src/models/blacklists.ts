@@ -1,11 +1,11 @@
 import { Document, Schema, model } from "mongoose";
 
-interface BlackList extends Document {
+interface BlackLists extends Document {
   user_id: string;
   list: Array<string>;
 }
 
-const blackListsSchema = new Schema<BlackList>({
+const blackListsSchema = new Schema<BlackLists>({
   user_id: {
     type: String,
     required: true,
@@ -16,6 +16,6 @@ const blackListsSchema = new Schema<BlackList>({
   },
 });
 
-const BlackList = model<BlackList>("BlackList", blackListsSchema);
+const BlackLists = model<BlackLists>("BlackLists", blackListsSchema);
 
-export default BlackList;
+export default BlackLists;
