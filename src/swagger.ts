@@ -278,10 +278,10 @@ const doc = {
         packages: [
           {
             name: "string",
-            expressLimit: "any",
-            showLimit: "any",
-            uploadLimit: "any",
-            validityPeriod: "any",
+            expressLimit: "string",
+            showLimit: "string",
+            uploadLimit: "string",
+            validityPeriod: "string",
             price: "number",
           },
         ],

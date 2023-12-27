@@ -1,6 +1,6 @@
 import { Document, Schema, model } from "mongoose";
 
-interface Client extends Document {
+interface Clients extends Document {
   firstName: string;
   lastName: string;
   username: string;
@@ -11,7 +11,7 @@ interface Client extends Document {
   getFullName(): string;
 }
 
-const clientSchema = new Schema<Client>({
+const clientsSchema = new Schema<Clients>({
   firstName: {
     type: String,
     required: true,
@@ -40,11 +40,11 @@ const clientSchema = new Schema<Client>({
   },
 });
 
-clientSchema.methods.getFullName = function (): string {
+clientsSchema.methods.getFullName = function (): string {
   return `${this.firstName} ${this.lastName}`;
 };
 
-clientSchema.pre("save", function (next) {
+clientsSchema.pre("save", function (next) {
   if (!this.createdAt) {
     this.createdAt = new Date();
   }
@@ -52,6 +52,6 @@ clientSchema.pre("save", function (next) {
   next();
 });
 
-const Client = model<Client>("Client", clientSchema);
+const Clients = model<Clients>("Clients", clientsSchema);
 
-export default Client;
+export default Clients;

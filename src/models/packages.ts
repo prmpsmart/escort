@@ -1,36 +1,41 @@
 import { Document, Schema, model } from "mongoose";
 // not done
-interface Chats extends Document {
-  user_id: string;
-  user_1: string;
-  user_2: string;
-  user_1_is_client: boolean;
-  user_2_is_client: boolean;
+interface Packages extends Document {
+  name: string;
+  expressLimit: string;
+  showLimit: string;
+  uploadLimit: string;
+  validityPeriod: string;
+  price: number;
 }
 
-const chatsSchema = new Schema<Chats>({
-  user_id: {
+const packagesSchema = new Schema<Packages>({
+  name: {
     type: String,
     required: true,
   },
-  user_1: {
+  expressLimit: {
     type: String,
     required: true,
   },
-  user_2: {
+  showLimit: {
     type: String,
     required: true,
   },
-  user_1_is_client: {
-    type: Boolean,
+  uploadLimit: {
+    type: String,
     required: true,
   },
-  user_2_is_client: {
-    type: Boolean,
+  validityPeriod: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
     required: true,
   },
 });
 
-const Chats = model<Chats>("Chats", chatsSchema);
+const Packages = model<Packages>("Packages", packagesSchema);
 
-export default Chats;
+export default Packages;

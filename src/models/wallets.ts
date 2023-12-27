@@ -1,6 +1,6 @@
 import { Document, Schema, model } from "mongoose";
 // not done
-interface Chats extends Document {
+interface Wallets extends Document {
   user_id: string;
   user_1: string;
   user_2: string;
@@ -8,7 +8,7 @@ interface Chats extends Document {
   user_2_is_client: boolean;
 }
 
-const chatsSchema = new Schema<Chats>({
+const walletsSchema = new Schema<Wallets>({
   user_id: {
     type: String,
     required: true,
@@ -31,6 +31,6 @@ const chatsSchema = new Schema<Chats>({
   },
 });
 
-const Chats = model<Chats>("Chats", chatsSchema);
+const Wallets = model<Wallets>("Wallets", walletsSchema);
 
-export default Chats;
+export default Wallets;

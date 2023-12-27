@@ -8,10 +8,10 @@ interface PackagesRequest extends Request {
 }
 interface Package {
   name: string;
-  expressLimit: any;
-  showLimit: any;
-  uploadLimit: any;
-  validityPeriod: any;
+  expressLimit: string;
+  showLimit: string;
+  uploadLimit: string;
+  validityPeriod: string;
   price: number;
 }
 
@@ -43,14 +43,7 @@ packagesRouter.get("/packages", (req: PackagesRequest, res: Response) => {
 });
 
 interface PackageRequest extends Request {
-  body: {
-    name: string;
-    expressLimit: any;
-    showLimit: any;
-    uploadLimit: any;
-    validityPeriod: any;
-    price: number;
-  };
+  body: Package;
 }
 
 packagesRouter.post("/package", (req: PackageRequest, res: Response) => {
