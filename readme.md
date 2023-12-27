@@ -14,7 +14,7 @@ https://medium.com/ms-club-of-sliit/building-rest-api-with-express-js-typescript
 
 ## Backend API
 
-https://lazer-escort.onrender.com
+https://lazer-escort.onrender.com/docs
 
 ## Mongo Atlass
 
