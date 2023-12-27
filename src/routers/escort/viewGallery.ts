@@ -3,8 +3,8 @@ import { Request, Response, Router } from "express";
 export const viewGalleryRouter = Router();
 
 interface ViewGalleryResponse {
-  images: Array<string>;
-  videos: Array<string>;
+  images: string[];
+  videos: string[];
 }
 
 viewGalleryRouter.get("/viewGallery", (req: Request, res: Response) => {

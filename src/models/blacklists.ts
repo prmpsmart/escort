@@ -2,7 +2,7 @@ import { Document, Schema, model } from "mongoose";
 
 interface BlackLists extends Document {
   user_id: string;
-  list: Array<string>;
+  list: string[];
 }
 
 const blackListsSchema = new Schema<BlackLists>({

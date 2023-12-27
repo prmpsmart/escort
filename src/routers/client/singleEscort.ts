@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 
 export const singleEscortRouter = Router();
 
-interface UserProfile {
+export interface EscortProfile {
   personalDetails?: {
     gender: string;
     sexuality: string;
@@ -24,8 +24,8 @@ interface UserProfile {
     bodyType: string;
     bodyArt: string;
   };
-  languages?: ["string"];
-  bookingNotes?: ["string"];
+  languages?: string[];
+  bookingNotes?: string[];
   location?: {
     incall: string;
     outcall: {
@@ -54,7 +54,7 @@ interface UserProfile {
     saturday: boolean;
     dunurday: boolean;
   };
-  services?: Array<string>;
+  services?: string[];
 }
 
 interface GetUserProfileRequest extends Request {
@@ -68,7 +68,7 @@ singleEscortRouter.get(
   (req: GetUserProfileRequest, res: Response) => {
     /**
       #swagger.responses[200] = {
-          schema: { $ref: '#/components/schemas/UserProfile' }
+          schema: { $ref: '#/components/schemas/EscortProfile' }
       }
       #swagger.responses[401] = {
           schema: { $ref: '#/definitions/InvalidSession' }
@@ -78,7 +78,7 @@ singleEscortRouter.get(
       }
        */
 
-    const json: UserProfile = {};
+    const json: EscortProfile = {};
     res.status(200).json(json);
   }
 );

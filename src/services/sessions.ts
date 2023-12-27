@@ -1,10 +1,10 @@
-import Client from "../models/clients";
-import Escort from "../models/escorts";
+import { DClient } from "../models/clients";
+import { DEscort } from "../models/escorts";
 
 class Session {
   public id: string;
 
-  constructor(public user: Client | Escort) {
+  constructor(public user: DClient | DEscort) {
     this.id = user.id;
   }
 }
@@ -21,7 +21,7 @@ class iSessions {
   public getSession(email: string): Session | undefined {
     return this.sessionsEmails.get(email);
   }
-  public addSession(user: Client | Escort): Session {
+  public addSession(user: DClient | DEscort): Session {
     const session = new Session(user);
     this.sessionsIds.set(session.id, session);
     this.sessionsEmails.set(user.email, session);

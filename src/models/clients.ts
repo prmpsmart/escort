@@ -1,15 +1,18 @@
 import { Document, Schema, model } from "mongoose";
 
-interface Clients extends Document {
+interface IClient {
   firstName: string;
   lastName: string;
   username: string;
   email: string;
   password: string;
-  createdAt: Date;
+  createdAt: number;
+  image: string;
 }
 
-const clientsSchema = new Schema<Clients>({
+export interface DClient extends Document, IClient {}
+
+const clientsSchema = new Schema<DClient>({
   firstName: {
     type: String,
     required: true,
@@ -32,20 +35,21 @@ const clientsSchema = new Schema<Clients>({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  },
   createdAt: {
-    type: Date,
+    type: Number,
     default: Date.now,
   },
 });
 
 clientsSchema.pre("save", function (next) {
   if (!this.createdAt) {
-    this.createdAt = new Date();
+    this.createdAt = Date.now();
   }
 
   next();
 });
 
-const Clients = model<Clients>("Clients", clientsSchema);
-
-export default Clients;
+export const Clients = model<DClient>("Clients", clientsSchema);

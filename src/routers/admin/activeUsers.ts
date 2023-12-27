@@ -16,7 +16,7 @@ interface User {
   balance: number;
 }
 
-interface UsersResponse {
+interface ActiveUsersResponse {
   users: Array<User>;
 }
 
@@ -27,7 +27,7 @@ usersRouter.get("/users", (req: ActiveUsersRequest, res: Response) => {
     schema: { $ref: "#/components/schemas/ActiveUsersRequest" }
     }
     #swagger.responses[200] = {
-        schema: { $ref: '#/components/schemas/UsersResponse' }
+        schema: { $ref: '#/components/schemas/ActiveUsersResponse' }
     }
     #swagger.responses[401] = {
         schema: { $ref: '#/definitions/InvalidSession' }
@@ -37,7 +37,7 @@ usersRouter.get("/users", (req: ActiveUsersRequest, res: Response) => {
     }
     */
 
-  const json: UsersResponse = {
+  const json: ActiveUsersResponse = {
     users: [],
   };
   res.status(200).json(json);

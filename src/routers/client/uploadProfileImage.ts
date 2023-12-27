@@ -4,7 +4,7 @@ export const upgradeProRouter = Router();
 
 interface UpgradeProRequest extends Request {
   body: {
-    images: Array<string>;
+    images: string[];
     height: number;
     hairColor: string;
     country: string;

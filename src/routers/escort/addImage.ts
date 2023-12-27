@@ -3,7 +3,7 @@ import { Request, Response, Router } from "express";
 export const addImageRouter = Router();
 
 interface AddImageRequest extends Request {
-  body: { image: Array<string> };
+  body: { image: string[] };
 }
 
 addImageRouter.get("/addImage", (req: AddImageRequest, res: Response) => {

@@ -53,12 +53,12 @@ interface Availability {
   saturday: boolean;
   sunday: boolean;
 }
-
-interface Escort extends Document {
+export interface IEscort {
   workingName: string;
   email: string;
+  verfied: boolean;
   password: string;
-  createdAt: Date;
+  createdAt: number;
   personalDetails: PersonalDetails;
   physicalDetails: PhysicalDetails;
   languages: string[];
@@ -67,17 +67,22 @@ interface Escort extends Document {
   price: Price;
   availability: Availability;
   services: string[];
+  images: string[];
+  videos: string[];
 }
 
-const escortSchema = new Schema<Escort>({
+export interface DEscort extends IEscort, Document {}
+
+const escortSchema = new Schema<DEscort>({
   workingName: {
     type: String,
     required: true,
     unique: true,
   },
   email: { type: String, required: true, unique: true },
+  verfied: { type: Boolean, required: true, default: false },
   password: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Number, default: Date.now },
   personalDetails: {
     type: {
       gender: String,
@@ -156,6 +161,12 @@ const escortSchema = new Schema<Escort>({
   services: { type: [String], default: [] },
 });
 
-const Escort = model<Escort>("Escort", escortSchema);
+escortSchema.pre("save", function (next) {
+  if (!this.createdAt) {
+    this.createdAt = Date.now();
+  }
 
-export default Escort;
+  next();
+});
+
+export const Escorts = model<DEscort>("Escorts", escortSchema);

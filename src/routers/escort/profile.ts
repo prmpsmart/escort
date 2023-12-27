@@ -18,14 +18,14 @@ interface EditProfileRequest extends Request {
     breastType: string;
     nationality: string;
     travel: string;
-    languages: Array<string>;
+    languages: string[];
     tatoo: string;
     piercing: string;
     isPornStar: boolean;
     services: string;
 
     meetingWith: string;
-    cellPhones: Array<string>;
+    cellPhones: string[];
   };
 }
 

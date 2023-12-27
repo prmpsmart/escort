@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 import { routers } from "./routers/index.js";
 import swaggerOutput from "./swaggerOutput.json";
+// import { addEscortsToDatabase } from "./zdummy/escorts.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose
   .then(async (value) => {
     // await createIndexes(value.connections[0]);
     console.log(`Connected to Mongo Server running at ${process.env.mongoUri}`);
+    // await addEscortsToDatabase(30);
   })
   .catch((reason) => {
     console.log(`Connection to Mongo Server error ${reason}`);

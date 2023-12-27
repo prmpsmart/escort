@@ -3,7 +3,7 @@ import { Request, Response, Router } from "express";
 export const addVideoRouter = Router();
 
 interface AddVideoRequest extends Request {
-  body: { videos: Array<string> };
+  body: { videos: string[] };
 }
 
 addVideoRouter.get("/addVideo", (req: AddVideoRequest, res: Response) => {

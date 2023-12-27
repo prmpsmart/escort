@@ -1,32 +1,53 @@
 import { Request, Response, Router } from "express";
+import { DEscort, Escorts } from "../../models/escorts";
 
 export const userLadyStarRouter = Router();
 
 interface LadieStarsRequest extends Request {
   body: {
     region: string;
-  };
-}
 
-interface LadieStarsResponse {
-  images: Array<string>;
-  name: string;
-  location: string;
-  age: number;
-  height: number;
-  details: string;
+    name: string;
+    workingName: string;
+    // lookingFor: number;
+    ageStart: number;
+    ageEnd: number;
+    // distance: number;
+
+    age: number;
+    hair: string;
+    // rates: number;
+    breast: string;
+    // travel: string;
+    weight: number;
+    height: number;
+    services: string;
+    ethnic: string;
+    languages: string[];
+    preferences: string;
+
+    // withReviews: boolean;
+    verfied: boolean;
+    // newComers: boolean;
+    withVideos: boolean;
+    // pornStar: boolean;
+    // independent: boolean;
+    // seenLastWeek: boolean;
+    // doWithGirl: boolean;
+    // couple: boolean;
+  };
 }
 
 userLadyStarRouter.post(
   "/ladiesStars",
-  (req: LadieStarsRequest, res: Response) => {
+  async (req: LadieStarsRequest, res: Response) => {
     /**
     #swagger.requestBody = {
        required: true,
        schema: { $ref: "#/components/schemas/LadieStarsRequest" }
     }
     #swagger.responses[200] = {
-        schema: { $ref: '#/components/schemas/LadieStarsResponse' }
+        schema: { $ref: '#/components/schemas/EscortsProfilesResponse' }
     }
     #swagger.responses[401] = {
         schema: { $ref: '#/definitions/InvalidSession' }
@@ -36,14 +57,37 @@ userLadyStarRouter.post(
     }
     */
 
-    const json: LadieStarsResponse = {
-      images: [],
-      name: "",
-      location: "",
-      age: 0,
-      height: 0,
-      details: "",
-    };
-    res.status(200).json(json);
+    const substringToSearch = "ac";
+    const chestCondition = "big";
+    const extraSubstring = "extra";
+
+    const _escorts = await Escorts.find({
+      $or: [
+        {
+          "physicalDetails.breastImplant": {
+            $regex: substringToSearch,
+            $options: "i",
+          },
+        },
+        {
+          "physicalDetails.chest": { $regex: chestCondition, $options: "i" },
+        },
+        {
+          "physicalDetails.chest": { $regex: extraSubstring, $options: "i" },
+        },
+      ],
+    });
+
+    // const escorts = await Escorts.find({ $or: [] });
+
+    const escorts = new Array();
+
+    _escorts.forEach(async (escort: DEscort) => {
+      if (escort) {
+        escorts.push(escort);
+      }
+    });
+
+    res.status(200).send(JSON.stringify({ escorts }));
   }
 );

@@ -12,15 +12,6 @@ export const checkToken = (
   res: Response,
   next: NextFunction
 ) => {
-  // Exclude paths from token check
-  //   const excludedPaths = ["/login", "/signup"];
-
-  //   // Check if the requested path is in the exclusion list
-  //   if (excludedPaths.includes(req.path)) {
-  //     // If the path is excluded, skip token check and move to the next middleware or route handler
-  //     return next();
-  //   }
-
   // Get the Authorization header
   const authHeader = req.headers["authorization"];
 

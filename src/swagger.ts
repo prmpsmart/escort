@@ -102,6 +102,38 @@ const doc = {
         $hairColor: "brown",
         $gender: "male",
       },
+      // LadieStarsRequest: {
+      //   region: "string",
+
+      //   name: "string",
+      //   workingName: "string",
+      // lookingFor: 'number',
+      //   ageStart: "number",
+      //   ageEnd: "number",
+      // distance: 'number',
+
+      //   age: "number",
+      //   hair: "string",
+      // rates: 'number',
+      //   breast: "string",
+      // travel: 'string',
+      //   weight: "number",
+      //   height: "number",
+      //   services: "string",
+      //   ethnic: "string",
+      //   languages: ["string"],
+      //   preferences: "string",
+
+      // withReviews: "boolean",
+      //   verfied: "boolean",
+      //   newComers: "boolean",
+      //   withVideos: "boolean",
+      //   pornStar: "boolean",
+      // independent: "boolean",
+      //   seenLastWeek: "boolean",
+      // doWithGirl: "boolean",
+      // couple: "boolean",
+      // },
       PackageRequest: {
         $name: "string",
         $expressLimit: "any",
@@ -215,7 +247,7 @@ const doc = {
       Response: {
         message: "string",
       },
-      Users: [
+      UsersResponse: [
         {
           image: "string",
           location: "string",
@@ -231,7 +263,7 @@ const doc = {
         token: "string",
         message: "string",
       },
-      UsersResponse: {
+      ActiveUsersResponse: {
         $name: "string",
         $id: "string",
         $email: "string",
@@ -306,7 +338,89 @@ const doc = {
           },
         ],
       },
-      UserProfile: {
+      EscortsProfilesResponse: {
+        users: [
+          {
+            id: "string",
+            workingName: "string",
+            email: "string",
+            verfied: "boolean",
+            password: "string",
+            createdAt: "number",
+            personalDetails: {
+              gender: "string",
+              sexuality: "string",
+              age: "number",
+              nationality: "string",
+            },
+            physicalDetails: {
+              chest: "string",
+              waist: "string",
+              hips: "string",
+              ethnicity: "string",
+              hairColour: "string",
+              height: "number",
+              weight: "number",
+              eyeColour: "string",
+              genetalia: "string",
+              cupSize: "string",
+              breastImplant: "string",
+              bodyType: "string",
+              bodyArt: "string",
+            },
+            languages: ["string"],
+            bookingNotes: ["string"],
+            location: {
+              incall: "string",
+              outcall: {
+                location: "string",
+                iTravelTo: "string",
+              },
+            },
+            price: {
+              incall: {
+                hour1: "number",
+                hour2: "number",
+                hour3: "number",
+              },
+              outcall: {
+                hour1: "number",
+                hour2: "number",
+                hour3: "number",
+              },
+            },
+            availability: {
+              monday: "boolean",
+              tueday: "boolean",
+              wednesday: "boolean",
+              thurday: "boolean",
+              friday: "boolean",
+              saturday: "boolean",
+              dunurday: "boolean",
+            },
+            services: [
+              "69",
+              "blowjob",
+              "couples services",
+              "dildo play",
+              "erotic massage",
+              "golden shower",
+              "hardcore domina",
+              "striptease",
+              "threesome",
+            ],
+            images: ["string"],
+            videos: ["string"],
+          },
+        ],
+      },
+      EscortProfile: {
+        id: "string",
+        workingName: "string",
+        email: "string",
+        verfied: "boolean",
+        password: "string",
+        createdAt: "number",
         personalDetails: {
           gender: "string",
           sexuality: "string",
@@ -369,6 +483,8 @@ const doc = {
           "striptease",
           "threesome",
         ],
+        images: ["string"],
+        videos: ["string"],
       },
     },
   },
@@ -384,6 +500,9 @@ const doc = {
     },
     UserNotFound: {
       message: "User not found",
+    },
+    UserNotExists: {
+      message: "User does not exists",
     },
     UserExists: {
       message: "User already exists",

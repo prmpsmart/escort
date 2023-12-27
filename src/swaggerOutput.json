@@ -333,19 +333,7 @@
         "description": "",
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Users"
-                }
-              }
-            }
+            "description": "OK"
           },
           "400": {
             "description": "Bad Request",
@@ -407,12 +395,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Users"
+                  "$ref": "#/components/schemas/UsersResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/Users"
+                  "$ref": "#/components/schemas/UsersResponse"
                 }
               }
             }
@@ -515,12 +503,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/EscortProfile"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserProfile"
+                  "$ref": "#/components/schemas/EscortProfile"
                 }
               }
             }
@@ -1059,12 +1047,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LadieStarsResponse"
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/LadieStarsResponse"
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
                 }
               }
             }
@@ -1887,12 +1875,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersResponse"
+                  "$ref": "#/components/schemas/ActiveUsersResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersResponse"
+                  "$ref": "#/components/schemas/ActiveUsersResponse"
                 }
               }
             }
@@ -2867,7 +2855,7 @@
           "name": "Response"
         }
       },
-      "Users": {
+      "UsersResponse": {
         "type": "array",
         "items": {
           "type": "object",
@@ -2895,7 +2883,7 @@
           }
         },
         "xml": {
-          "name": "Users"
+          "name": "UsersResponse"
         }
       },
       "ClientLoginResponse": {
@@ -2926,7 +2914,7 @@
           "name": "ClientLoginResponse"
         }
       },
-      "UsersResponse": {
+      "ActiveUsersResponse": {
         "type": "object",
         "properties": {
           "name": {
@@ -2968,7 +2956,7 @@
           "balance"
         ],
         "xml": {
-          "name": "UsersResponse"
+          "name": "ActiveUsersResponse"
         }
       },
       "EscortLoginResponse": {
@@ -3212,9 +3200,298 @@
           "name": "FindMatchesResponse"
         }
       },
-      "UserProfile": {
+      "EscortsProfilesResponse": {
         "type": "object",
         "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "workingName": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "verfied": {
+                  "type": "string",
+                  "example": "boolean"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "number"
+                },
+                "personalDetails": {
+                  "type": "object",
+                  "properties": {
+                    "gender": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "sexuality": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "age": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "nationality": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                },
+                "physicalDetails": {
+                  "type": "object",
+                  "properties": {
+                    "chest": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "waist": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "hips": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "ethnicity": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "hairColour": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "height": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "weight": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "eyeColour": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "genetalia": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "cupSize": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "breastImplant": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "bodyType": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "bodyArt": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  }
+                },
+                "languages": {
+                  "type": "array",
+                  "example": [
+                    "string"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "bookingNotes": {
+                  "type": "array",
+                  "example": [
+                    "string"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "incall": {
+                      "type": "string",
+                      "example": "string"
+                    },
+                    "outcall": {
+                      "type": "object",
+                      "properties": {
+                        "location": {
+                          "type": "string",
+                          "example": "string"
+                        },
+                        "iTravelTo": {
+                          "type": "string",
+                          "example": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "price": {
+                  "type": "object",
+                  "properties": {
+                    "incall": {
+                      "type": "object",
+                      "properties": {
+                        "hour1": {
+                          "type": "string",
+                          "example": "number"
+                        },
+                        "hour2": {
+                          "type": "string",
+                          "example": "number"
+                        },
+                        "hour3": {
+                          "type": "string",
+                          "example": "number"
+                        }
+                      }
+                    },
+                    "outcall": {
+                      "type": "object",
+                      "properties": {
+                        "hour1": {
+                          "type": "string",
+                          "example": "number"
+                        },
+                        "hour2": {
+                          "type": "string",
+                          "example": "number"
+                        },
+                        "hour3": {
+                          "type": "string",
+                          "example": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "availability": {
+                  "type": "object",
+                  "properties": {
+                    "monday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "tueday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "wednesday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "thurday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "friday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "saturday": {
+                      "type": "string",
+                      "example": "boolean"
+                    },
+                    "dunurday": {
+                      "type": "string",
+                      "example": "boolean"
+                    }
+                  }
+                },
+                "services": {
+                  "type": "array",
+                  "example": [
+                    "69",
+                    "blowjob",
+                    "couples services",
+                    "dildo play",
+                    "erotic massage",
+                    "golden shower",
+                    "hardcore domina",
+                    "striptease",
+                    "threesome"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "images": {
+                  "type": "array",
+                  "example": [
+                    "string"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "videos": {
+                  "type": "array",
+                  "example": [
+                    "string"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "EscortsProfilesResponse"
+        }
+      },
+      "EscortProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "string"
+          },
+          "workingName": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "verfied": {
+            "type": "string",
+            "example": "boolean"
+          },
+          "password": {
+            "type": "string",
+            "example": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "number"
+          },
           "personalDetails": {
             "type": "object",
             "properties": {
@@ -3421,10 +3698,28 @@
             "items": {
               "type": "string"
             }
+          },
+          "images": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "videos": {
+            "type": "array",
+            "example": [
+              "string"
+            ],
+            "items": {
+              "type": "string"
+            }
           }
         },
         "xml": {
-          "name": "UserProfile"
+          "name": "EscortProfile"
         }
       },
       "InvalidSession": {
@@ -3473,6 +3768,18 @@
         },
         "xml": {
           "name": "UserNotFound"
+        }
+      },
+      "UserNotExists": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User does not exists"
+          }
+        },
+        "xml": {
+          "name": "UserNotExists"
         }
       },
       "UserExists": {

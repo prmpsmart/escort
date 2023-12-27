@@ -19,10 +19,6 @@ homeRouter.post("/findMatches", (req: FindMatchesRequest, res: Response) => {
         required: true,
         schema: { $ref: "#/components/schemas/FindMatchesRequest" }
       }
-      #swagger.responses[200] = {
-          schema: { $ref: '#/components/schemas/Users' }
-      }
-      
       #swagger.responses[400] = {
       schema: { $ref: '#/definitions/BadRequest' }
       }
@@ -67,21 +63,21 @@ interface User {
   age: string;
   id: number;
 }
-interface Users {
+interface UsersResponse {
   users: [User?];
 }
 
 homeRouter.get("/getUsers", (req: Request, res: Response) => {
   /**
       #swagger.responses[200] = {
-          schema: { $ref: '#/components/schemas/Users' }
+          schema: { $ref: '#/components/schemas/UsersResponse' }
       }
       #swagger.responses[404] = {
           schema: { $ref: '#/definitions/UserNotExists' }
       }
        */
 
-  let users: Users = {
+  let users: UsersResponse = {
     users: [{ image: "", location: "", name: "", age: "", id: 8989778 }],
   };
   res.status(200).json(users);

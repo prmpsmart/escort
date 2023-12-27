@@ -1,12 +1,12 @@
-import Client from "../models/clients";
-import Escort from "../models/escorts";
+import { Clients } from "../models/clients";
+import { Escorts } from "../models/escorts";
 
 export async function getUser(usernameEmail: string): Promise<any> {
   return (
-    (await Escort.findOne({
+    (await Escorts.findOne({
       $or: [{ email: usernameEmail }, { workingName: usernameEmail }],
     })) ||
-    (await Client.findOne({
+    (await Clients.findOne({
       $or: [{ email: usernameEmail }, { username: usernameEmail }],
     }))
   );

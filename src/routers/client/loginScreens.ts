@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
-import Client from "../../models/clients";
 import { Sessions } from "../../services/sessions";
 import { getUser } from "../../utils/usersUtils";
+import { Clients, DClient } from "../../models/clients";
 
 export const loginRouter = Router();
 
@@ -57,7 +57,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
       message: `Bad request:: ${invalidRequestMessage}`,
     });
   } else {
-    const user: Client | null = await getUser(req.body.usernameEmail);
+    const user: DClient | null = await getUser(req.body.usernameEmail);
     if (user) {
       if (user.username) {
         if (user.password == req.body.password) {
@@ -158,7 +158,7 @@ loginRouter.post(
         });
       } else {
         try {
-          const client = await Client.create({
+          const client = await Clients.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             username: req.body.username,
