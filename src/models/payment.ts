@@ -1,57 +1,36 @@
 import { Document, Schema, model } from "mongoose";
-j
-interface Client extends Document {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  createdAt: Date;
 
-  getFullName(): string;
+interface Chats extends Document {
+  user_id: string;
+  user_1: string;
+  user_2: string;
+  user_1_is_client: boolean;
+  user_2_is_client: boolean;
 }
 
-const clientSchema = new Schema<Client>({
-  firstName: {
+const chatsSchema = new Schema<Chats>({
+  user_id: {
     type: String,
     required: true,
   },
-  lastName: {
+  user_1: {
     type: String,
     required: true,
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
+  user_2: {
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  user_1_is_client: {
+    type: Boolean,
+    required: true,
+  },
+  user_2_is_client: {
+    type: Boolean,
+    required: true,
   },
 });
 
-clientSchema.methods.getFullName = function (): string {
-  return `${this.firstName} ${this.lastName}`;
-};
+const Chats = model<Chats>("Chats", chatsSchema);
 
-clientSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = new Date();
-  }
-
-  next();
-});
-
-const Client = model<Client>("Client", clientSchema);
-
-export default Client;
+export default Chats;
