@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-
+// not done
 interface Chats extends Document {
   user_id: string;
   user_1: string;
