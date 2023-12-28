@@ -80,8 +80,8 @@ const escortSchema = new Schema<Escort>({
     unique: true,
   },
   email: { type: String, required: true, unique: true },
-  verifiedPhone: { type: Boolean, required: true, default: false },
-  verifiedEmail: { type: Boolean, required: true, default: false },
+  verifiedPhone: { type: Boolean, default: false },
+  verifiedEmail: { type: Boolean, default: false },
   password: { type: String, required: true },
   createdAt: { type: Number, default: Date.now },
   lastSeen: { type: Number, default: Date.now },
@@ -93,7 +93,6 @@ const escortSchema = new Schema<Escort>({
       age: Number,
       nationality: String,
     },
-    required: true,
   },
   physicalDetails: {
     type: {
@@ -111,7 +110,6 @@ const escortSchema = new Schema<Escort>({
       bodyType: String,
       bodyArt: String,
     },
-    required: true,
   },
   languages: { type: [String], default: [] },
   bookingNotes: { type: [String], default: [] },
@@ -123,10 +121,8 @@ const escortSchema = new Schema<Escort>({
           location: String,
           iTravelTo: String,
         },
-        required: true,
       },
     },
-    required: true,
   },
   price: {
     type: {
@@ -136,7 +132,6 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
-        required: true,
       },
       outcall: {
         type: {
@@ -144,10 +139,8 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
-        required: true,
       },
     },
-    required: true,
   },
   availability: {
     type: {
@@ -159,7 +152,6 @@ const escortSchema = new Schema<Escort>({
       saturday: Boolean,
       sunday: Boolean,
     },
-    required: true,
   },
   services: { type: [String], default: [] },
   images: { type: [String], default: [] },

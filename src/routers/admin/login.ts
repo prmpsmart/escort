@@ -1,7 +1,8 @@
 import { Response, Router } from "express";
-import { Admin, Admins } from "../../models/admin";
+import { Admins } from "../../models/admin";
 import { AdminSessions } from "../../services/sessions";
 import { User } from "../../utils/user";
+import { dbError } from "../../utils/usersUtils";
 import { LoginRequest } from "../client/loginScreens";
 
 export const loginRouter = Router();
@@ -47,32 +48,33 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
       message: `Bad request:: ${invalidRequestMessage}`,
     });
   } else {
-    const admin: Admin | null = await Admins.findOne({
+    Admins.findOne({
       $or: [
         { email: req.body.usernameEmail },
         { username: req.body.usernameEmail },
       ],
-    });
-    if (admin) {
-      const session = AdminSessions.addSession(admin);
-      if (admin.password == req.body.password) {
-        const json: LoginResponse = {
-          id: admin.id,
-          username: admin.username,
-          email: admin.email,
+    }).then((admin) => {
+      if (admin) {
+        const session = AdminSessions.addSession(admin);
+        if (admin.password == req.body.password) {
+          const json: LoginResponse = {
+            id: admin.id,
+            username: admin.username,
+            email: admin.email,
 
-          token: session.id,
-          message: "Login Successful",
-          createdAt: admin.createdAt,
-        };
+            token: session.id,
+            message: "Login Successful",
+            createdAt: admin.createdAt,
+          };
 
-        return res.status(200).json(json);
+          return res.status(200).json(json);
+        } else {
+          return res.status(406).json({
+            message: "Invalid credentials",
+          });
+        }
       } else {
-        return res.status(406).json({
-          message: "Invalid credentials",
-        });
       }
-    } else {
-    }
+    }, dbError(res));
   }
 });

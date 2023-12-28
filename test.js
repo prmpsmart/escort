@@ -39,10 +39,11 @@ async function call(func) {
   }
 }
 
-async function clientLogin() {
+async function login() {
   call(
-    axios.post(`${host}/client/login`, {
-      usernameEmail: "prmpsmarty",
+    axios.post(`${host}/login`, {
+      usernameEmail: "prmpsmart9",
+      // usernameEmail: "prmpsmarty",
       // usernameEmail: "prmpsmart@gmail.com",
       password: "762590",
       isEscort: true,
@@ -62,16 +63,16 @@ async function clientSignup() {
   );
 }
 
-async function escortLogin() {
-  call(
-    axios.post(`${host}/escort/login`, {
-      usernameEmail: "prmpsmart",
-      // usernameEmail: "prmpsmart@gmail.com",
-      password: "762590",
-      isEscort: true,
-    })
-  );
-}
+// async function escortLogin() {
+//   call(
+//     axios.post(`${host}/escort/login`, {
+//       usernameEmail: "prmpsmart",
+//       // usernameEmail: "prmpsmart@gmail.com",
+//       password: "762590",
+//       isEscort: true,
+//     })
+//   );
+// }
 
 async function adminLogin() {
   call(
@@ -87,8 +88,8 @@ async function adminLogin() {
 async function escortSignup() {
   call(
     axios.post(`${host}/escort/signup`, {
-      workingName: "prmpsmart",
-      email: "prmpsmart@gmail.com",
+      workingName: "prmpsmart9",
+      email: "prmpsmart9@gmail.com",
       password: "762590",
     })
   );
@@ -148,12 +149,13 @@ async function user() {
 // escortSignup();
 
 async function seq() {
-  await adminLogin();
-  // await clientLogin();
+  // await adminLogin();
+  await login();
+  await escortSignup();
   // await escortLogin();
   // setTimeout(userLadyStar, 200);
   // setTimeout(packages, 1000);
-  setTimeout(user, 1000);
+  // setTimeout(user, 1000);
 }
 
 seq();

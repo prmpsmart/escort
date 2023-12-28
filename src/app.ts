@@ -78,14 +78,15 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use("/", routers);
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 // Error-handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
 });
+
+app.use("/", routers);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

@@ -12,10 +12,10 @@
     }
   ],
   "paths": {
-    "/escort/login": {
+    "/login": {
       "post": {
         "tags": [
-          "Escort Sign Up and Login"
+          "Login for both Escort and Client"
         ],
         "description": "",
         "responses": {
@@ -501,79 +501,6 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/EditProfileRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/client/login": {
-      "post": {
-        "tags": [
-          "Login Screens"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientLoginResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ClientLoginResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotFound"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotFound"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
@@ -1657,6 +1584,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "requestBody": {

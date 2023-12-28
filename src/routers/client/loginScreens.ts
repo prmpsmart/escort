@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
-import { Client, Clients } from "../../models/clients";
+import { Clients } from "../../models/clients";
 import { ClientSessions } from "../../services/sessions";
 import { getUser } from "../../utils/usersUtils";
 
@@ -22,75 +22,6 @@ interface LoginResponse {
   token: string;
   message: string;
 }
-
-loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
-  /**
-    #swagger.requestBody = {
-       required: true,
-       schema: { $ref: "#/components/schemas/LoginRequest" }
-    }
-  
-    #swagger.responses[200] = {
-      schema:  { $ref: "#/components/schemas/ClientLoginResponse" }
-    }
-    #swagger.responses[400] = {
-       schema: { $ref: '#/definitions/BadRequest' }
-     }
-    #swagger.responses[404] = {
-      schema: { $ref: '#/definitions/UserNotFound' }
-    }
-    */
-  let invalidRequest = false;
-  let invalidRequestMessage;
-
-  if (!req.body.usernameEmail) {
-    invalidRequest = true;
-    invalidRequestMessage = "`usernameEmail`: `string` not provided";
-  }
-  if (!req.body.password) {
-    invalidRequest = true;
-    invalidRequestMessage = "`password`: `string` not provided";
-  }
-
-  if (invalidRequest) {
-    res.status(400).json({
-      message: `Bad request:: ${invalidRequestMessage}`,
-    });
-  } else {
-    const user: Client | null = await getUser(req.body.usernameEmail);
-    if (user) {
-      if (user.username) {
-        if (user.password == req.body.password) {
-          const session = ClientSessions.addSession(user);
-
-          const json: LoginResponse = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            username: user.username,
-            email: user.email,
-
-            token: session.id,
-            message: "Login Successful",
-          };
-
-          return res.status(200).json(json);
-        } else {
-          return res.status(406).json({
-            message: "Invalid credentials",
-          });
-        }
-      } else {
-        return res.status(406).json({
-          message: "Invalid credentials",
-        });
-      }
-    } else {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
-  }
-});
 
 interface ClientSignupRequest extends Request {
   body: {

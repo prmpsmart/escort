@@ -1,3 +1,4 @@
+import { Response } from "express";
 import mongoose from "mongoose";
 import { Admins } from "../models/admin";
 import { Clients } from "../models/clients";
@@ -19,4 +20,12 @@ export async function getUser(usernameEmail: string): Promise<any> {
 
 export function objectId(id?: string): mongoose.Types.ObjectId {
   return new mongoose.Types.ObjectId(id);
+}
+
+export function dbError(res: Response) {
+  return (error: any) => {
+    res.status(500).json({
+      message: `Database Error: ${error}`,
+    });
+  };
 }
