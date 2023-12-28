@@ -1,5 +1,5 @@
 import express from "express";
-import { checkToken } from "../../middleware/checkToken";
+import { checkClientToken, checkToken } from "../../middleware/checkToken";
 import { advertRouter } from "./advert";
 import { contactUsRouter } from "./contactUs";
 import { homeRouter } from "./homeScreen";
@@ -20,7 +20,7 @@ clientRouter.use(
   */
 );
 
-clientRouter.use(checkToken);
+clientRouter.use(checkClientToken);
 
 clientRouter.use(
   "/",

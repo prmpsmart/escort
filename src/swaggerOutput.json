@@ -1210,6 +1210,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -1600,6 +1603,79 @@
         }
       }
     },
+    "/admin/login": {
+      "post": {
+        "tags": [
+          "Admin Login"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminLoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/admin/dashboard": {
       "get": {
         "tags": [
@@ -1661,86 +1737,27 @@
           "Admin All Packages"
         ],
         "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PackagesResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/PackagesResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PackagesRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/PackagesRequest"
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Admin Settings"
         ],
-        "description": "",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Response"
+                  "$ref": "#/components/schemas/PackagesResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/Response"
+                  "$ref": "#/components/schemas/PackagesResponse"
                 }
               }
             }
@@ -1781,12 +1798,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChangePasswordRequest"
+                "$ref": "#/components/schemas/PackagesRequest"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/UserChangePasswordRequest"
+                "$ref": "#/components/schemas/PackagesRequest"
               }
             }
           }
@@ -1805,15 +1822,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PackagesResponse"
+                  "$ref": "#/components/schemas/Response"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/PackagesResponse"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized",
@@ -1844,6 +1864,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1927,6 +1950,94 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/ActiveUsersRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/settings": {
+      "post": {
+        "tags": [
+          "Admin Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncorrectOldPassword"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncorrectOldPassword"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChangePasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UserChangePasswordRequest"
               }
             }
           }
@@ -2654,7 +2765,7 @@
             "type": "string",
             "example": "boolean"
           },
-          "verfied": {
+          "verified": {
             "type": "string",
             "example": "boolean"
           },
@@ -2859,7 +2970,7 @@
             "type": "string",
             "example": "string"
           },
-          "numberlanguage": {
+          "language": {
             "type": "string",
             "example": "string"
           },
@@ -3062,7 +3173,7 @@
                 "type": "string",
                 "example": "string"
               },
-              "verfied": {
+              "verified": {
                 "type": "string",
                 "example": "boolean"
               },
@@ -3359,6 +3470,38 @@
           "name": "DashboardResponse"
         }
       },
+      "AdminLoginResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
+          "id": {
+            "type": "string",
+            "example": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "number"
+          },
+          "token": {
+            "type": "string",
+            "example": "string"
+          },
+          "message": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "AdminLoginResponse"
+        }
+      },
       "AdminDashboardResponse": {
         "type": "object",
         "properties": {
@@ -3370,11 +3513,11 @@
             "type": "string",
             "example": "number"
           },
-          "emailUnverfiedUsers": {
+          "emailUnverifiedUsers": {
             "type": "string",
             "example": "number"
           },
-          "mobileUnverfiedUsers": {
+          "mobileUnverifiedUsers": {
             "type": "string",
             "example": "number"
           },
@@ -3483,7 +3626,7 @@
                   "type": "string",
                   "example": "boolean"
                 },
-                "verfied": {
+                "verified": {
                   "type": "string",
                   "example": "boolean"
                 },
@@ -3543,7 +3686,7 @@
                   "type": "string",
                   "example": "string"
                 },
-                "verfied": {
+                "verified": {
                   "type": "string",
                   "example": "boolean"
                 },
@@ -3803,7 +3946,7 @@
             "type": "string",
             "example": "string"
           },
-          "verfied": {
+          "verified": {
             "type": "string",
             "example": "boolean"
           },
@@ -4103,6 +4246,18 @@
         },
         "xml": {
           "name": "UserNotExists"
+        }
+      },
+      "IncorrectOldPassword": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Old password is incorrect"
+          }
+        },
+        "xml": {
+          "name": "IncorrectOldPassword"
         }
       },
       "UserExists": {

@@ -1,2 +1,2 @@
 @echo off
-npm run start
+npx ts-node src/app.ts

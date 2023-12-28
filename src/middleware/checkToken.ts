@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { Session, Sessions } from "../services/sessions";
+import {
+  AdminSessions,
+  ClientSessions,
+  EscortSessions,
+  Session,
+  Sessions,
+} from "../services/sessions";
 
 // Extend the Request interface to include the 'token' property
 export interface AuthRequest extends Request {
@@ -11,7 +17,8 @@ export interface AuthRequest extends Request {
 export const checkToken = (
   req: AuthRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
+  sessions: Sessions
 ) => {
   // Get the Authorization header
   const authHeader = req.headers["authorization"];
@@ -25,9 +32,9 @@ export const checkToken = (
   }
 
   // Attach the token to the request for further processing, e.g., authentication
-  if (token && Sessions.sessionsIds.has(token)) {
+  if (token && sessions.sessionsIds.has(token)) {
     req.token = token;
-    req.session = Sessions.getSessionByID(token);
+    req.session = sessions.getSessionByID(token);
     // Call the next middleware or route handler
     return next();
   }
@@ -35,5 +42,29 @@ export const checkToken = (
   // If no Bearer token is found, return an unauthorized response
   return res
     .status(401)
-    .json({ error: "Unauthorized - Bearer token missing or invalid" });
+    .json({ message: "Unauthorized - Bearer token missing or invalid" });
+};
+
+export const checkClientToken = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  return checkToken(req, res, next, ClientSessions);
+};
+
+export const checkEscortToken = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  return checkToken(req, res, next, EscortSessions);
+};
+
+export const checkAdminToken = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  return checkToken(req, res, next, AdminSessions);
 };

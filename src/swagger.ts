@@ -188,7 +188,7 @@ const doc = {
         preferences: "string",
 
         withReviews: "boolean",
-        verfied: "boolean",
+        verified: "boolean",
         newComers: "boolean",
         withVideos: "boolean",
         pornStar: "boolean",
@@ -229,7 +229,7 @@ const doc = {
         username: "string",
         email: "string",
         number: "string",
-        numberlanguage: "string",
+        language: "string",
         ageVerified: "boolean",
         adFree: "boolean",
 
@@ -281,7 +281,7 @@ const doc = {
           id: "string",
           workingName: "string",
           email: "string",
-          verfied: "boolean",
+          verified: "boolean",
           password: "string",
           createdAt: "number",
           personalDetails: {
@@ -364,11 +364,20 @@ const doc = {
           expiryDate: "number",
         },
       },
+      AdminLoginResponse: {
+        username: "string",
+        email: "string",
+        id: "string",
+        createdAt: "number",
+
+        token: "string",
+        message: "string",
+      },
       AdminDashboardResponse: {
         totalUsers: "number",
         activeUsers: "number",
-        emailUnverfiedUsers: "number",
-        mobileUnverfiedUsers: "number",
+        emailUnverifiedUsers: "number",
+        mobileUnverifiedUsers: "number",
         totalPayment: "number",
         pendingPayment: "number",
         rejectedPayment: "number",
@@ -399,7 +408,7 @@ const doc = {
             location: "string",
 
             withReviews: "boolean",
-            verfied: "boolean",
+            verified: "boolean",
             newComers: "boolean",
             withVideos: "boolean",
             pornStar: "boolean",
@@ -416,7 +425,7 @@ const doc = {
             id: "string",
             workingName: "string",
             email: "string",
-            verfied: "boolean",
+            verified: "boolean",
             password: "string",
             createdAt: "number",
             personalDetails: {
@@ -490,7 +499,7 @@ const doc = {
         id: "string",
         workingName: "string",
         email: "string",
-        verfied: "boolean",
+        verified: "boolean",
         password: "string",
         createdAt: "number",
         personalDetails: {
@@ -575,6 +584,9 @@ const doc = {
     },
     UserNotExists: {
       message: "User does not exists",
+    },
+    IncorrectOldPassword: {
+      message: "Old password is incorrect",
     },
     UserExists: {
       message: "User already exists",

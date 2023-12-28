@@ -24,7 +24,7 @@ interface FindEscortsRequest extends Request {
     preferences: string;
 
     withReviews: boolean;
-    verfied: boolean;
+    verified: boolean;
     newComers: boolean;
     withVideos: boolean;
     pornStar: boolean;
@@ -42,7 +42,7 @@ interface Match {
   location: string;
 
   withReviews: boolean;
-  verfied: boolean;
+  verified: boolean;
   newComers: boolean;
   withVideos: boolean;
   pornStar: boolean;
@@ -84,7 +84,7 @@ dashboardRouter.post(
           location: "string",
 
           withReviews: true,
-          verfied: true,
+          verified: true,
           newComers: true,
           withVideos: true,
           pornStar: true,

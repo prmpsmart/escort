@@ -1,6 +1,6 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
-import { DEscort, Escorts } from "../../models/escorts";
+import { Escort, Escorts } from "../../models/escorts";
 import { cleanItem } from "../../utils/commonUtils";
 
 export const userLadyStarRouter = Router();
@@ -105,11 +105,11 @@ userLadyStarRouter.post(
     }
 
     // Execute the query
-    const _escorts: DEscort[] = await Escorts.find(query);
+    const _escorts: Escort[] = await Escorts.find(query);
 
     const escorts = new Array();
 
-    _escorts.forEach(async (escort: DEscort) => {
+    _escorts.forEach(async (escort: Escort) => {
       if (escort) {
         escorts.push(cleanItem(escort));
       }

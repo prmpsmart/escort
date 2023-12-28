@@ -1,21 +1,15 @@
 import { Document, Schema, model } from "mongoose";
 import { User } from "../utils/user";
 
-interface IClient extends User {
-  firstName: string;
-  lastName: string;
+export interface IAdmin extends User {
+  name: string;
   username: string;
-  image: string;
 }
 
-export interface Client extends Document, IClient {}
+export interface Admin extends Document, IAdmin {}
 
-const clientsSchema = new Schema<Client>({
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
+const adminSchema = new Schema<Admin>({
+  name: {
     type: String,
     required: true,
   },
@@ -29,16 +23,13 @@ const clientsSchema = new Schema<Client>({
     required: true,
     unique: true,
   },
-  lastSeen: {
-    type: Number,
-    default: Date.now,
-  },
   password: {
     type: String,
     required: true,
   },
-  image: {
-    type: String,
+  lastSeen: {
+    type: Number,
+    default: Date.now,
   },
   createdAt: {
     type: Number,
@@ -46,7 +37,7 @@ const clientsSchema = new Schema<Client>({
   },
 });
 
-clientsSchema.pre("save", function (next) {
+adminSchema.pre("save", function (next) {
   if (!this.createdAt) {
     this.createdAt = Date.now();
   }
@@ -54,4 +45,4 @@ clientsSchema.pre("save", function (next) {
   next();
 });
 
-export const Clients = model<Client>("Clients", clientsSchema);
+export const Admins = model<Admin>("Admins", adminSchema);

@@ -1,6 +1,6 @@
 import { Document, Schema, model } from "mongoose";
 
-interface Packages extends Document {
+export interface IPackage {
   name: string;
   expressLimit: string;
   showLimit: string;
@@ -9,7 +9,9 @@ interface Packages extends Document {
   price: number;
 }
 
-const packagesSchema = new Schema<Packages>({
+export interface Package extends IPackage, Document {}
+
+const packagesSchema = new Schema<Package>({
   name: {
     type: String,
     required: true,
@@ -36,6 +38,4 @@ const packagesSchema = new Schema<Packages>({
   },
 });
 
-const Packages = model<Packages>("Packages", packagesSchema);
-
-export default Packages;
+export const Packages = model<Package>("Packages", packagesSchema);

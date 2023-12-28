@@ -7,8 +7,6 @@ function path(response) {
   return `/${s[s.length - 2]}/${s[s.length - 1]}`;
 }
 
-let token = "";
-
 async function call(func) {
   try {
     const response = await func;
@@ -32,6 +30,8 @@ async function call(func) {
             error.response.statusText
           } :: ${JSON.stringify(error.response.data)}\n`
         );
+      } else {
+        // console.log(error);
       }
     } else {
       console.error(Date(), "Error with the request:\n");
@@ -73,6 +73,17 @@ async function escortLogin() {
   );
 }
 
+async function adminLogin() {
+  call(
+    axios.post(`${host}/admin/login`, {
+      usernameEmail: "prmpsmart",
+      // usernameEmail: "prmpsmart@gmail.com",
+      password: "prmpsmart",
+      isEscort: true,
+    })
+  );
+}
+
 async function escortSignup() {
   call(
     axios.post(`${host}/escort/signup`, {
@@ -97,13 +108,52 @@ async function userLadyStar() {
   );
 }
 
+async function packages() {
+  call(
+    axios.get(`${host}/admin/packages`, {
+      headers: { Authorization: "Bearer 658cff8e0f3bf0029df3d766" },
+      params: { name: 7 },
+    })
+  );
+}
+
+async function package() {
+  call(
+    axios.post(
+      `${host}/admin/package`,
+      {
+        name: "Some Package",
+        expressLimit: "560",
+        showLimit: "44",
+        uploadLimit: "10",
+        validityPeriod: "5000",
+        price: "67.90",
+      },
+      {
+        headers: { Authorization: "Bearer 658cff8e0f3bf0029df3d766" },
+      }
+    )
+  );
+}
+
+async function user() {
+  call(
+    axios.get(`${host}/admin/users`, {
+      headers: { Authorization: "Bearer 658cff8e0f3bf0029df3d766" },
+    })
+  );
+}
+
 // clientSignup();
 // escortSignup();
 
 async function seq() {
-  await clientLogin();
+  await adminLogin();
+  // await clientLogin();
   // await escortLogin();
-  setTimeout(userLadyStar, 200);
+  // setTimeout(userLadyStar, 200);
+  // setTimeout(packages, 1000);
+  setTimeout(user, 1000);
 }
 
 seq();

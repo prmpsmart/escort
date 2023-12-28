@@ -1,11 +1,14 @@
+import { Admins, IAdmin } from "../models/admin";
 import { Escorts, IEscort } from "../models/escorts";
+import { IPackage, Packages } from "../models/packages";
 
 // Function to generate a random escort object
 const generateRandomEscort = (): IEscort => {
   return {
     workingName: `Escort_${Math.floor(Math.random() * 1000)}`,
     email: `escort_${Math.floor(Math.random() * 1000)}@example.com`,
-    verfied: true, // 50% chance of being verified
+    verifiedPhone: true, // 50% chance of being verified
+    verifiedEmail: true, // 50% chance of being verified
     password: "randomPassword",
     createdAt: Date.now(),
     personalDetails: {
@@ -78,3 +81,35 @@ export const addEscortsToDatabase = async (numberOfEscorts: number) => {
     console.error("Error adding escorts to the database:", error);
   }
 };
+
+export async function addPackagesToDB() {
+  const packagesToAdd: IPackage[] = [];
+
+  for (let i = 1; i <= 10; i++) {
+    const newPackage: IPackage = {
+      name: `Package ${i}`,
+      expressLimit: `${i * 10}GB`,
+      showLimit: `${i * 5}GB`,
+      uploadLimit: `${i * 2}GB`,
+      validityPeriod: `${i * 7} days`,
+      price: 10.99 + i,
+    };
+
+    packagesToAdd.push(newPackage);
+  }
+
+  await Packages.create(packagesToAdd);
+  console.log("All packages added successfully");
+}
+
+export async function addAdmin() {
+  const newAdmin: IAdmin = {
+    name: `Miracle Apata`,
+    username: `prmpsmart`,
+    email: `prmpsmart@gmail.com`,
+    password: `prmpsmart`,
+  };
+
+  await Admins.create(newAdmin);
+  console.log("Admin added successfully");
+}

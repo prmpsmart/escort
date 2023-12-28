@@ -1,12 +1,15 @@
 import { Request, Response, Router } from "express";
+import { Clients } from "../../models/clients";
+import { Escorts } from "../../models/escorts";
+import Reports from "../../models/reports";
 
 export const dashboardRouter = Router();
 
 interface AdminDashboardResponse {
   totalUsers: number;
   activeUsers: number;
-  emailUnverfiedUsers: number;
-  mobileUnverfiedUsers: number;
+  emailUnverifiedUsers: number;
+  mobileUnverifiedUsers: number;
   totalPayment: number;
   pendingPayment: number;
   rejectedPayment: number;
@@ -17,7 +20,7 @@ interface AdminDashboardResponse {
   reports: number;
 }
 
-dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
+dashboardRouter.get("/dashboard", async (req: Request, res: Response) => {
   /**
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/AdminDashboardResponse' }
@@ -30,11 +33,17 @@ dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
     }
     */
 
+  const activeUsers = await Escorts.countDocuments();
+
   const json: AdminDashboardResponse = {
-    totalUsers: 0,
-    activeUsers: 0,
-    emailUnverfiedUsers: 0,
-    mobileUnverfiedUsers: 0,
+    totalUsers: activeUsers + (await Clients.countDocuments({})),
+    activeUsers: activeUsers,
+    emailUnverifiedUsers: await Escorts.countDocuments({
+      verifiedEmail: false,
+    }),
+    mobileUnverifiedUsers: await Escorts.countDocuments({
+      verifiedPhone: false,
+    }),
     totalPayment: 0,
     pendingPayment: 0,
     rejectedPayment: 0,
@@ -42,7 +51,7 @@ dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
     purchasedPackage: 0,
     totalInterests: 0,
     ignoredProfiles: 0,
-    reports: 0,
+    reports: await Reports.countDocuments(),
   };
   res.status(200).json(json);
 });

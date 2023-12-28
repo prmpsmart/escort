@@ -1,7 +1,10 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { Admins } from "../../models/admin";
+import { objectId } from "../../utils/usersUtils";
 
 export const settingsRouter = Router();
-interface UserChangePasswordRequest extends Request {
+interface UserChangePasswordRequest extends AuthRequest {
   body: {
     oldPassword: string;
     newPassword: string;
@@ -9,8 +12,8 @@ interface UserChangePasswordRequest extends Request {
 }
 
 settingsRouter.post(
-  "/packages",
-  (req: UserChangePasswordRequest, res: Response) => {
+  "/settings",
+  async (req: UserChangePasswordRequest, res: Response) => {
     /**
     #swagger.requestBody = {
     required: true,
@@ -25,9 +28,38 @@ settingsRouter.post(
     #swagger.responses[404] = {
         schema: { $ref: '#/definitions/UserNotExists' }
     }
+    #swagger.responses[409] = {
+        schema: { $ref: '#/definitions/IncorrectOldPassword' }
+    }
     */
 
-    const json = {};
-    res.status(200).json(json);
+    let invalidRequest = false;
+    let invalidRequestMessage;
+
+    if (!req.body.oldPassword) {
+      invalidRequest = true;
+      invalidRequestMessage = "`oldPassword`: `string` not provided";
+    }
+    if (!req.body.newPassword) {
+      invalidRequest = true;
+      invalidRequestMessage = "`newPassword`: `string` not provided";
+    }
+    if (invalidRequest) {
+      res.status(400).json({
+        message: `Bad request:: ${invalidRequestMessage}`,
+      });
+    } else {
+      const admin = await Admins.findOne({ _id: objectId(req.token) });
+      if (admin) {
+        if (req.body.oldPassword === admin.password) {
+          admin.password = req.body.newPassword;
+          admin.save();
+        } else {
+          res.status(409).json({ message: "Old password is incorrect" });
+        }
+      } else {
+        res.status(404).json({ message: "Admin does not exist, relogin" });
+      }
+    }
   }
 );

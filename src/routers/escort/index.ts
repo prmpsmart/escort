@@ -6,6 +6,7 @@ import { profileRouter } from "./profile";
 import { settingsRouter } from "./settings";
 import { signupAndLoginRouter } from "./signupAndLogin";
 import { viewGalleryRouter } from "./viewGallery";
+import { checkEscortToken } from "../../middleware/checkToken";
 
 export const escortRouter = express.Router();
 
@@ -17,7 +18,7 @@ escortRouter.use(
   */
 );
 
-// escortRouter.use(checkToken);
+escortRouter.use(checkEscortToken);
 
 escortRouter.use(
   "/",

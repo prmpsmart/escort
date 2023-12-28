@@ -6,7 +6,7 @@ interface SettingsResponse {
   username: string;
   email: string;
   number: string;
-  numberlanguage: string;
+  language: string;
   ageVerified: boolean;
   adFree: boolean;
 
@@ -39,7 +39,7 @@ settingsRouter.get("/settings", (req: Request, res: Response) => {
     username: "",
     email: "",
     number: "",
-    numberlanguage: "",
+    language: "",
     ageVerified: true,
     adFree: true,
 

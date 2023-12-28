@@ -1,4 +1,5 @@
 import { Document, Schema, model } from "mongoose";
+import { User } from "../utils/user";
 
 interface PersonalDetails {
   gender: string;
@@ -53,12 +54,11 @@ interface Availability {
   saturday: boolean;
   sunday: boolean;
 }
-export interface IEscort {
+
+export interface IEscort extends User {
   workingName: string;
-  email: string;
-  verfied: boolean;
-  password: string;
-  createdAt: number;
+  verifiedPhone: boolean;
+  verifiedEmail: boolean;
   personalDetails: PersonalDetails;
   physicalDetails: PhysicalDetails;
   languages: string[];
@@ -71,18 +71,21 @@ export interface IEscort {
   videos: string[];
 }
 
-export interface DEscort extends IEscort, Document {}
+export interface Escort extends IEscort, Document {}
 
-const escortSchema = new Schema<DEscort>({
+const escortSchema = new Schema<Escort>({
   workingName: {
     type: String,
     required: true,
     unique: true,
   },
   email: { type: String, required: true, unique: true },
-  verfied: { type: Boolean, required: true, default: false },
+  verifiedPhone: { type: Boolean, required: true, default: false },
+  verifiedEmail: { type: Boolean, required: true, default: false },
   password: { type: String, required: true },
   createdAt: { type: Number, default: Date.now },
+  lastSeen: { type: Number, default: Date.now },
+
   personalDetails: {
     type: {
       gender: String,
@@ -171,4 +174,4 @@ escortSchema.pre("save", function (next) {
   next();
 });
 
-export const Escorts = model<DEscort>("Escorts", escortSchema);
+export const Escorts = model<Escort>("Escorts", escortSchema);

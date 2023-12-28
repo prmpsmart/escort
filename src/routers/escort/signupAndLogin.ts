@@ -1,13 +1,13 @@
 import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
-import { DEscort, Escorts, IEscort } from "../../models/escorts";
-import { Sessions } from "../../services/sessions";
+import { Escort, Escorts, IEscort } from "../../models/escorts";
+import { EscortSessions } from "../../services/sessions";
 import { getUser } from "../../utils/usersUtils";
 import { LoginRequest } from "../client/loginScreens";
 
 export const signupAndLoginRouter = Router();
 
-interface Escort extends IEscort {
+interface EscortR extends IEscort {
   id: string;
 }
 
@@ -17,7 +17,7 @@ interface LoginResponse {
 
   token: string;
   message: string;
-  profile: Escort;
+  profile: EscortR;
 }
 
 signupAndLoginRouter.post(
@@ -56,11 +56,11 @@ signupAndLoginRouter.post(
         message: `Bad request:: ${invalidRequestMessage}`,
       });
     } else {
-      const escort: DEscort | null = await getUser(req.body.usernameEmail);
+      const escort: Escort | null = await getUser(req.body.usernameEmail);
       if (escort) {
         if (escort.workingName) {
           if (escort.password == req.body.password) {
-            const session = Sessions.addSession(escort);
+            const session = EscortSessions.addSession(escort);
 
             const json: LoginResponse = {
               workingName: escort.workingName,
@@ -72,8 +72,8 @@ signupAndLoginRouter.post(
                 id: escort.id,
                 workingName: escort.workingName,
                 email: escort.email,
-                verfied: escort.verfied,
-                password: escort.password,
+                verifiedPhone: escort.verifiedPhone,
+                verifiedEmail: escort.verifiedEmail,
                 createdAt: escort.createdAt,
                 personalDetails: escort.personalDetails,
                 physicalDetails: escort.physicalDetails,
@@ -148,7 +148,7 @@ signupAndLoginRouter.post(
           password: req.body.password,
         });
 
-        const session = Sessions.addSession(escort);
+        const session = EscortSessions.addSession(escort);
         const json: LoginResponse = {
           workingName: escort.workingName,
           email: escort.email,
@@ -159,8 +159,8 @@ signupAndLoginRouter.post(
             id: escort.id,
             workingName: escort.workingName,
             email: escort.email,
-            verfied: escort.verfied,
-            password: escort.password,
+            verifiedPhone: escort.verifiedPhone,
+            verifiedEmail: escort.verifiedEmail,
             createdAt: escort.createdAt,
             personalDetails: escort.personalDetails,
             physicalDetails: escort.physicalDetails,

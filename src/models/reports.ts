@@ -1,34 +1,34 @@
 import { Document, Schema, model } from "mongoose";
 
-interface IMessage {
-  chat_id: string;
-  sender_id: string;
-  receiver_id: string;
-  text: string;
-  image: string;
+interface IReport {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  message: string;
   createdAt?: number;
 }
 
-interface Message extends IMessage, Document {}
+interface Report extends IReport, Document {}
 
-const messagesSchema = new Schema<Message>({
-  chat_id: {
+const messagesSchema = new Schema<Report>({
+  firstName: {
     type: String,
     required: true,
   },
-  sender_id: {
+  lastName: {
     type: String,
     required: true,
   },
-  receiver_id: {
+  email: {
     type: String,
     required: true,
   },
-  text: {
+  phoneNumber: {
     type: String,
     required: true,
   },
-  image: {
+  message: {
     type: String,
     required: true,
   },
@@ -45,6 +45,6 @@ messagesSchema.pre("save", function (next) {
 
   next();
 });
-const Messages = model<Message>("Messages", messagesSchema);
+const Reports = model<Report>("Reports", messagesSchema);
 
-export default Messages;
+export default Reports;

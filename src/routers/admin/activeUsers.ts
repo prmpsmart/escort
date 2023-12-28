@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express";
+import { Escorts } from "../../models/escorts";
 
 export const usersRouter = Router();
 interface ActiveUsersRequest extends Request {
@@ -7,8 +8,8 @@ interface ActiveUsersRequest extends Request {
   };
 }
 interface User {
-  name: string;
   id: string;
+  name: string;
   email: string;
   phone: string;
   country: string;
@@ -20,7 +21,7 @@ interface ActiveUsersResponse {
   users: Array<User>;
 }
 
-usersRouter.get("/users", (req: ActiveUsersRequest, res: Response) => {
+usersRouter.get("/users", async (req: ActiveUsersRequest, res: Response) => {
   /**
     #swagger.requestBody = {
     required: true,
@@ -37,8 +38,26 @@ usersRouter.get("/users", (req: ActiveUsersRequest, res: Response) => {
     }
     */
 
-  const json: ActiveUsersResponse = {
-    users: [],
-  };
-  res.status(200).json(json);
+  const users = new Array<User>();
+
+  const twoWeeksAgo = new Date();
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+  const escorts = await Escorts.find({
+    lastSeen: { $gte: twoWeeksAgo.getTime() },
+  });
+
+  escorts.forEach((escort) => {
+    users.push({
+      id: escort.id,
+      name: escort.workingName,
+      email: escort.email,
+      phone: "",
+      country: escort.personalDetails.nationality,
+      joinedAt: escort.createdAt as number,
+      balance: 500,
+    });
+  });
+
+  res.status(200).json({ users });
 });
