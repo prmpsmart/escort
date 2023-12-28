@@ -1,2 +1,2 @@
 @echo off
-npx ts-node src/app.ts
+ts-node src/swagger.ts && npx ts-node src/app.ts

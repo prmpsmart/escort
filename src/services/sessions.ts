@@ -1,4 +1,4 @@
-import { User } from "../utils/user";
+import { User } from "../utils";
 
 export class Session {
   public id: string;

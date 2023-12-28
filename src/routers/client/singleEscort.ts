@@ -1,61 +1,8 @@
 import { Request, Response, Router } from "express";
+import { Escorts } from "../../models/escorts";
+import { cleanItem, objectId } from "../../utils";
 
 export const singleEscortRouter = Router();
-
-export interface EscortProfile {
-  personalDetails?: {
-    gender: string;
-    sexuality: string;
-    age: number;
-    nationality: string;
-  };
-  physicalDetails?: {
-    chest: string;
-    waist: string;
-    hips: string;
-    ethnicity: string;
-    hairColour: string;
-    height: number;
-    weight: number;
-    eyeColour: string;
-    genetalia: string;
-    cupSize: string;
-    breastImplant: string;
-    bodyType: string;
-    bodyArt: string;
-  };
-  languages?: string[];
-  bookingNotes?: string[];
-  location?: {
-    incall: string;
-    outcall: {
-      location: string;
-      iTravelTo: string;
-    };
-  };
-  price?: {
-    incall: {
-      hour1: number;
-      hour2: number;
-      hour3: number;
-    };
-    outcall: {
-      hour1: number;
-      hour2: number;
-      hour3: number;
-    };
-  };
-  availability?: {
-    monday: boolean;
-    tueday: boolean;
-    wednesday: boolean;
-    thurday: boolean;
-    friday: boolean;
-    saturday: boolean;
-    dunurday: boolean;
-  };
-  services?: string[];
-}
 
 interface GetUserProfileRequest extends Request {
   params: {
@@ -65,7 +12,7 @@ interface GetUserProfileRequest extends Request {
 
 singleEscortRouter.get(
   "/userProfile/:id",
-  (req: GetUserProfileRequest, res: Response) => {
+  async (req: GetUserProfileRequest, res: Response) => {
     /**
       #swagger.responses[200] = {
           schema: { $ref: '#/components/schemas/EscortProfile' }
@@ -78,7 +25,9 @@ singleEscortRouter.get(
       }
        */
 
-    const json: EscortProfile = {};
-    res.status(200).json(json);
+    const escort = await Escorts.findOne({ _id: objectId(req.params.id) });
+    if (escort) {
+      res.status(200).send(JSON.stringify({ escort: cleanItem(escort) }));
+    } else res.status(404).json({ message: "Escort not found" });
   }
 );

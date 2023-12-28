@@ -36,11 +36,11 @@ https://cloud.mongodb.com/v2/6547424187a10c0d03b9ac9d#/metrics/replicaSet/65877e
 - Login Screens ✅
 - Home Screens ✅
 - Upload Profile Image ✅
-- Single Escorts
+- Single Escorts ✅
 - Payment `payment not implemented yet`
 - Advert `payment not implemented yet`
 - Contact Us ✅
-- Settings
+- Settings ✅ `remain delete account`
 - Live Cam
 - User LadyStar ✅
 

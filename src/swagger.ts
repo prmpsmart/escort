@@ -38,8 +38,8 @@ const doc = {
         $confirmFriendRequest: "boolean",
       },
       ProfileRequest: {
-        username: "string",
-        email: "string",
+        // username: "string",
+        // email: "string",
         number: "string",
         language: "string",
         ageVerified: "boolean",
