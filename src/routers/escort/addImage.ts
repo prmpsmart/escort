@@ -9,7 +9,7 @@ interface AddImageRequest extends AuthRequest {
   body: { images: Media[] };
 }
 
-addImageRouter.get("/addImage", async (req: AddImageRequest, res: Response) => {
+addImageRouter.post("/addImage", async (req: AddImageRequest, res: Response) => {
   /**
     #swagger.requestBody = {
     required: true,

@@ -9,7 +9,7 @@ interface AddVideoRequest extends AuthRequest {
   body: { videos: Media[] };
 }
 
-addVideoRouter.get("/addVideo", async (req: AddVideoRequest, res: Response) => {
+addVideoRouter.post("/addVideo", async (req: AddVideoRequest, res: Response) => {
   /**
     #swagger.requestBody = {
     required: true,
