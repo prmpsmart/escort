@@ -25,7 +25,7 @@ https://cloud.mongodb.com/v2/6547424187a10c0d03b9ac9d#/metrics/replicaSet/65877e
 ### Escort
 
 - Escort Sign Up and Login ✅
-- Escort Dashboard
+- Escort Dashboard ✅
 - Add Image `firebase not implemented yet`
 - View Gallery `firebase not implemented yet`
 - Add Video `firebase not implemented yet`

@@ -39,14 +39,10 @@ interface LadieStarsRequest extends AuthRequest {
   };
 }
 
-userLadyStarRouter.post(
+userLadyStarRouter.get(
   "/ladiesStars",
-  async (req: LadieStarsRequest, res: Response) => {
+  async (req: AuthRequest, res: Response) => {
     /**
-    #swagger.requestBody = {
-       required: true,
-       schema: { $ref: "#/components/schemas/LadieStarsRequest" }
-    }
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/EscortsProfilesResponse' }
     }

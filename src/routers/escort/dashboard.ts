@@ -1,6 +1,18 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import EscortRequests from "../../models/requests";
 
 export const dashboardRouter = Router();
+
+interface EscortRequest {
+  name: string;
+  age: number;
+  location: string;
+  status: string;
+
+  escort_id: string;
+  client_id: string;
+}
 
 interface DashboardResponse {
   remainingInterests: number;
@@ -15,9 +27,10 @@ interface DashboardResponse {
     imageUpload: number;
     expiryDate: number;
   };
+  requests: EscortRequest[];
 }
 
-dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
+dashboardRouter.get("/dashboard", async (req: AuthRequest, res: Response) => {
   /**
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/DashboardResponse' }
@@ -29,6 +42,23 @@ dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
+
+  const _requests = await EscortRequests.find({
+    escort_id: req.session?.user.id,
+  });
+
+  const requests: EscortRequest[] = [];
+  _requests.forEach((request) => {
+    requests.push({
+      name: request.name,
+      age: request.age,
+      location: request.location,
+      status: request.status,
+
+      escort_id: request.escort_id,
+      client_id: request.client_id,
+    });
+  });
 
   const json: DashboardResponse = {
     remainingInterests: 0,
@@ -43,6 +73,7 @@ dashboardRouter.get("/dashboard", (req: Request, res: Response) => {
       imageUpload: 0,
       expiryDate: 0,
     },
+    requests,
   };
   res.status(200).json(json);
 });

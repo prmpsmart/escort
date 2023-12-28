@@ -363,6 +363,16 @@ const doc = {
           imageUpload: "number",
           expiryDate: "number",
         },
+        requests: [
+          {
+            name: "string",
+            age: "number",
+            location: "string",
+            status: "string",
+            escort_id: "string",
+            client_id: "string",
+          },
+        ],
       },
       AdminLoginResponse: {
         username: "string",
