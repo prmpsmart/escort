@@ -1,12 +1,15 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { Escort } from "../../models/escorts";
+import { Media, uploadMedia } from "../../utils";
 
 export const addVideoRouter = Router();
 
-interface AddVideoRequest extends Request {
-  body: { videos: string[] };
+interface AddVideoRequest extends AuthRequest {
+  body: { videos: Media[] };
 }
 
-addVideoRouter.get("/addVideo", (req: AddVideoRequest, res: Response) => {
+addVideoRouter.get("/addVideo", async (req: AddVideoRequest, res: Response) => {
   /**
     #swagger.requestBody = {
     required: true,
@@ -23,6 +26,33 @@ addVideoRouter.get("/addVideo", (req: AddVideoRequest, res: Response) => {
     }
     */
 
-  const json = {};
-  res.status(200).json(json);
+  if (req.body.videos) {
+    try {
+      const videos = req.body.videos;
+      const escort = req.session?.user as Escort;
+
+      const uploadedFileUrls = await uploadMedia(
+        req.session?.id as string,
+        videos
+      );
+
+      uploadedFileUrls.forEach((url) => {
+        escort.videos.push(url);
+      });
+
+      escort
+        .save()
+        .then((value) => {
+          res.status(200).json({ message: "Videos uploaded successfully" });
+        })
+        .catch((reason) => {
+          res.status(500).json({ message: "Internal server error", reason });
+        });
+    } catch (error) {
+      console.error("Error uploading videos:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  } else {
+    res.status(404).json({ message: "Bad request: `videos` not provided." });
+  }
 });

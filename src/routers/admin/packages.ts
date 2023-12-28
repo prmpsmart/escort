@@ -74,34 +74,27 @@ packagesRouter.post("/package", async (req: PackageRequest, res: Response) => {
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
-  let invalidRequest = false;
   let invalidRequestMessage;
 
   if (!req.body.name) {
-    invalidRequest = true;
     invalidRequestMessage = "`name`: `string` not provided";
   }
   if (!req.body.expressLimit) {
-    invalidRequest = true;
     invalidRequestMessage = "`expressLimit`: `string` not provided";
   }
   if (!req.body.showLimit) {
-    invalidRequest = true;
     invalidRequestMessage = "`showLimit`: `string` not provided";
   }
   if (!req.body.uploadLimit) {
-    invalidRequest = true;
     invalidRequestMessage = "`uploadLimit`: `string` not provided";
   }
   if (!req.body.validityPeriod) {
-    invalidRequest = true;
     invalidRequestMessage = "`validityPeriod`: `string` not provided";
   }
   if (!req.body.price) {
-    invalidRequest = true;
     invalidRequestMessage = "`price`: `string` not provided";
   }
-  if (invalidRequest) {
+  if (invalidRequestMessage) {
     res.status(400).json({
       message: `Bad request:: ${invalidRequestMessage}`,
     });

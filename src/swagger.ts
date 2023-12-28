@@ -95,7 +95,12 @@ const doc = {
         message: "string",
       },
       UpgradeProRequest: {
-        $images: ["base64 encoded image string"],
+        $images: [
+          {
+            filename: "string",
+            data: "string",
+          },
+        ],
         $height: 9.8,
         $country: "Germany",
         $birthday: "26/07/1999",
@@ -215,10 +220,20 @@ const doc = {
         $message: "boolean",
       },
       AddImageRequest: {
-        images: ["string"],
+        images: [
+          {
+            filename: "string",
+            data: "string",
+          },
+        ],
       },
       AddVideoRequest: {
-        videos: ["string"],
+        videos: [
+          {
+            filename: "string",
+            data: "string",
+          },
+        ],
       },
       // Responses
       ViewGalleryResponse: {
@@ -282,7 +297,6 @@ const doc = {
           workingName: "string",
           email: "string",
           verified: "boolean",
-          password: "string",
           createdAt: "number",
           personalDetails: {
             gender: "string",
@@ -436,7 +450,6 @@ const doc = {
             workingName: "string",
             email: "string",
             verified: "boolean",
-            password: "string",
             createdAt: "number",
             personalDetails: {
               gender: "string",
@@ -510,7 +523,6 @@ const doc = {
         workingName: "string",
         email: "string",
         verified: "boolean",
-        password: "string",
         createdAt: "number",
         personalDetails: {
           gender: "string",

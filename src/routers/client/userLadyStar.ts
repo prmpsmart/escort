@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
 import { Escort, Escorts } from "../../models/escorts";
-import { cleanItem } from "../../utils/commonUtils";
+import { cleanItem } from "../../utils";
 
 export const userLadyStarRouter = Router();
 

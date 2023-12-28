@@ -1,4 +1,6 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { Escort } from "../../models/escorts";
 
 export const viewGalleryRouter = Router();
 
@@ -7,7 +9,7 @@ interface ViewGalleryResponse {
   videos: string[];
 }
 
-viewGalleryRouter.get("/viewGallery", (req: Request, res: Response) => {
+viewGalleryRouter.get("/viewGallery", (req: AuthRequest, res: Response) => {
   /**
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/ViewGalleryResponse' }
@@ -20,9 +22,11 @@ viewGalleryRouter.get("/viewGallery", (req: Request, res: Response) => {
     }
     */
 
+  const escort = req.session?.user as Escort;
+
   const json: ViewGalleryResponse = {
-    images: [],
-    videos: [],
+    images: escort.images,
+    videos: escort.videos,
   };
   res.status(200).json(json);
 });

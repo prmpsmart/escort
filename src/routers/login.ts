@@ -2,7 +2,7 @@ import { Response, Router } from "express";
 import { Client } from "../models/clients";
 import { Escort } from "../models/escorts";
 import { ClientSessions, EscortSessions, Session } from "../services/sessions";
-import { getUser } from "../utils/usersUtils";
+import { getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
 
 export const loginRouter = Router();
@@ -41,18 +41,15 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
      }
      */
 
-  let invalidRequest = false;
   let invalidRequestMessage;
 
   if (!req.body.usernameEmail) {
-    invalidRequest = true;
     invalidRequestMessage = "`usernameEmail`: `string` not provided";
   }
   if (!req.body.password) {
-    invalidRequest = true;
     invalidRequestMessage = "`password`: `string` not provided";
   }
-  if (invalidRequest) {
+  if (invalidRequestMessage) {
     res.status(400).json({
       message: `Bad request:: ${invalidRequestMessage}`,
     });

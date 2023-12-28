@@ -29,31 +29,25 @@ contactUsRouter.post(
     }
     */
 
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.firstName) {
-      invalidRequest = true;
       invalidRequestMessage = "`firstName`: `string` not provided";
     }
     if (!req.body.lastName) {
-      invalidRequest = true;
       invalidRequestMessage = "`lastName`: `string` not provided";
     }
     if (!req.body.email) {
-      invalidRequest = true;
       invalidRequestMessage = "`email`: `string` not provided";
     }
     if (!req.body.number) {
-      invalidRequest = true;
       invalidRequestMessage = "`number`: `string` not provided";
     }
     if (!req.body.message) {
-      invalidRequest = true;
       invalidRequestMessage = "`message`: `string` not provided";
     }
 
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });

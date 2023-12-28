@@ -1,8 +1,10 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { cleanItem } from "../../utils";
 
 export const profileRouter = Router();
 
-interface EditProfileRequest extends Request {
+interface EditProfileRequest extends AuthRequest {
   body: {
     modelName: string;
     country: string;
@@ -47,12 +49,8 @@ profileRouter.post("/profile", (req: EditProfileRequest, res: Response) => {
   res.status(200).json(json);
 });
 
-profileRouter.get("/profile", (req: Request, res: Response) => {
+profileRouter.get("/profile", (req: AuthRequest, res: Response) => {
   /**
-      #swagger.requestBody = {
-      required: true,
-      schema: { $ref: "#/components/schemas/EditProfileRequest" }
-      }
       #swagger.responses[401] = {
           schema: { $ref: '#/definitions/InvalidSession' }
       }
@@ -61,6 +59,7 @@ profileRouter.get("/profile", (req: Request, res: Response) => {
       }
       */
 
-  const json = {};
-  res.status(200).json(json);
+  res
+    .status(200)
+    .send(JSON.stringify({ profile: cleanItem(req.session?.user) }));
 });

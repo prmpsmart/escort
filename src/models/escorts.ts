@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../utils/user";
+import { User } from "../utils";
 
 interface PersonalDetails {
   gender: string;

@@ -1,8 +1,7 @@
 import { Response, Router } from "express";
 import { Admins } from "../../models/admin";
 import { AdminSessions } from "../../services/sessions";
-import { User } from "../../utils/user";
-import { dbError } from "../../utils/usersUtils";
+import { dbError , User} from "../../utils";
 import { LoginRequest } from "../client/loginScreens";
 
 export const loginRouter = Router();
@@ -32,18 +31,15 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
        }
        */
 
-  let invalidRequest = false;
   let invalidRequestMessage;
 
   if (!req.body.usernameEmail) {
-    invalidRequest = true;
     invalidRequestMessage = "`usernameEmail`: `string` not provided";
   }
   if (!req.body.password) {
-    invalidRequest = true;
     invalidRequestMessage = "`password`: `string` not provided";
   }
-  if (invalidRequest) {
+  if (invalidRequestMessage) {
     res.status(400).json({
       message: `Bad request:: ${invalidRequestMessage}`,
     });

@@ -1,10 +1,13 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { Client } from "../../models/clients";
+import { Media, uploadMedia } from "../../utils";
 
 export const upgradeProRouter = Router();
 
-interface UpgradeProRequest extends Request {
+interface UpgradeProRequest extends AuthRequest {
   body: {
-    images: string[];
+    images: Media[];
     height: number;
     hairColor: string;
     country: string;
@@ -15,7 +18,7 @@ interface UpgradeProRequest extends Request {
 
 upgradeProRouter.post(
   "/upgradePro",
-  (req: UpgradeProRequest, res: Response) => {
+  async (req: UpgradeProRequest, res: Response) => {
     /**
         #swagger.requestBody = {
             required: true,
@@ -30,38 +33,56 @@ upgradeProRouter.post(
         }
          */
 
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.images) {
-      invalidRequest = true;
       invalidRequestMessage = "`images`: `string` not provided";
     }
     if (!req.body.height) {
-      invalidRequest = true;
       invalidRequestMessage = "`height`: `string` not provided";
     }
     if (!req.body.hairColor) {
-      invalidRequest = true;
       invalidRequestMessage = "`hairColor`: `string` not provided";
     }
     if (!req.body.country) {
-      invalidRequest = true;
       invalidRequestMessage = "`country`: `string` not provided";
     }
     if (!req.body.gender) {
-      invalidRequest = true;
       invalidRequestMessage = "`gender`: `string` not provided";
     }
     if (!req.body.birthday) {
-      invalidRequest = true;
       invalidRequestMessage = "`birthday`: `string` not provided";
     }
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });
     } else {
+      try {
+        const images = req.body.images;
+        const client = req.session?.user as Client;
+
+        const uploadedFileUrls = await uploadMedia(
+          req.session?.id as string,
+          images
+        );
+
+        uploadedFileUrls.forEach((url) => {
+          client.images.push(url);
+        });
+
+        client
+          .save()
+          .then((value) => {
+            res.status(200).json({ message: "Images uploaded successfully" });
+          })
+          .catch((reason) => {
+            res.status(500).json({ message: "Internal server error", reason });
+          });
+      } catch (error) {
+        console.error("Error uploading images:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
       res.status(200).json({});
     }
   }

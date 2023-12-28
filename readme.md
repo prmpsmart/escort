@@ -26,21 +26,22 @@ https://cloud.mongodb.com/v2/6547424187a10c0d03b9ac9d#/metrics/replicaSet/65877e
 
 - Escort Sign Up and Login ✅
 - Escort Dashboard ✅
-- Add Image `firebase not implemented yet`
-- View Gallery `firebase not implemented yet`
-- Add Video `firebase not implemented yet`
-- Escort Profile
+- Add Image ✅
+- View Gallery ✅
+- Add Video ✅
+- Escort Profile ✅.5
 
 ### Client
 
 - Login Screens ✅
 - Home Screens ✅
-- Upload Profile Image `firebase not implemented yet`
+- Upload Profile Image ✅
 - Single Escorts
 - Payment `payment not implemented yet`
 - Advert `payment not implemented yet`
 - Contact Us ✅
 - Settings
+- Live Cam
 - User LadyStar ✅
 
 ### Admin

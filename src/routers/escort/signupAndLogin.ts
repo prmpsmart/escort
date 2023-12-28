@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
 import { Escorts, IEscort } from "../../models/escorts";
 import { EscortSessions } from "../../services/sessions";
-import { getUser } from "../../utils/usersUtils";
+import { getUser } from "../../utils";
 
 export const signupAndLoginRouter = Router();
 

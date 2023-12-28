@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
 import { Clients } from "../../models/clients";
 import { ClientSessions } from "../../services/sessions";
-import { getUser } from "../../utils/usersUtils";
+import { getUser } from "../../utils";
 
 export const loginRouter = Router();
 
@@ -52,30 +52,24 @@ loginRouter.post(
         schema: { $ref: '#/definitions/UserExists' }
     }
     */
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.firstName) {
-      invalidRequest = true;
       invalidRequestMessage = "`firstName`: `string` not provided";
     }
     if (!req.body.lastName) {
-      invalidRequest = true;
       invalidRequestMessage = "`lastName`: `string` not provided";
     }
     if (!req.body.username) {
-      invalidRequest = true;
       invalidRequestMessage = "`username`: `string` not provided";
     }
     if (!req.body.email) {
-      invalidRequest = true;
       invalidRequestMessage = "`email`: `string` not provided";
     }
     if (!req.body.password) {
-      invalidRequest = true;
       invalidRequestMessage = "`password`: `string` not provided";
     }
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });
@@ -149,14 +143,12 @@ loginRouter.post(
     }
     */
 
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.email) {
-      invalidRequest = true;
       invalidRequestMessage = "`email`: `string` not provided";
     }
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });
@@ -194,18 +186,15 @@ loginRouter.post(
     }
     */
 
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.email) {
-      invalidRequest = true;
       invalidRequestMessage = "`email`: `string` not provided";
     }
     if (!req.body.password) {
-      invalidRequest = true;
       invalidRequestMessage = "`password`: `string` not provided";
     }
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });

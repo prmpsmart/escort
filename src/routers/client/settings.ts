@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
+import { Client } from "../../models/clients";
 
 export const settingsRouter = Router();
 
@@ -22,7 +24,7 @@ interface SettingsResponse {
   showMessagesNotifications: boolean;
 }
 
-settingsRouter.get("/settings", (req: Request, res: Response) => {
+settingsRouter.get("/settings", (req: AuthRequest, res: Response) => {
   /**
     #swagger.responses[200] = {
         schema: { $ref: "#/components/schemas/SettingsResponse" }
@@ -34,30 +36,31 @@ settingsRouter.get("/settings", (req: Request, res: Response) => {
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
+  const client = req.session?.user as Client;
 
   const json: SettingsResponse = {
-    username: "",
-    email: "",
-    number: "",
-    language: "",
-    ageVerified: true,
-    adFree: true,
+    username: client.username,
+    email: client.email,
+    number: client.number,
+    language: client.language,
+    ageVerified: client.ageVerified,
+    adFree: client.adFree,
 
-    showProfileOnSearchEngine: true,
-    showProfileOnRandomUsers: true,
-    showProfileOnFindMatchPage: true,
-    confirmFriendRequest: true,
+    showProfileOnSearchEngine: client.showProfileOnSearchEngine,
+    showProfileOnRandomUsers: client.showProfileOnRandomUsers,
+    showProfileOnFindMatchPage: client.showProfileOnFindMatchPage,
+    confirmFriendRequest: client.confirmFriendRequest,
 
-    showVisitorsNotifications: true,
-    showGiftsNotifications: true,
-    showLoginNotifications: true,
-    showLikesNotifications: true,
-    showMessagesNotifications: true,
+    showVisitorsNotifications: client.showVisitorsNotifications,
+    showGiftsNotifications: client.showGiftsNotifications,
+    showLoginNotifications: client.showLoginNotifications,
+    showLikesNotifications: client.showLikesNotifications,
+    showMessagesNotifications: client.showMessagesNotifications,
   };
   res.status(200).json(json);
 });
 
-interface PrivacyRequest extends Request {
+interface PrivacyRequest extends AuthRequest {
   body: {
     showProfileOnSearchEngine: boolean;
     showProfileOnRandomUsers: boolean;
@@ -79,6 +82,33 @@ settingsRouter.post("/privacy", (req: PrivacyRequest, res: Response) => {
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
+
+  let invalidRequestMessage;
+
+  if (req.body.showProfileOnSearchEngine == undefined) {
+    invalidRequestMessage =
+      "`showProfileOnSearchEngine`: `string` not provided";
+  }
+  if (req.body.showProfileOnRandomUsers == undefined) {
+    invalidRequestMessage = "`showProfileOnRandomUsers`: `string` not provided";
+  }
+  if (req.body.showProfileOnFindMatchPage == undefined) {
+    invalidRequestMessage =
+      "`showProfileOnFindMatchPage`: `string` not provided";
+  }
+  if (req.body.confirmFriendRequest == undefined) {
+    invalidRequestMessage = "`confirmFriendRequest`: `string` not provided";
+  }
+  if (invalidRequestMessage) {
+    res.status(400).json({
+      message: `Bad request:: ${invalidRequestMessage}`,
+    });
+  } else {
+    try {
+    } catch (error) {}
+  }
+
+  const client = req.session?.user as Client;
 
   const json = {};
   res.status(200).json(json);

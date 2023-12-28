@@ -27,26 +27,21 @@ homeRouter.post("/findMatches", (req: FindMatchesRequest, res: Response) => {
       }
        */
 
-  let invalidRequest = false;
   let invalidRequestMessage;
 
   if (!req.body.gender) {
-    invalidRequest = true;
     invalidRequestMessage = "`gender`: `string` not provided";
   }
   if (!req.body.interestedGender) {
-    invalidRequest = true;
     invalidRequestMessage = "`interestedGender`: `string` not provided";
   }
   if (!req.body.ageStart) {
-    invalidRequest = true;
     invalidRequestMessage = "`ageStart`: `string` not provided";
   }
   if (!req.body.ageEnd) {
-    invalidRequest = true;
     invalidRequestMessage = "`ageEnd`: `string` not provided";
   }
-  if (invalidRequest) {
+  if (invalidRequestMessage) {
     res.status(400).json({
       message: `Bad request:: ${invalidRequestMessage}`,
     });

@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
 import { Admins } from "../../models/admin";
-import { objectId } from "../../utils/usersUtils";
+import { objectId } from "../../utils";
 
 export const settingsRouter = Router();
 interface UserChangePasswordRequest extends AuthRequest {
@@ -33,18 +33,15 @@ settingsRouter.post(
     }
     */
 
-    let invalidRequest = false;
     let invalidRequestMessage;
 
     if (!req.body.oldPassword) {
-      invalidRequest = true;
       invalidRequestMessage = "`oldPassword`: `string` not provided";
     }
     if (!req.body.newPassword) {
-      invalidRequest = true;
       invalidRequestMessage = "`newPassword`: `string` not provided";
     }
-    if (invalidRequest) {
+    if (invalidRequestMessage) {
       res.status(400).json({
         message: `Bad request:: ${invalidRequestMessage}`,
       });

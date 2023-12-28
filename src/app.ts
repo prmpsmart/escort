@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
+import * as admin from "firebase-admin";
 import http from "http";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
@@ -14,8 +15,15 @@ import swaggerOutput from "./swaggerOutput.json";
 
 dotenv.config();
 
+const serviceAccount = require("./escorts_storage.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket:
+    "https://console.firebase.google.com/project/escorts-4607e/storage/escorts-4607e.appspot.com/files",
+});
+
 export const app = express();
-const port = 3000;
 
 const server = http.createServer(app);
 const io = new Server(server);
@@ -88,6 +96,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 app.use("/", routers);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Swagger is running at http://localhost:${port}/docs`);
