@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { Sessions } from "../services/sessions";
+import { Session, Sessions } from "../services/sessions";
 
 // Extend the Request interface to include the 'token' property
 export interface AuthRequest extends Request {
   token?: string;
+  session?: Session;
 }
 
 // Middleware to check for Bearer token
@@ -26,6 +27,7 @@ export const checkToken = (
   // Attach the token to the request for further processing, e.g., authentication
   if (token && Sessions.sessionsIds.has(token)) {
     req.token = token;
+    req.session = Sessions.getSessionByID(token);
     // Call the next middleware or route handler
     return next();
   }

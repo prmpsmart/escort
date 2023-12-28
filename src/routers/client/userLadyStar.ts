@@ -1,13 +1,14 @@
-import { Request, Response, Router } from "express";
+import { Response, Router } from "express";
+import { AuthRequest } from "../../middleware/checkToken";
 import { DEscort, Escorts } from "../../models/escorts";
+import { cleanItem } from "../../utils/commonUtils";
 
 export const userLadyStarRouter = Router();
 
-interface LadieStarsRequest extends Request {
+interface LadieStarsRequest extends AuthRequest {
   body: {
     region: string;
 
-    name: string;
     workingName: string;
     // lookingFor: number;
     ageStart: number;
@@ -24,10 +25,10 @@ interface LadieStarsRequest extends Request {
     services: string;
     ethnic: string;
     languages: string[];
-    preferences: string;
+    // preferences: string;
 
     // withReviews: boolean;
-    verfied: boolean;
+    verified: boolean;
     // newComers: boolean;
     withVideos: boolean;
     // pornStar: boolean;
@@ -57,34 +58,60 @@ userLadyStarRouter.post(
     }
     */
 
-    const substringToSearch = "ac";
-    const chestCondition = "big";
-    const extraSubstring = "extra";
+    const query: any = {};
 
-    const _escorts = await Escorts.find({
-      $or: [
-        {
-          "physicalDetails.breastImplant": {
-            $regex: substringToSearch,
-            $options: "i",
-          },
-        },
-        {
-          "physicalDetails.chest": { $regex: chestCondition, $options: "i" },
-        },
-        {
-          "physicalDetails.chest": { $regex: extraSubstring, $options: "i" },
-        },
-      ],
-    });
+    // Add conditions based on request properties
+    if (req.body.region) {
+      query["location.incall"] = RegExp(req.body.region, "i");
+    }
 
-    // const escorts = await Escorts.find({ $or: [] });
+    if (req.body.workingName) {
+      query.workingName = RegExp(req.body.workingName, "i");
+    }
+
+    if (req.body.ageStart && req.body.ageEnd) {
+      query["personalDetails.age"] = {
+        $gte: req.body.ageStart,
+        $lte: req.body.ageEnd,
+      };
+    }
+
+    if (req.body.hair) {
+      query["physicalDetails.hairColor"] = RegExp(req.body.hair, "i");
+    }
+    if (req.body.breast) {
+      query["physicalDetails.breastImplant"] = RegExp(req.body.breast, "i");
+    }
+    if (req.body.weight) {
+      query["physicalDetails.weight"] = req.body.weight;
+    }
+    if (req.body.height) {
+      query["physicalDetails.height"] = req.body.height;
+    }
+    if (req.body.ethnic) {
+      query["physicalDetails.ethnicity"] = RegExp(req.body.ethnic, "i");
+    }
+
+    // Add condition for languages
+    if (req.body.languages && req.body.languages.length > 0) {
+      query.languages = { $in: req.body.languages };
+    }
+    if (req.body.verified) {
+      query.verified = req.body.verified;
+    }
+
+    if (req.body.withVideos) {
+      query["videos.0"] = { $exists: true };
+    }
+
+    // Execute the query
+    const _escorts: DEscort[] = await Escorts.find(query);
 
     const escorts = new Array();
 
     _escorts.forEach(async (escort: DEscort) => {
       if (escort) {
-        escorts.push(escort);
+        escorts.push(cleanItem(escort));
       }
     });
 

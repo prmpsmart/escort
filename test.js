@@ -62,6 +62,17 @@ async function clientSignup() {
   );
 }
 
+async function escortLogin() {
+  call(
+    axios.post(`${host}/escort/login`, {
+      usernameEmail: "prmpsmart",
+      // usernameEmail: "prmpsmart@gmail.com",
+      password: "762590",
+      isEscort: true,
+    })
+  );
+}
+
 async function escortSignup() {
   call(
     axios.post(`${host}/escort/signup`, {
@@ -77,7 +88,7 @@ async function userLadyStar() {
     axios.post(
       `${host}/client/ladiesStars`,
       {
-        workingName: "prmpsmart",
+        workingName: "prmp",
         email: "prmpsmart@gmail.com",
         password: "762590",
       },
@@ -91,7 +102,8 @@ async function userLadyStar() {
 
 async function seq() {
   await clientLogin();
-  await userLadyStar();
+  // await escortLogin();
+  setTimeout(userLadyStar, 200);
 }
 
 seq();

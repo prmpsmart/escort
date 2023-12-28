@@ -1,11 +1,15 @@
 import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
-import { DEscort, Escorts } from "../../models/escorts";
+import { DEscort, Escorts, IEscort } from "../../models/escorts";
 import { Sessions } from "../../services/sessions";
 import { getUser } from "../../utils/usersUtils";
 import { LoginRequest } from "../client/loginScreens";
 
 export const signupAndLoginRouter = Router();
+
+interface Escort extends IEscort {
+  id: string;
+}
 
 interface LoginResponse {
   workingName: string;
@@ -13,10 +17,11 @@ interface LoginResponse {
 
   token: string;
   message: string;
+  profile: Escort;
 }
 
 signupAndLoginRouter.post(
-  "/escortLogin",
+  "/login",
   async (req: LoginRequest, res: Response) => {
     /**
      #swagger.requestBody = {
@@ -51,18 +56,36 @@ signupAndLoginRouter.post(
         message: `Bad request:: ${invalidRequestMessage}`,
       });
     } else {
-      const user: DEscort | null = await getUser(req.body.usernameEmail);
-      if (user) {
-        if (user.workingName) {
-          if (user.password == req.body.password) {
-            const session = Sessions.addSession(user);
+      const escort: DEscort | null = await getUser(req.body.usernameEmail);
+      if (escort) {
+        if (escort.workingName) {
+          if (escort.password == req.body.password) {
+            const session = Sessions.addSession(escort);
 
             const json: LoginResponse = {
-              workingName: user.workingName,
-              email: user.email,
+              workingName: escort.workingName,
+              email: escort.email,
 
               token: session.id,
               message: "Login Successful",
+              profile: {
+                id: escort.id,
+                workingName: escort.workingName,
+                email: escort.email,
+                verfied: escort.verfied,
+                password: escort.password,
+                createdAt: escort.createdAt,
+                personalDetails: escort.personalDetails,
+                physicalDetails: escort.physicalDetails,
+                languages: escort.languages,
+                bookingNotes: escort.bookingNotes,
+                location: escort.location,
+                price: escort.price,
+                availability: escort.availability,
+                services: escort.services,
+                images: escort.images,
+                videos: escort.videos,
+              },
             };
 
             return res.status(200).json(json);
@@ -132,6 +155,24 @@ signupAndLoginRouter.post(
 
           token: session.id,
           message: "Signup Successful",
+          profile: {
+            id: escort.id,
+            workingName: escort.workingName,
+            email: escort.email,
+            verfied: escort.verfied,
+            password: escort.password,
+            createdAt: escort.createdAt,
+            personalDetails: escort.personalDetails,
+            physicalDetails: escort.physicalDetails,
+            languages: escort.languages,
+            bookingNotes: escort.bookingNotes,
+            location: escort.location,
+            price: escort.price,
+            availability: escort.availability,
+            services: escort.services,
+            images: escort.images,
+            videos: escort.videos,
+          },
         };
 
         return res.status(200).json(json);

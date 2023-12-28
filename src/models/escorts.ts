@@ -159,6 +159,8 @@ const escortSchema = new Schema<DEscort>({
     required: true,
   },
   services: { type: [String], default: [] },
+  images: { type: [String], default: [] },
+  videos: { type: [String], default: [] },
 });
 
 escortSchema.pre("save", function (next) {

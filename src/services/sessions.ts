@@ -1,7 +1,7 @@
 import { DClient } from "../models/clients";
 import { DEscort } from "../models/escorts";
 
-class Session {
+export class Session {
   public id: string;
 
   constructor(public user: DClient | DEscort) {
@@ -18,7 +18,7 @@ class iSessions {
   public getSessionByID(id: string): Session | undefined {
     return this.sessionsIds.get(id);
   }
-  public getSession(email: string): Session | undefined {
+  public getSessionByEmail(email: string): Session | undefined {
     return this.sessionsEmails.get(email);
   }
   public addSession(user: DClient | DEscort): Session {
