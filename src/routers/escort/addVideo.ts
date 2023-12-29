@@ -9,8 +9,10 @@ interface AddVideoRequest extends AuthRequest {
   body: { videos: Media[] };
 }
 
-addVideoRouter.post("/addVideo", async (req: AddVideoRequest, res: Response) => {
-  /**
+addVideoRouter.post(
+  "/addVideo",
+  async (req: AddVideoRequest, res: Response) => {
+    /**
     #swagger.requestBody = {
     required: true,
     schema: { $ref: "#/components/schemas/AddVideoRequest" }
@@ -26,33 +28,34 @@ addVideoRouter.post("/addVideo", async (req: AddVideoRequest, res: Response) => 
     }
     */
 
-  if (req.body.videos) {
-    try {
-      const videos = req.body.videos;
-      const escort = req.session?.user as Escort;
+    if (req.body.videos) {
+      try {
+        const videos = req.body.videos;
+        const escort = req.session?.user as Escort;
 
-      const uploadedFileUrls = await uploadMedia(
-        req.session?.id as string,
-        videos
-      );
+        const uploadedFileUrls = await uploadMedia(
+          req.session?.id as string,
+          videos
+        );
 
-      uploadedFileUrls.forEach((url) => {
-        escort.videos.push(url);
-      });
-
-      escort
-        .save()
-        .then((value) => {
-          res.status(200).json({ message: "Videos uploaded successfully" });
-        })
-        .catch((reason) => {
-          res.status(500).json({ message: "Internal server error", reason });
+        uploadedFileUrls.forEach((url) => {
+          escort.videos.push(url);
         });
-    } catch (error) {
-      console.error("Error uploading videos:", error);
-      res.status(500).json({ message: "Internal server error" });
+
+        escort
+          .save()
+          .then((value) => {
+            res.status(200).json({ message: "Videos uploaded successfully" });
+          })
+          .catch((reason) => {
+            res.status(500).json({ message: "Internal server error", reason });
+          });
+      } catch (error) {
+        console.error("Error uploading videos:", error);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    } else {
+      res.status(404).json({ message: "Bad request: `videos` not provided." });
     }
-  } else {
-    res.status(404).json({ message: "Bad request: `videos` not provided." });
   }
-});
+);

@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { Admins } from "../../models/admin";
 import { AdminSessions } from "../../services/sessions";
-import { dbError , User} from "../../utils";
+import { User, dbError } from "../../utils";
 import { LoginRequest } from "../client/loginScreens";
 
 export const loginRouter = Router();

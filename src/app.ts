@@ -15,7 +15,7 @@ import swaggerOutput from "./swaggerOutput.json";
 
 dotenv.config();
 
-const serviceAccount = require("./escorts_storage.json");
+const serviceAccount = require("../escorts_storage.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
