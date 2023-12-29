@@ -20,7 +20,7 @@ const serviceAccount = require("../escorts_storage.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket:
-    "https://console.firebase.google.com/project/escorts-4607e/storage/escorts-4607e.appspot.com/files",
+    "https://console.firebase.google.com/project/escoruts-4607e/storage/escorts-4607e.appspot.com/files",
 });
 
 export const app = express();
