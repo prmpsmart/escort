@@ -1,4 +1,5 @@
 import { Response, Router } from "express";
+import admin from "firebase-admin";
 import { Client } from "../models/clients";
 import { Escort } from "../models/escorts";
 import { ClientSessions, EscortSessions, Session } from "../services/sessions";
@@ -87,6 +88,21 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           session = ClientSessions.addSession(user);
         }
 
+        const storageBucket = admin.storage().bucket();
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 1);
+
+        const images: string[] = [];
+
+        for (let index = 0; index < client.images.length; index++) {
+          const image = client.images[index];
+          const _image = await storageBucket.file(image).getSignedUrl({
+            action: "read",
+            expires: expirationDate.toISOString(), // Adjust the expiration date as needed
+          });
+          images.push(_image[0]);
+        }
+
         const json = {
           firstName: client.firstName,
           lastName: client.lastName,
@@ -94,6 +110,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
 
           workingName: escort.workingName,
           email: user.email,
+          images: images,
 
           token: session.id,
           message: "Login Successful",

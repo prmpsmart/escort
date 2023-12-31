@@ -54,10 +54,10 @@ export async function uploadMedia(
 
   const filenames: string[] = [];
 
-  media.forEach(async (file) => {
-    // Generate a unique identifier for each file
-    // Create a filename combining the original filename and the unique identifier
-    const newFilename = `${v4()}---${id}---${file.filename}`;
+  for (let index = 0; index < media.length; index++) {
+    const file = media[index];
+    let newFilename = `${v4()}---${id}---${file.filename}`;
+    newFilename = file.filename;
     const ext = path.extname(newFilename).slice(1);
 
     // Decode base64 file data
@@ -69,11 +69,10 @@ export async function uploadMedia(
         contentType: `file/${ext}`,
       },
     });
-    console.log(`File ${newFilename} uploaded successfully.`);
     filenames.push(newFilename);
-  });
+    console.log(`File ${newFilename} uploaded successfully.`);
+  }
 
-  // Wait for all image uploads to complete
   return filenames;
 }
 

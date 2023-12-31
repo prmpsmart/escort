@@ -292,6 +292,7 @@ const doc = {
         email: "string",
         token: "string",
         message: "string",
+        images: ["string"],
         profile: {
           id: "string",
           workingName: "string",

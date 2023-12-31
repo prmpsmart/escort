@@ -47,40 +47,37 @@ async function call(func) {
   }
 }
 
-async function login() {
+async function clientLogin() {
   call(
     axios.post(`${host}/login`, {
-      usernameEmail: "prmpsmart9",
-      // usernameEmail: "prmpsmarty",
-      // usernameEmail: "prmpsmart@gmail.com",
+      usernameEmail: "client1",
+      // usernameEmail: "client1@gmail.com",
+      password: "762590",
+    })
+  );
+}
+
+async function escortLogin() {
+  call(
+    axios.post(`${host}/login`, {
+      usernameEmail: "escort1",
+      // usernameEmail: "escort1@gmail.com",
       password: "762590",
       isEscort: true,
     })
   );
 }
-
 async function clientSignup() {
   call(
     axios.post(`${host}/client/register`, {
       firstName: "Miracle",
       lastName: "Peter",
-      username: "prmpsmarty",
-      email: "prmpsmart@mailinator.com",
+      username: "client1",
+      email: "client1@mailinator.com",
       password: "762590",
     })
   );
 }
-
-// async function escortLogin() {
-//   call(
-//     axios.post(`${host}/escort/login`, {
-//       usernameEmail: "prmpsmart",
-//       // usernameEmail: "prmpsmart@gmail.com",
-//       password: "762590",
-//       isEscort: true,
-//     })
-//   );
-// }
 
 async function adminLogin() {
   call(
@@ -96,8 +93,8 @@ async function adminLogin() {
 async function escortSignup() {
   call(
     axios.post(`${host}/escort/signup`, {
-      workingName: "prmpsmart9",
-      email: "prmpsmart9@gmail.com",
+      workingName: "escort1",
+      email: "escort1@gmail.com",
       password: "762590",
     })
   );
@@ -112,7 +109,7 @@ async function userLadyStar() {
         email: "prmpsmart@gmail.com",
         password: "762590",
       },
-      { headers: { Authorization: "Bearer 6589c6d2d77ee6df1fce9eef" } }
+      { headers: { Authorization: "Bearer 6591b08e5a2a0208d1544520" } }
     )
   );
 }
@@ -170,7 +167,7 @@ async function addImage() {
       `${host}/escort/addImage`,
       { images },
       {
-        headers: { Authorization: "Bearer 65918d27a5c2c09127c317a0" },
+        headers: { Authorization: "Bearer 6591b225899228bd175a0731" },
       }
     )
   );
@@ -181,13 +178,19 @@ async function addImage() {
 
 async function seq() {
   // await adminLogin();
-  // await escortSignup();
-  login().then(async (value) => {
-    await addImage();
+
+  // clientLogin().then(async (value) => {
+  //   await addImage();
+  //   userLadyStar();
+  // });
+
+  escortSignup().then((v) => {
+    escortLogin().then((v) => {
+      // addImage();
+    });
   });
+
   // setTimeout(addImage, 2000);
-  // await escortLogin();
-  // setTimeout(userLadyStar, 200);
   // setTimeout(packages, 1000);
   // setTimeout(user, 1000);
 }

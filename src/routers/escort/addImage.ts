@@ -36,26 +36,21 @@ addImageRouter.post(
         const images = req.body.images;
         const escort = req.session?.user as Escort;
 
-        const uploadedFileUrls = await uploadMedia(
+        const uploadedFilenames = await uploadMedia(
           req.session?.id as string,
           images
         );
+        console.log(uploadedFilenames, "returned image urls");
 
-        uploadedFileUrls.forEach((url) => {
+        uploadedFilenames.forEach((url) => {
           escort.images.push(url);
         });
 
-        escort
-          .save()
-          .then((value) => {
-            res.status(200).json({ message: "Images uploaded successfully" });
-          })
-          .catch((reason) => {
-            res.status(500).json({ message: "Internal server error", reason });
-          });
+        await escort.save();
+        res.status(200).json({ message: "Images uploaded successfully" });
       } catch (error) {
         console.error("Error uploading images:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error });
       }
     } else {
       res.status(404).json({ message: "Bad request: `images` not provided." });
