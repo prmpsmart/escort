@@ -69,15 +69,12 @@ const clientsSchema = new Schema<Client>({
   },
   hairColor: {
     type: String,
-    required: true,
   },
   country: {
     type: String,
-    required: true,
   },
   gender: {
     type: String,
-    required: true,
   },
   images: { type: [String], default: [] },
   createdAt: {

@@ -1,8 +1,16 @@
+const fs = require("fs");
+const path = require("path");
 const axios = require("axios");
+
+// Function to read a file and convert it to base64
+function fileToBase64(filePath) {
+  const fileData = fs.readFileSync(filePath);
+  return fileData.toString("base64");
+}
 
 const host = "http://localhost:3000";
 
-function path(response) {
+function _path(response) {
   let s = response.config.url.split("/");
   return `/${s[s.length - 2]}/${s[s.length - 1]}`;
 }
@@ -17,7 +25,7 @@ async function call(func) {
 
     console.log(
       Date(),
-      `${path(response)} :: ${response.status} :: ${
+      `${_path(response)} :: ${response.status} :: ${
         response.statusText
       } :: ${JSON.stringify(response.data)}\n`
     );
@@ -26,7 +34,7 @@ async function call(func) {
       if (error.response) {
         console.error(
           Date(),
-          `${path(error.response)} :: ${error.response.status} :: ${
+          `${_path(error.response)} :: ${error.response.status} :: ${
             error.response.statusText
           } :: ${JSON.stringify(error.response.data)}\n`
         );
@@ -53,7 +61,7 @@ async function login() {
 
 async function clientSignup() {
   call(
-    axios.post(`${host}/client/signup`, {
+    axios.post(`${host}/client/register`, {
       firstName: "Miracle",
       lastName: "Peter",
       username: "prmpsmarty",
@@ -145,13 +153,37 @@ async function user() {
   );
 }
 
+async function addImage() {
+  // Example: Read 5 image files and send them to the addImage endpoint
+  const imageFilePaths = [
+    "C:/Users/USER/Pictures/Bracelets/2 bracs.jpg",
+    "C:/Users/USER/Pictures/Bracelets/4 bracs.jpg",
+  ];
+
+  const images = imageFilePaths.map((filePath) => ({
+    filename: path.basename(filePath),
+    data: fileToBase64(filePath),
+  }));
+
+  call(
+    axios.post(
+      `${host}/escort/addImage`,
+      { images },
+      {
+        headers: { Authorization: "Bearer 65918d27a5c2c09127c317a0" },
+      }
+    )
+  );
+}
+
 // clientSignup();
 // escortSignup();
 
 async function seq() {
   // await adminLogin();
+  // await escortSignup();
   await login();
-  await escortSignup();
+  setTimeout(addImage, 2000);
   // await escortLogin();
   // setTimeout(userLadyStar, 200);
   // setTimeout(packages, 1000);
