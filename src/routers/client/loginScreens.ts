@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express";
+import admin from "firebase-admin";
 import { Error } from "mongoose";
 import { Clients } from "../../models/clients";
 import { ClientSessions } from "../../services/sessions";
@@ -18,6 +19,7 @@ interface LoginResponse {
   lastName: string;
   username: string;
   email: string;
+  images: string[];
 
   token: string;
   message: string;
@@ -92,11 +94,25 @@ loginRouter.post(
           });
 
           const session = ClientSessions.addSession(client);
+          const storageBucket = admin.storage().bucket();
+          const expirationDate = new Date();
+          expirationDate.setDate(expirationDate.getDate() + 1);
+
+          const images: string[] = [];
+          client.images.forEach(async (image) => {
+            const _image = await storageBucket.file(image).getSignedUrl({
+              action: "read",
+              expires: expirationDate.toISOString(), // Adjust the expiration date as needed
+            });
+            images.push(_image[0]);
+          });
+
           const json: LoginResponse = {
             email: client.email,
             firstName: client.firstName,
             lastName: client.lastName,
             username: client.username,
+            images: client.images,
 
             token: session.id,
             message: "Signup Successful",

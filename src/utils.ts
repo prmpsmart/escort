@@ -52,40 +52,29 @@ export async function uploadMedia(
 ): Promise<string[]> {
   const storageBucket = admin.storage().bucket();
 
-  const uploadPromises: Promise<string>[] = [];
+  const filenames: string[] = [];
 
-  media.forEach((file) => {
+  media.forEach(async (file) => {
     // Generate a unique identifier for each file
     // Create a filename combining the original filename and the unique identifier
-    const newFilename = `${id}_${v4()}_${file.filename}`;
+    const newFilename = `${v4()}---${id}---${file.filename}`;
     const ext = path.extname(newFilename).slice(1);
 
     // Decode base64 file data
     const fileBuffer = Buffer.from(file.data, "base64");
 
     // Upload the file to Firebase Cloud Storage
-    const uploadPromise = storageBucket
-      .file(newFilename)
-      .save(fileBuffer, {
-        metadata: {
-          contentType: `file/${ext}`,
-        },
-      })
-      .then(() => {
-        console.log(`File ${newFilename} uploaded successfully.`);
-        // Get the URL of the uploaded file
-        return storageBucket.file(newFilename).getSignedUrl({
-          action: "read",
-          expires: "03-09-2023", // Adjust the expiration date as needed
-        });
-      })
-      .then((url) => url[0]);
-
-    uploadPromises.push(uploadPromise);
+    await storageBucket.file(newFilename).save(fileBuffer, {
+      metadata: {
+        contentType: `file/${ext}`,
+      },
+    });
+    console.log(`File ${newFilename} uploaded successfully.`);
+    filenames.push(newFilename);
   });
 
   // Wait for all image uploads to complete
-  return await Promise.all(uploadPromises);
+  return filenames;
 }
 
 export function log(...p: any) {

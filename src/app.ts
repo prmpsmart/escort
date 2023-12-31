@@ -19,9 +19,9 @@ const serviceAccount = require("../escorts_storage.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket:
-    "https://console.firebase.google.com/project/escoruts-4607e/storage/escorts-4607e.appspot.com/files",
+  storageBucket: "escorts-4607e.appspot.com",
 });
+// https://storage.googleapis.com/upload/storage/v1/b/escorts-4607e.appspot.com/o?name=65918d27a5c2c09127c317a0_11435bcd-3590-4e68-a2c2-3a2e2ea1366d_4%20bracs.jpg&uploadType=resumable
 
 export const app = express();
 

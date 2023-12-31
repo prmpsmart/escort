@@ -182,8 +182,10 @@ async function addImage() {
 async function seq() {
   // await adminLogin();
   // await escortSignup();
-  await login();
-  setTimeout(addImage, 2000);
+  login().then(async (value) => {
+    await addImage();
+  });
+  // setTimeout(addImage, 2000);
   // await escortLogin();
   // setTimeout(userLadyStar, 200);
   // setTimeout(packages, 1000);
