@@ -57,7 +57,7 @@ export async function uploadMedia(
   for (let index = 0; index < media.length; index++) {
     const file = media[index];
     let newFilename = `${v4()}---${id}---${file.filename}`;
-    newFilename = file.filename;
+    // newFilename = file.filename;
     const ext = path.extname(newFilename).slice(1);
 
     // Decode base64 file data
