@@ -42,17 +42,11 @@ addVideoRouter.post(
           escort.videos.push(url);
         });
 
-        escort
-          .save()
-          .then((value) => {
-            res.status(200).json({ message: "Videos uploaded successfully" });
-          })
-          .catch((reason) => {
-            res.status(500).json({ message: "Internal server error", reason });
-          });
+        await escort.save();
+        res.status(200).json({ message: "Videos uploaded successfully" });
       } catch (error) {
         console.error("Error uploading videos:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: "Internal server error", error });
       }
     } else {
       res.status(404).json({ message: "Bad request: `videos` not provided." });

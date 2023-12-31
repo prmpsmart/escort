@@ -57,7 +57,7 @@ export async function uploadMedia(
   for (let index = 0; index < media.length; index++) {
     const file = media[index];
     let newFilename = `${v4()}---${id}---${file.filename}`;
-    // newFilename = file.filename;
+    newFilename = file.filename;
     const ext = path.extname(newFilename).slice(1);
 
     // Decode base64 file data
@@ -74,6 +74,23 @@ export async function uploadMedia(
   }
 
   return filenames;
+}
+
+export async function getMediaLinks(media: string[]): Promise<string[]> {
+  const mediaLinks: string[] = [];
+  const storageBucket = admin.storage().bucket();
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 3);
+
+  for (let index = 0; index < media.length; index++) {
+    const image = media[index];
+    const _image = await storageBucket.file(image).getSignedUrl({
+      action: "read",
+      expires: expirationDate.toISOString(), // Adjust the expiration date as needed
+    });
+    mediaLinks.push(_image[0]);
+  }
+  return mediaLinks;
 }
 
 export function log(...p: any) {

@@ -1,6 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
 import { Escort } from "../../models/escorts";
+import { getMediaLinks } from "../../utils";
 
 export const viewGalleryRouter = Router();
 
@@ -9,8 +10,10 @@ interface ViewGalleryResponse {
   videos: string[];
 }
 
-viewGalleryRouter.get("/viewGallery", (req: AuthRequest, res: Response) => {
-  /**
+viewGalleryRouter.get(
+  "/viewGallery",
+  async (req: AuthRequest, res: Response) => {
+    /**
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/ViewGalleryResponse' }
     }
@@ -22,11 +25,12 @@ viewGalleryRouter.get("/viewGallery", (req: AuthRequest, res: Response) => {
     }
     */
 
-  const escort = req.session?.user as Escort;
+    const escort = req.session?.user as Escort;
 
-  const json: ViewGalleryResponse = {
-    images: escort.images,
-    videos: escort.videos,
-  };
-  res.status(200).json(json);
-});
+    const json: ViewGalleryResponse = {
+      images: await getMediaLinks(escort.images),
+      videos: await getMediaLinks(escort.videos),
+    };
+    res.status(200).json(json);
+  }
+);
