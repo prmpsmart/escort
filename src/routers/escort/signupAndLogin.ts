@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
 import { Escorts, IEscort } from "../../models/escorts";
-import { EscortSessions } from "../../services/sessions";
+import { Sessions, UserType } from "../../services/sessions";
 import { getUser } from "../../utils";
 
 export const signupAndLoginRouter = Router();
@@ -59,7 +59,7 @@ signupAndLoginRouter.post(
           password: req.body.password,
         });
 
-        const session = EscortSessions.addSession(escort);
+        const session = Sessions.addSession(escort, UserType.Escort);
 
         const json: LoginResponse = {
           workingName: escort.workingName,

@@ -1,6 +1,6 @@
 import { Response, Router } from "express";
 import { Admins } from "../../models/admin";
-import { AdminSessions } from "../../services/sessions";
+import { Sessions, UserType } from "../../services/sessions";
 import { User, dbError } from "../../utils";
 import { LoginRequest } from "../client/loginScreens";
 
@@ -51,7 +51,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
       ],
     }).then((admin) => {
       if (admin) {
-        const session = AdminSessions.addSession(admin);
+        const session = Sessions.addSession(admin, UserType.Admin);
         if (admin.password == req.body.password) {
           const json: LoginResponse = {
             id: admin.id,

@@ -1,15 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import {
-  AdminSessions,
-  ClientSessions,
-  EscortSessions,
-  Session,
-  Sessions,
-} from "../services/sessions";
+import { Session, Sessions, UserType } from "../services/sessions";
 
 // Extend the Request interface to include the 'token' property
 export interface AuthRequest extends Request {
-  token?: string;
   session?: Session;
 }
 
@@ -18,7 +11,7 @@ export const checkToken = (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
-  sessions: Sessions
+  userType: UserType
 ) => {
   // Get the Authorization header
   const authHeader = req.headers["authorization"];
@@ -32,11 +25,9 @@ export const checkToken = (
   }
 
   // Attach the token to the request for further processing, e.g., authentication
-  if (token && sessions.sessionsIds.has(token)) {
-    req.token = token;
-    req.session = sessions.getSessionByID(token);
-    // Call the next middleware or route handler
-    return next();
+  if (token && Sessions.sessionsIds.has(token)) {
+    req.session = Sessions.getSessionByID(token) as Session;
+    if (req.session?.userType == userType) return next();
   }
 
   // If no Bearer token is found, return an unauthorized response
@@ -50,7 +41,7 @@ export const checkClientToken = (
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, ClientSessions);
+  return checkToken(req, res, next, UserType.Client);
 };
 
 export const checkEscortToken = (
@@ -58,7 +49,7 @@ export const checkEscortToken = (
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, EscortSessions);
+  return checkToken(req, res, next, UserType.Escort);
 };
 
 export const checkAdminToken = (
@@ -66,5 +57,5 @@ export const checkAdminToken = (
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, AdminSessions);
+  return checkToken(req, res, next, UserType.Admin);
 };

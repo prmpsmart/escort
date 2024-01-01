@@ -10,7 +10,7 @@ import swaggerUi from "swagger-ui-express";
 import { Client } from "./models/clients";
 import { Escort } from "./models/escorts";
 import { routers } from "./routers/index";
-import { ClientSessions, EscortSessions, Session } from "./services/sessions";
+import { Session, Sessions } from "./services/sessions";
 import swaggerOutput from "./swaggerOutput.json";
 
 dotenv.config();
@@ -34,16 +34,12 @@ io.on("connection", (socket) => {
   if (token) {
     console.log(`User connected with token: ${token}`);
 
-    let isEscort = false;
-    let session: Session | undefined = EscortSessions.getSessionByID(token);
-    if (session) {
-      isEscort = true;
-    } else {
-      session = ClientSessions.getSessionByID(token);
-    }
+    let session: Session | undefined = Sessions.getSessionByID(token);
 
     if (session) {
-      let user = isEscort ? (session.user as Escort) : (session.user as Client);
+      let user = session.isEscort
+        ? (session.user as Escort)
+        : (session.user as Client);
 
       user.lastSeen = Date.now();
       user.save();

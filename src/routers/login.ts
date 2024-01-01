@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { Client } from "../models/clients";
 import { Escort } from "../models/escorts";
-import { ClientSessions, EscortSessions, Session } from "../services/sessions";
+import { Sessions, UserType } from "../services/sessions";
 import { getMediaLinks, getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
 
@@ -54,17 +54,27 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
       message: `Bad request:: ${invalidRequestMessage}`,
     });
   } else {
-    const user: Client | Escort | null = await getUser(req.body.usernameEmail);
+    let session = Sessions.getSessionByEmail(req.body.usernameEmail);
+
+    let user;
+
+    if (session) {
+      user = session.user;
+    } else {
+      user = await getUser(req.body.usernameEmail);
+    }
 
     if (user) {
       if (user.password == req.body.password) {
-        let session: Session;
+        session = Sessions.addSession(
+          user,
+          user.workingName != undefined ? UserType.Escort : UserType.Client
+        );
         let profile;
         const escort = user as Escort;
         const client = user as Client;
 
         if (escort.workingName) {
-          session = EscortSessions.addSession(user);
           profile = {
             id: escort.id,
             workingName: escort.workingName,
@@ -83,8 +93,6 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
             images: escort.images,
             videos: escort.videos,
           };
-        } else {
-          session = ClientSessions.addSession(user);
         }
 
         const json = {
