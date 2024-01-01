@@ -94,7 +94,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
 
           workingName: escort.workingName,
           email: user.email,
-          images: getMediaLinks(client.images),
+          images: await getMediaLinks(client.images),
 
           token: session.id,
           message: "Login Successful",

@@ -167,7 +167,7 @@ async function addImage() {
       `${host}/escort/addImage`,
       { images },
       {
-        headers: { Authorization: "Bearer 6591b225899228bd175a0731" },
+        headers: { Authorization: "Bearer 6591b08e5a2a0208d1544520" },
       }
     )
   );
@@ -184,10 +184,10 @@ async function seq() {
   //   userLadyStar();
   // });
 
-  escortSignup().then((v) => {
-    escortLogin().then((v) => {
-      // addImage();
-    });
+  // escortSignup().then((v) => {
+  escortLogin().then((v) => {
+    // addImage();
+    // });
   });
 
   // setTimeout(addImage, 2000);

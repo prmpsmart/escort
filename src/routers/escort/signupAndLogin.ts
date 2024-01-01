@@ -60,6 +60,7 @@ signupAndLoginRouter.post(
         });
 
         const session = EscortSessions.addSession(escort);
+
         const json: LoginResponse = {
           workingName: escort.workingName,
           email: escort.email,
