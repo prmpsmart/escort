@@ -1,5 +1,5 @@
 import express from "express";
-import { checkClientToken, checkToken } from "../../middleware/checkToken";
+import { checkClientToken } from "../../middleware/checkToken";
 import { advertRouter } from "./advert";
 import { contactUsRouter } from "./contactUs";
 import { homeRouter } from "./homeScreen";
@@ -8,7 +8,6 @@ import { paymentRouter } from "./payment";
 import { settingsRouter } from "./settings";
 import { singleEscortRouter } from "./singleEscort";
 import { upgradeProRouter } from "./uploadProfileImage";
-import { userLadyStarRouter } from "./userLadyStar";
 
 export const clientRouter = express.Router();
 
@@ -75,13 +74,5 @@ clientRouter.use(
   settingsRouter
   /**
     #swagger.tags = ['Settings']
-  */
-);
-
-clientRouter.use(
-  "/",
-  userLadyStarRouter
-  /**
-    #swagger.tags = ['User Ladystar']
   */
 );

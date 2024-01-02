@@ -11,7 +11,7 @@ export const checkToken = (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
-  userType: UserType
+  userType?: UserType
 ) => {
   // Get the Authorization header
   const authHeader = req.headers["authorization"];
@@ -27,7 +27,11 @@ export const checkToken = (
   // Attach the token to the request for further processing, e.g., authentication
   if (token && Sessions.sessionsIds.has(token)) {
     req.session = Sessions.getSessionByID(token) as Session;
-    if (req.session?.userType == userType) return next();
+    if (userType) {
+      if (req.session?.userType == userType) return next();
+    } else {
+      next();
+    }
   }
 
   // If no Bearer token is found, return an unauthorized response

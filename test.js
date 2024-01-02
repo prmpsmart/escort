@@ -60,9 +60,11 @@ async function clientLogin() {
 async function escortLogin() {
   call(
     axios.post(`${host}/login`, {
-      usernameEmail: "escort1",
+      // usernameEmail: "escort1",
+      usernameEmail: "nana@yahoo.com",
       // usernameEmail: "escort1@gmail.com",
-      password: "762590",
+      // password: "762590",
+      password: "12345678",
       isEscort: true,
     })
   );
@@ -100,7 +102,7 @@ async function escortSignup() {
   );
 }
 
-async function userLadyStar() {
+async function ladiesStar() {
   call(
     axios.post(
       `${host}/client/ladiesStars`,
@@ -181,7 +183,7 @@ async function seq() {
 
   // clientLogin().then(async (value) => {
   //   await addImage();
-  //   userLadyStar();
+  //   ladiesStar();
   // });
 
   // escortSignup().then((v) => {

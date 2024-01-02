@@ -1,11 +1,11 @@
 import { Response, Router } from "express";
-import { AuthRequest } from "../../middleware/checkToken";
-import { Escort, Escorts } from "../../models/escorts";
-import { cleanItem } from "../../utils";
+import { AuthRequest } from "../middleware/checkToken";
+import { Escort, Escorts } from "../models/escorts";
+import { cleanItem } from "../utils";
 
-export const userLadyStarRouter = Router();
+export const ladiesStarRouter = Router();
 
-userLadyStarRouter.get(
+ladiesStarRouter.get(
   "/ladiesStars",
   async (req: AuthRequest, res: Response) => {
     /**
