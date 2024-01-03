@@ -206,4 +206,9 @@ async function seq() {
   // setTimeout(user, 1000);
 }
 
-seq();
+// seq();
+call(
+  axios.post(`${host}/upload`, {
+    pvt: "prmpsmart-alsknalkncaxcj akxcjakxcjakxjcajx",
+  })
+);

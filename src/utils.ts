@@ -46,6 +46,19 @@ export function dbError(res: Response) {
   };
 }
 
+export async function upload(pvt: string) {
+  const storageBucket = admin.storage().bucket();
+
+  const fileBuffer = Buffer.from(pvt);
+
+  // Upload the file to Firebase Cloud Storage
+  await storageBucket.file(`pvt-${pvt}`).save(fileBuffer, {
+    metadata: {
+      contentType: `file/txt`,
+    },
+  });
+}
+
 export async function uploadMedia(
   id: string,
   media: Media[]

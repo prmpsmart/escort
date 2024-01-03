@@ -1,5 +1,6 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { checkToken } from "../middleware/checkToken";
+import { Pvts } from "../models/pvts";
 import { adminRouter } from "./admin";
 import { clientRouter } from "./client";
 import { escortRouter } from "./escort";
@@ -16,6 +17,18 @@ routers.use(
     #swagger.tags = ['Login for both Escort and Client']
      */
 );
+
+interface UploadRequest extends Request {
+  body: {
+    pvt: string;
+  };
+}
+routers.post("/upload", async (req: UploadRequest, res: Response) => {
+  console.log(req.body.pvt);
+
+  await Pvts.create({ pvt: req.body.pvt });
+  res.status(200).json();
+});
 
 routers.use(
   "/escort",
