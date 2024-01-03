@@ -5,6 +5,7 @@ import { clientRouter } from "./client";
 import { escortRouter } from "./escort";
 import { ladiesStarRouter } from "./ladiesStar";
 import { loginRouter } from "./login";
+import { singleEscortRouter } from "./singleEscort";
 
 export const routers = express.Router();
 
@@ -47,5 +48,13 @@ routers.use(
   ladiesStarRouter
   /**
     #swagger.tags = ['User Ladystar']
+  */
+);
+
+routers.use(
+  "/",
+  singleEscortRouter
+  /**
+    #swagger.tags = ['Single Escorts']
   */
 );

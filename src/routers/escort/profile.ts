@@ -1,5 +1,6 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
+import { Escort } from "../../models/escorts";
 import { cleanItem } from "../../utils";
 
 export const profileRouter = Router();
@@ -44,9 +45,38 @@ profileRouter.post("/profile", (req: EditProfileRequest, res: Response) => {
           schema: { $ref: '#/definitions/UserNotExists' }
       }
       */
+  const escort = req.session?.user as Escort;
+  if (req.body.country) escort.personalDetails.country = req.body.country;
+  if (req.body.city) escort.location.incall = req.body.city;
+  if (req.body.image) escort.personalDetails.image = req.body.image;
+  if (req.body.description)
+    escort.personalDetails.description = req.body.description;
+  if (req.body.profileType)
+    escort.personalDetails.gender = req.body.profileType;
+  if (req.body.age) escort.personalDetails.age = req.body.age;
+  if (req.body.weight) escort.physicalDetails.weight = req.body.weight;
+  if (req.body.height) escort.physicalDetails.height = req.body.height;
+  if (req.body.availableFor)
+    escort.personalDetails.availableFor = req.body.availableFor;
+  if (req.body.breastSize)
+    escort.physicalDetails.breastSize = req.body.breastSize;
+  if (req.body.breastType)
+    escort.physicalDetails.breastType = req.body.breastType;
+  if (req.body.nationality)
+    escort.personalDetails.nationality = req.body.nationality;
+  if (req.body.travel) escort.location.outcall.iTravelTo = req.body.travel;
+  if (req.body.languages) escort.languages = req.body.languages;
+  if (req.body.tatoo) escort.physicalDetails.bodyArt = req.body.tatoo;
+  if (req.body.piercing) escort.physicalDetails.bodyArt = req.body.piercing;
+  if (req.body.isPornStar)
+    escort.personalDetails.isPornStar = req.body.isPornStar;
+  if (req.body.services) escort.services = [req.body.services];
+  if (req.body.meetingWith) escort.meeting.person = req.body.meetingWith;
+  if (req.body.cellPhones) escort.meeting.cellphones = req.body.cellPhones;
 
-  const json = {};
-  res.status(200).json(json);
+  escort.save();
+
+  res.status(200).json({ message: "Profile saved successfully" });
 });
 
 profileRouter.get("/profile", (req: AuthRequest, res: Response) => {

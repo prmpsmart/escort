@@ -6,6 +6,12 @@ interface PersonalDetails {
   sexuality: string;
   age: number;
   nationality: string;
+  country: string;
+  modelName: string;
+  image: string;
+  description: string;
+  availableFor: string;
+  isPornStar: boolean;
 }
 
 interface PhysicalDetails {
@@ -20,8 +26,11 @@ interface PhysicalDetails {
   genetalia: string;
   cupSize: string;
   breastImplant: string;
+  breastSize: number;
+  breastType: string;
   bodyType: string;
   bodyArt: string;
+  piercing: string;
 }
 
 interface Location {
@@ -54,6 +63,10 @@ interface Availability {
   saturday: boolean;
   sunday: boolean;
 }
+interface Meeting {
+  person: string;
+  cellphones: string[];
+}
 
 export interface IEscort extends User {
   workingName: string;
@@ -66,6 +79,7 @@ export interface IEscort extends User {
   location: Location;
   price: Price;
   availability: Availability;
+  meeting: Meeting;
   services: string[];
   images: string[];
   videos: string[];
@@ -92,6 +106,12 @@ const escortSchema = new Schema<Escort>({
       sexuality: String,
       age: Number,
       nationality: String,
+      country: String,
+      modelName: String,
+      image: String,
+      description: String,
+      availableFor: String,
+      isPornStar: Boolean,
     },
   },
   physicalDetails: {
@@ -107,8 +127,11 @@ const escortSchema = new Schema<Escort>({
       genetalia: String,
       cupSize: String,
       breastImplant: String,
+      breastSize: Number,
+      breastType: String,
       bodyType: String,
       bodyArt: String,
+      piercing: String,
     },
   },
   languages: { type: [String], default: [] },
@@ -151,6 +174,12 @@ const escortSchema = new Schema<Escort>({
       friday: Boolean,
       saturday: Boolean,
       sunday: Boolean,
+    },
+  },
+  meeting: {
+    type: {
+      person: String,
+      cellphones: [String],
     },
   },
   services: { type: [String], default: [] },

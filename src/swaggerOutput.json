@@ -912,71 +912,6 @@
         }
       }
     },
-    "/client/userProfile/{id}": {
-      "get": {
-        "tags": [
-          "Single Escorts"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EscortProfile"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/EscortProfile"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/client/payment": {
       "post": {
         "tags": [
@@ -1949,6 +1884,71 @@
               "application/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/EscortsProfilesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/userProfile/{id}": {
+      "get": {
+        "tags": [
+          "Single Escorts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortProfile"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortProfile"
                 }
               }
             }
@@ -3163,6 +3163,30 @@
                   "nationality": {
                     "type": "string",
                     "example": "string"
+                  },
+                  "country": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "modelName": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "image": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "availableFor": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "isPornStar": {
+                    "type": "string",
+                    "example": "boolean"
                   }
                 }
               },
@@ -3213,11 +3237,23 @@
                     "type": "string",
                     "example": "string"
                   },
+                  "breastSize": {
+                    "type": "string",
+                    "example": "number"
+                  },
+                  "breastType": {
+                    "type": "string",
+                    "example": "string"
+                  },
                   "bodyType": {
                     "type": "string",
                     "example": "string"
                   },
                   "bodyArt": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "piercing": {
                     "type": "string",
                     "example": "string"
                   }
@@ -3332,6 +3368,24 @@
                   "dunurday": {
                     "type": "string",
                     "example": "boolean"
+                  }
+                }
+              },
+              "meeting": {
+                "type": "object",
+                "properties": {
+                  "person": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "cellPhones": {
+                    "type": "array",
+                    "example": [
+                      "string"
+                    ],
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               },

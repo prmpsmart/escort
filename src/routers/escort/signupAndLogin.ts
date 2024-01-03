@@ -84,6 +84,7 @@ signupAndLoginRouter.post(
             services: escort.services,
             images: escort.images,
             videos: escort.videos,
+            meeting: escort.meeting,
           },
         };
 

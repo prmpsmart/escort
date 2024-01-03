@@ -6,7 +6,6 @@ import { homeRouter } from "./homeScreen";
 import { loginRouter } from "./loginScreens";
 import { paymentRouter } from "./payment";
 import { settingsRouter } from "./settings";
-import { singleEscortRouter } from "./singleEscort";
 import { upgradeProRouter } from "./uploadProfileImage";
 
 export const clientRouter = express.Router();
@@ -34,14 +33,6 @@ clientRouter.use(
   upgradeProRouter
   /**
     #swagger.tags = ['Upload Profile Image']
-  */
-);
-
-clientRouter.use(
-  "/",
-  singleEscortRouter
-  /**
-    #swagger.tags = ['Single Escorts']
   */
 );
 

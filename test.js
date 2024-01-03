@@ -36,7 +36,7 @@ async function call(func) {
           Date(),
           `${_path(error.response)} :: ${error.response.status} :: ${
             error.response.statusText
-          } :: ${JSON.stringify(error.response.data)}\n`
+          } :: ${JSON.stringify(error.response.data)}\n\n`
         );
       } else {
         // console.log(error);
@@ -175,6 +175,14 @@ async function addImage() {
   );
 }
 
+async function escortProfile() {
+  call(
+    axios.get(`${host}/escort/profile`, {
+      headers: { Authorization: "Bearer 658d97609b33e98dd870d760" },
+    })
+  );
+}
+
 // clientSignup();
 // escortSignup();
 
@@ -190,6 +198,7 @@ async function seq() {
   escortLogin().then((v) => {
     // addImage();
     // });
+    escortProfile();
   });
 
   // setTimeout(addImage, 2000);

@@ -74,6 +74,8 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
         const escort = user as Escort;
         const client = user as Client;
 
+        let images = await getMediaLinks(client.images);
+
         if (escort.workingName) {
           profile = {
             id: escort.id,
@@ -90,8 +92,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
             price: escort.price,
             availability: escort.availability,
             services: escort.services,
-            images: escort.images,
-            videos: escort.videos,
+            videos: await getMediaLinks(escort.videos),
           };
         }
 
@@ -102,7 +103,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
 
           workingName: escort.workingName,
           email: user.email,
-          images: await getMediaLinks(client.images),
+          images,
 
           token: session.id,
           message: "Login Successful",

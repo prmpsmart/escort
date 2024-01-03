@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { Escorts } from "../../models/escorts";
-import { cleanItem, objectId } from "../../utils";
+import { Escorts } from "../models/escorts";
+import { cleanItem, objectId } from "../utils";
 
 export const singleEscortRouter = Router();
 
