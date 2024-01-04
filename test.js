@@ -95,9 +95,9 @@ async function adminLogin() {
 async function escortSignup() {
   call(
     axios.post(`${host}/escort/signup`, {
-      workingName: "escort1",
-      email: "escort1@gmail.com",
-      password: "762590",
+      workingName: "nana",
+      email: "nana@yahoo.com",
+      password: "12345678",
     })
   );
 }
@@ -176,13 +176,42 @@ async function addImage() {
 }
 
 async function escortProfile() {
+  const profile = {
+    modelName: "Alice",
+    country: "United States",
+    city: "New York",
+    image: "alice.jpg",
+    description: "Experienced model with a passion for fashion.",
+    profileType: "Fashion",
+    age: 25,
+    weight: 130,
+    height: 5.8,
+    availableFor: "Photo shoots, Runway, Events",
+    breastSize: 34,
+    breastType: "Natural",
+    nationality: "American",
+    travel: "Available for travel",
+    languages: ["English", "Spanish"],
+    tatoo: "No",
+    piercing: "No",
+    isPornStar: false,
+    services: "Modeling, Fashion Consultation",
+    meetingWith: "Clients, Designers",
+    cellPhones: ["123-456-7890", "987-654-3210"],
+  };
+
   call(
-    axios.get(`${host}/escort/profile`, {
-      headers: { Authorization: "Bearer 658d97609b33e98dd870d760" },
+    axios.post(`${host}/escort/profile/`, profile, {
+      headers: {
+        Authorization: "Bearer 659673319ef181c2a6588a95",
+        // "content-type": "application/json",
+      },
     })
+    // axios.get(`${host}/escort/profile`, {
+    //   headers: { Authorization: "Bearer 659673319ef181c2a6588a95" },
+    // })
   );
 }
-
 // clientSignup();
 // escortSignup();
 
@@ -194,12 +223,13 @@ async function seq() {
   //   ladiesStar();
   // });
 
-  // escortSignup().then((v) => {
-  escortLogin().then((v) => {
-    // addImage();
-    // });
-    escortProfile();
-  });
+  escortSignup().then((v) => {
+    // escortLogin().then((v) => {
+      // addImage();
+      // setTimeout(escortProfile, 500);
+    });
+  // });
+  // setTimeout(escortProfile, 500);
 
   // setTimeout(addImage, 2000);
   // setTimeout(packages, 1000);

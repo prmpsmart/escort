@@ -38,13 +38,6 @@ const messagesSchema = new Schema<Report>({
   },
 });
 
-messagesSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 const Reports = model<Report>("Reports", messagesSchema);
 
 export default Reports;

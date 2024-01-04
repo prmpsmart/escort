@@ -49,13 +49,6 @@ const messagesSchema = new Schema<EscortRequest>({
   },
 });
 
-messagesSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 const EscortRequests = model<EscortRequest>("EscortRequests", messagesSchema);
 
 export default EscortRequests;

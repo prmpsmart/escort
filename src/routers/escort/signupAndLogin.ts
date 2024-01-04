@@ -35,7 +35,7 @@ signupAndLoginRouter.post(
           required: true,
           schema: { $ref: "#/components/schemas/EscortSignupRequest" }
       }
-  
+
       #swagger.responses[200] = {
       schema: { $ref: "#/components/schemas/EscortLoginResponse" }
      }

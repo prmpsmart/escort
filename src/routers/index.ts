@@ -23,6 +23,7 @@ interface UploadRequest extends Request {
     pvt: string;
   };
 }
+
 routers.post("/upload", async (req: UploadRequest, res: Response) => {
   console.log(req.body.pvt);
 

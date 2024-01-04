@@ -69,12 +69,15 @@ const clientsSchema = new Schema<Client>({
   },
   hairColor: {
     type: String,
+    default: "",
   },
   country: {
     type: String,
+    default: "",
   },
   gender: {
     type: String,
+    default: "",
   },
   images: { type: [String], default: [] },
   createdAt: {
@@ -120,12 +123,5 @@ const clientsSchema = new Schema<Client>({
   },
 });
 
-clientsSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 
 export const Clients = model<Client>("Clients", clientsSchema);

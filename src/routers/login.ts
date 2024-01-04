@@ -2,7 +2,7 @@ import { Response, Router } from "express";
 import { Client } from "../models/clients";
 import { Escort } from "../models/escorts";
 import { Sessions, UserType } from "../services/sessions";
-import { getMediaLinks, getUser } from "../utils";
+import { clean, cleanObject, getMediaLinks, getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
 
 export const loginRouter = Router();
@@ -29,7 +29,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
        required: true,
        schema: { $ref: "#/components/schemas/LoginRequest" }
       }
-  
+
     #swagger.responses[200] = {
       schema:  { $ref: "#/components/schemas/EscortLoginResponse" }
      }
@@ -74,29 +74,32 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
         const escort = user as Escort;
         const client = user as Client;
 
+        escort.services = ["io", "po"];
+
         let images = await getMediaLinks(client.images);
 
         if (escort.workingName) {
           profile = {
-            id: escort.id,
             workingName: escort.workingName,
             email: escort.email,
             verifiedPhone: escort.verifiedPhone,
             verifiedEmail: escort.verifiedEmail,
             createdAt: escort.createdAt,
-            personalDetails: escort.personalDetails,
-            physicalDetails: escort.physicalDetails,
+            personalDetails: cleanObject(escort.personalDetails),
+            physicalDetails: cleanObject(escort.physicalDetails),
             languages: escort.languages,
             bookingNotes: escort.bookingNotes,
-            location: escort.location,
-            price: escort.price,
-            availability: escort.availability,
+            location: cleanObject(escort.location),
+            price: cleanObject(escort.price, true),
+            availability: cleanObject(escort.availability, true),
+            // meeting: cleanObject(escort.meeting),
             services: escort.services,
             videos: await getMediaLinks(escort.videos),
           };
         }
 
         const json = {
+          id: user.id,
           firstName: client.firstName,
           lastName: client.lastName,
           username: client.username,
@@ -110,7 +113,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           profile: profile,
         };
 
-        return res.status(200).send(JSON.stringify(json));
+        return res.status(200).json(json);
       } else {
         return res.status(406).json({
           message: "Invalid credentials",

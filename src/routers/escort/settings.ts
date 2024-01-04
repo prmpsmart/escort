@@ -13,7 +13,7 @@ interface ProfileRequest extends Request {
   };
 }
 
-settingsRouter.post("/profile", (req: ProfileRequest, res: Response) => {
+settingsRouter.patch("/profile", (req: ProfileRequest, res: Response) => {
   /**
       #swagger.requestBody = {
       required: true,

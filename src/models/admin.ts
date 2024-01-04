@@ -37,12 +37,5 @@ const adminSchema = new Schema<Admin>({
   },
 });
 
-adminSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 
 export const Admins = model<Admin>("Admins", adminSchema);

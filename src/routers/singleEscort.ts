@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Escorts } from "../models/escorts";
-import { cleanItem, objectId } from "../utils";
+import { clean, objectId } from "../utils";
 
 export const singleEscortRouter = Router();
 
@@ -27,7 +27,7 @@ singleEscortRouter.get(
 
     const escort = await Escorts.findOne({ _id: objectId(req.params.id) });
     if (escort) {
-      res.status(200).send(JSON.stringify({ escort: cleanItem(escort) }));
+      res.status(200).send({ escort: clean(escort) });
     } else res.status(404).json({ message: "Escort not found" });
   }
 );

@@ -1,6 +1,6 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
-import { Escort, IEscort } from "../../models/escorts";
+import { Escort, Escorts, IEscort } from "../../models/escorts";
 
 export const profileRouter = Router();
 
@@ -45,33 +45,67 @@ profileRouter.post("/profile", (req: EditProfileRequest, res: Response) => {
       }
       */
   const escort = req.session?.user as Escort;
-  if (req.body.country) escort.personalDetails.country = req.body.country;
-  if (req.body.city) escort.location.incall = req.body.city;
-  if (req.body.image) escort.personalDetails.image = req.body.image;
-  if (req.body.description)
+
+  if (req.body.country != undefined) {
+    escort.personalDetails.country = req.body.country;
+  }
+  if (req.body.city != undefined) {
+    escort.location.incall = req.body.city;
+  }
+  if (req.body.image != undefined) {
+    escort.personalDetails.image = req.body.image;
+  }
+  if (req.body.description != undefined) {
     escort.personalDetails.description = req.body.description;
-  if (req.body.profileType)
+  }
+  if (req.body.profileType != undefined) {
     escort.personalDetails.gender = req.body.profileType;
-  if (req.body.age) escort.personalDetails.age = req.body.age;
-  if (req.body.weight) escort.physicalDetails.weight = req.body.weight;
-  if (req.body.height) escort.physicalDetails.height = req.body.height;
-  if (req.body.availableFor)
+  }
+  if (req.body.age != undefined) {
+    escort.personalDetails.age = req.body.age;
+  }
+  if (req.body.weight != undefined) {
+    escort.physicalDetails.weight = req.body.weight;
+  }
+  if (req.body.height != undefined) {
+    escort.physicalDetails.height = req.body.height;
+  }
+  if (req.body.availableFor != undefined) {
     escort.personalDetails.availableFor = req.body.availableFor;
-  if (req.body.breastSize)
+  }
+  if (req.body.breastSize != undefined) {
     escort.physicalDetails.breastSize = req.body.breastSize;
-  if (req.body.breastType)
+  }
+  if (req.body.breastType != undefined) {
     escort.physicalDetails.breastType = req.body.breastType;
-  if (req.body.nationality)
+  }
+  if (req.body.nationality != undefined) {
     escort.personalDetails.nationality = req.body.nationality;
-  if (req.body.travel) escort.location.outcall.iTravelTo = req.body.travel;
-  if (req.body.languages) escort.languages = req.body.languages;
-  if (req.body.tatoo) escort.physicalDetails.bodyArt = req.body.tatoo;
-  if (req.body.piercing) escort.physicalDetails.bodyArt = req.body.piercing;
-  if (req.body.isPornStar)
+  }
+  if (req.body.travel != undefined) {
+    escort.location.outcall.iTravelTo = req.body.travel;
+  }
+  if (req.body.languages != undefined) {
+    escort.languages = req.body.languages;
+  }
+  if (req.body.tatoo != undefined) {
+    escort.physicalDetails.bodyArt = req.body.tatoo;
+  }
+  if (req.body.piercing != undefined) {
+    escort.physicalDetails.bodyArt = req.body.piercing;
+  }
+  if (req.body.isPornStar != undefined) {
     escort.personalDetails.isPornStar = req.body.isPornStar;
-  if (req.body.services) escort.services = [req.body.services];
-  if (req.body.meetingWith) escort.meeting.person = req.body.meetingWith;
-  if (req.body.cellPhones) escort.meeting.cellphones = req.body.cellPhones;
+  }
+  if (req.body.services != undefined) {
+    escort.services = [req.body.services];
+  }
+  if (req.body.meetingWith != undefined) {
+    escort.meeting.person = req.body.meetingWith;
+  }
+  if (req.body.cellPhones != undefined) {
+    escort.meeting.cellphones = req.body.cellPhones;
+  }
 
   escort.save();
 
@@ -136,6 +170,7 @@ profileRouter.get("/profile", (req: AuthRequest, res: Response) => {
       },
     },
     price: {
+      h: "",
       incall: {
         hour1: escort.price.incall.hour1,
         hour2: escort.price.incall.hour2,

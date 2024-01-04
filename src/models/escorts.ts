@@ -14,6 +14,19 @@ interface PersonalDetails {
   isPornStar: boolean;
 }
 
+const defaultPersonalDetails: PersonalDetails = {
+  gender: "",
+  sexuality: "",
+  age: 0,
+  nationality: "",
+  country: "",
+  modelName: "",
+  image: "",
+  description: "",
+  availableFor: "",
+  isPornStar: false,
+};
+
 interface PhysicalDetails {
   chest: string;
   waist: string;
@@ -33,6 +46,25 @@ interface PhysicalDetails {
   piercing: string;
 }
 
+const defaultPhysicalDetails: PhysicalDetails = {
+  chest: "",
+  waist: "",
+  hips: "",
+  ethnicity: "",
+  hairColour: "",
+  height: 0,
+  weight: 0,
+  eyeColour: "",
+  genetalia: "",
+  cupSize: "",
+  breastImplant: "",
+  breastSize: 0,
+  breastType: "",
+  bodyType: "",
+  bodyArt: "",
+  piercing: "",
+};
+
 interface Location {
   incall: string;
   outcall: {
@@ -41,18 +73,32 @@ interface Location {
   };
 }
 
-interface Price {
-  incall: {
-    hour1: number;
-    hour2: number;
-    hour3: number;
-  };
+const defaultLocation: Location = {
+  incall: "",
   outcall: {
-    hour1: number;
-    hour2: number;
-    hour3: number;
-  };
+    location: "",
+    iTravelTo: "",
+  },
+};
+interface CallPrice {
+  hour1: number;
+  hour2: number;
+  hour3: number;
 }
+const defaultCallPrice: CallPrice = {
+  hour1: 0,
+  hour2: 0,
+  hour3: 0,
+};
+interface Price {
+  incall: CallPrice;
+  outcall: CallPrice;
+}
+
+const defaultPrice: Price = {
+  incall: defaultCallPrice,
+  outcall: defaultCallPrice,
+};
 
 interface Availability {
   monday: boolean;
@@ -63,10 +109,25 @@ interface Availability {
   saturday: boolean;
   sunday: boolean;
 }
+
+const defaultAvailability: Availability = {
+  monday: false,
+  tueday: false,
+  wednesday: false,
+  thurday: false,
+  friday: false,
+  saturday: false,
+  sunday: false,
+};
 interface Meeting {
   person: string;
   cellphones: string[];
 }
+
+const defaultMeeting: Meeting = {
+  person: "",
+  cellphones: [],
+};
 
 export interface IEscort extends User {
   workingName: string;
@@ -113,6 +174,7 @@ const escortSchema = new Schema<Escort>({
       availableFor: String,
       isPornStar: Boolean,
     },
+    default: defaultPersonalDetails,
   },
   physicalDetails: {
     type: {
@@ -133,6 +195,7 @@ const escortSchema = new Schema<Escort>({
       bodyArt: String,
       piercing: String,
     },
+    default: defaultPhysicalDetails,
   },
   languages: { type: [String], default: [] },
   bookingNotes: { type: [String], default: [] },
@@ -146,6 +209,7 @@ const escortSchema = new Schema<Escort>({
         },
       },
     },
+    default: defaultLocation,
   },
   price: {
     type: {
@@ -155,6 +219,7 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
+        // default: defaultCallPrice,
       },
       outcall: {
         type: {
@@ -162,8 +227,10 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
+        // default: defaultCallPrice,
       },
     },
+    dafault: defaultPrice,
   },
   availability: {
     type: {
@@ -175,24 +242,19 @@ const escortSchema = new Schema<Escort>({
       saturday: Boolean,
       sunday: Boolean,
     },
+    dafault: defaultAvailability,
   },
   meeting: {
     type: {
       person: String,
       cellphones: [String],
     },
+    default: defaultMeeting,
   },
   services: { type: [String], default: [] },
   images: { type: [String], default: [] },
   videos: { type: [String], default: [] },
 });
 
-escortSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 
 export const Escorts = model<Escort>("Escorts", escortSchema);

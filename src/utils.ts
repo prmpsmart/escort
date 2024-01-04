@@ -110,11 +110,17 @@ export function log(...p: any) {
   console.log(...p);
 }
 
-export function cleanItem(item: any): any {
-  let obj = item.toObject();
-  obj.id = obj._id;
-  delete obj.password;
-  delete obj._id;
-  delete obj.__v;
-  return obj;
+
+export function clean(object: any): string {
+  return JSON.stringify(object, (key, value) => {
+    if (key === "_id" || key === "password" || key === "__v") return;
+    return value;
+  });
+}
+
+export function cleanObject(object: any, log: boolean = false): any {
+  const obj = clean(object);
+  if (log) console.log(object, obj);
+
+  return JSON.parse(obj);
 }

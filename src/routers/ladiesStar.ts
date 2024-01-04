@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
 import { Escort, Escorts } from "../models/escorts";
-import { cleanItem } from "../utils";
+import { clean } from "../utils";
 
 export const ladiesStarRouter = Router();
 
@@ -21,16 +21,8 @@ ladiesStarRouter.get(
     */
 
     // Execute the query
-    const _escorts: Escort[] = await Escorts.find();
+    const escorts: Escort[] = await Escorts.find();
 
-    const escorts = new Array();
-
-    _escorts.forEach(async (escort: Escort) => {
-      if (escort) {
-        escorts.push(cleanItem(escort));
-      }
-    });
-
-    res.status(200).send(JSON.stringify({ escorts }));
+    res.status(200).send(clean({ escorts }));
   }
 );

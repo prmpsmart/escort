@@ -14,7 +14,7 @@ export const checkToken = (
   userType?: UserType
 ) => {
   // Get the Authorization header
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers.authorization;
 
   // Check if the Authorization header exists and starts with 'Bearer '
   let token: string = "";
@@ -27,8 +27,9 @@ export const checkToken = (
   // Attach the token to the request for further processing, e.g., authentication
   if (token && Sessions.sessionsIds.has(token)) {
     req.session = Sessions.getSessionByID(token) as Session;
-    if (userType) {
+    if (userType != undefined) {
       if (req.session?.userType == userType) return next();
+      console.log("not seen");
     } else {
       next();
     }

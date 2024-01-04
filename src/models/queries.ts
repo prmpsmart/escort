@@ -53,13 +53,6 @@ const messagesSchema = new Schema<Query>({
   },
 });
 
-messagesSchema.pre("save", function (next) {
-  if (!this.createdAt) {
-    this.createdAt = Date.now();
-  }
-
-  next();
-});
 const Queries = model<Query>("Queries", messagesSchema);
 
 export default Queries;

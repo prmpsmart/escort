@@ -19,12 +19,5 @@ const adminSchema = new Schema<Pvt>({
   },
 });
 
-adminSchema.pre("save", function (next) {
-  if (!this.timestamp) {
-    this.timestamp = Date.now();
-  }
-
-  next();
-});
 
 export const Pvts = model<Pvt>("Pvts", adminSchema);
