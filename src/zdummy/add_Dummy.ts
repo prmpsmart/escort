@@ -55,7 +55,7 @@ import { IPackage, Packages } from "../models/packages";
 //     },
 //     availability: {
 //       monday: true,
-//       tueday: true,
+//       tuesday: true,
 //       wednesday: true,
 //       thurday: true,
 //       friday: true,

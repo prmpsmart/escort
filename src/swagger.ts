@@ -352,7 +352,7 @@ const doc = {
           },
           availability: {
             monday: "boolean",
-            tueday: "boolean",
+            tuesday: "boolean",
             wednesday: "boolean",
             thurday: "boolean",
             friday: "boolean",
@@ -509,7 +509,7 @@ const doc = {
             },
             availability: {
               monday: "boolean",
-              tueday: "boolean",
+              tuesday: "boolean",
               wednesday: "boolean",
               thurday: "boolean",
               friday: "boolean",
@@ -582,7 +582,7 @@ const doc = {
         },
         availability: {
           monday: "boolean",
-          tueday: "boolean",
+          tuesday: "boolean",
           wednesday: "boolean",
           thurday: "boolean",
           friday: "boolean",

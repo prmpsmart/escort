@@ -103,7 +103,7 @@
     }
     availability: {
       monday: bool
-      tueday: bool
+      tuesday: bool
       wednesday: bool
       thurday: bool
       friday: bool

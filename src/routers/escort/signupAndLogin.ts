@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
 import { Escorts, IEscort } from "../../models/escorts";
 import { Sessions, UserType } from "../../services/sessions";
-import { getUser } from "../../utils";
+import { cleanObject, getUser } from "../../utils";
 
 export const signupAndLoginRouter = Router();
 
@@ -74,17 +74,17 @@ signupAndLoginRouter.post(
             verifiedPhone: escort.verifiedPhone,
             verifiedEmail: escort.verifiedEmail,
             createdAt: escort.createdAt,
-            personalDetails: escort.personalDetails,
-            physicalDetails: escort.physicalDetails,
+            personalDetails: cleanObject(escort.personalDetails),
+            physicalDetails: cleanObject(escort.physicalDetails),
             languages: escort.languages,
             bookingNotes: escort.bookingNotes,
-            location: escort.location,
-            price: escort.price,
-            availability: escort.availability,
+            location: cleanObject(escort.location),
+            price: cleanObject(escort.price),
+            availability: cleanObject(escort.availability),
+            meeting: cleanObject(escort.meeting),
             services: escort.services,
             images: escort.images,
             videos: escort.videos,
-            meeting: escort.meeting,
           },
         };
 

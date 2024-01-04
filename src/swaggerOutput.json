@@ -2025,10 +2025,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "usernameEmail",
-          "password"
-        ],
+        "required": ["usernameEmail", "password"],
         "xml": {
           "name": "LoginRequest"
         }
@@ -2057,13 +2054,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "firstName",
-          "lastName",
-          "username",
-          "email",
-          "password"
-        ],
+        "required": ["firstName", "lastName", "username", "email", "password"],
         "xml": {
           "name": "ClientSignupRequest"
         }
@@ -2084,11 +2075,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "workingName",
-          "email",
-          "password"
-        ],
+        "required": ["workingName", "email", "password"],
         "xml": {
           "name": "EscortSignupRequest"
         }
@@ -2208,9 +2195,7 @@
           },
           "languages": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -2237,9 +2222,7 @@
           },
           "cellPhones": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -2303,9 +2286,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "email"
-        ],
+        "required": ["email"],
         "xml": {
           "name": "RecoverPasswordRequest"
         }
@@ -2322,10 +2303,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "xml": {
           "name": "ChangePasswordRequest"
         }
@@ -2342,10 +2320,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "oldPassword",
-          "newPassword"
-        ],
+        "required": ["oldPassword", "newPassword"],
         "xml": {
           "name": "UserChangePasswordRequest"
         }
@@ -2479,9 +2454,7 @@
           },
           "languages": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -2547,9 +2520,7 @@
             "example": "string"
           }
         },
-        "required": [
-          "usernameEmail"
-        ],
+        "required": ["usernameEmail"],
         "xml": {
           "name": "ActiveUsersRequest"
         }
@@ -2612,9 +2583,7 @@
             "example": "number"
           }
         },
-        "required": [
-          "duration"
-        ],
+        "required": ["duration"],
         "xml": {
           "name": "BuyAdFreeRequest"
         }
@@ -2849,13 +2818,7 @@
             "example": "boolean"
           }
         },
-        "required": [
-          "firstName",
-          "lastName",
-          "email",
-          "number",
-          "message"
-        ],
+        "required": ["firstName", "lastName", "email", "number", "message"],
         "xml": {
           "name": "GetInTouchRequest"
         }
@@ -2913,18 +2876,14 @@
         "properties": {
           "images": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
           },
           "videos": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -3139,9 +3098,7 @@
           },
           "images": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -3285,18 +3242,14 @@
               },
               "languages": {
                 "type": "array",
-                "example": [
-                  "string"
-                ],
+                "example": ["string"],
                 "items": {
                   "type": "string"
                 }
               },
               "bookingNotes": {
                 "type": "array",
-                "example": [
-                  "string"
-                ],
+                "example": ["string"],
                 "items": {
                   "type": "string"
                 }
@@ -3369,7 +3322,7 @@
                     "type": "string",
                     "example": "boolean"
                   },
-                  "tueday": {
+                  "tuesday": {
                     "type": "string",
                     "example": "boolean"
                   },
@@ -3404,9 +3357,7 @@
                   },
                   "cellPhones": {
                     "type": "array",
-                    "example": [
-                      "string"
-                    ],
+                    "example": ["string"],
                     "items": {
                       "type": "string"
                     }
@@ -3432,18 +3383,14 @@
               },
               "images": {
                 "type": "array",
-                "example": [
-                  "string"
-                ],
+                "example": ["string"],
                 "items": {
                   "type": "string"
                 }
               },
               "videos": {
                 "type": "array",
-                "example": [
-                  "string"
-                ],
+                "example": ["string"],
                 "items": {
                   "type": "string"
                 }
@@ -3844,18 +3791,14 @@
                 },
                 "languages": {
                   "type": "array",
-                  "example": [
-                    "string"
-                  ],
+                  "example": ["string"],
                   "items": {
                     "type": "string"
                   }
                 },
                 "bookingNotes": {
                   "type": "array",
-                  "example": [
-                    "string"
-                  ],
+                  "example": ["string"],
                   "items": {
                     "type": "string"
                   }
@@ -3928,7 +3871,7 @@
                       "type": "string",
                       "example": "boolean"
                     },
-                    "tueday": {
+                    "tuesday": {
                       "type": "string",
                       "example": "boolean"
                     },
@@ -3973,18 +3916,14 @@
                 },
                 "images": {
                   "type": "array",
-                  "example": [
-                    "string"
-                  ],
+                  "example": ["string"],
                   "items": {
                     "type": "string"
                   }
                 },
                 "videos": {
                   "type": "array",
-                  "example": [
-                    "string"
-                  ],
+                  "example": ["string"],
                   "items": {
                     "type": "string"
                   }
@@ -4100,18 +4039,14 @@
           },
           "languages": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
           },
           "bookingNotes": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
@@ -4184,7 +4119,7 @@
                 "type": "string",
                 "example": "boolean"
               },
-              "tueday": {
+              "tuesday": {
                 "type": "string",
                 "example": "boolean"
               },
@@ -4229,18 +4164,14 @@
           },
           "images": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }
           },
           "videos": {
             "type": "array",
-            "example": [
-              "string"
-            ],
+            "example": ["string"],
             "items": {
               "type": "string"
             }

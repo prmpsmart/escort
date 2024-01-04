@@ -170,7 +170,6 @@ profileRouter.get("/profile", (req: AuthRequest, res: Response) => {
       },
     },
     price: {
-      h: "",
       incall: {
         hour1: escort.price.incall.hour1,
         hour2: escort.price.incall.hour2,
@@ -184,7 +183,7 @@ profileRouter.get("/profile", (req: AuthRequest, res: Response) => {
     },
     availability: {
       monday: escort.availability.monday,
-      tueday: escort.availability.tueday,
+      tuesday: escort.availability.tuesday,
       wednesday: escort.availability.wednesday,
       thurday: escort.availability.thurday,
       friday: escort.availability.friday,

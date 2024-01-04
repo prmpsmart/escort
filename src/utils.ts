@@ -119,7 +119,7 @@ export function clean(object: any): string {
 }
 
 export function cleanObject(object: any, log: boolean = false): any {
-  const obj = clean(object);
+  const obj = clean(object) ?? '{}';
   if (log) console.log(object, obj);
 
   return JSON.parse(obj);

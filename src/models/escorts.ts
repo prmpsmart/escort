@@ -102,7 +102,7 @@ const defaultPrice: Price = {
 
 interface Availability {
   monday: boolean;
-  tueday: boolean;
+  tuesday: boolean;
   wednesday: boolean;
   thurday: boolean;
   friday: boolean;
@@ -112,11 +112,11 @@ interface Availability {
 
 const defaultAvailability: Availability = {
   monday: false,
-  tueday: false,
+  tuesday: false,
   wednesday: false,
   thurday: false,
   friday: false,
-  saturday: false,
+  saturday: true,
   sunday: false,
 };
 interface Meeting {
@@ -219,7 +219,7 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
-        // default: defaultCallPrice,
+        default: defaultCallPrice,
       },
       outcall: {
         type: {
@@ -227,22 +227,21 @@ const escortSchema = new Schema<Escort>({
           hour2: Number,
           hour3: Number,
         },
-        // default: defaultCallPrice,
       },
     },
-    dafault: defaultPrice,
+    default: defaultPrice,
   },
   availability: {
     type: {
-      monday: Boolean,
-      tueday: Boolean,
-      wednesday: Boolean,
-      thurday: Boolean,
-      friday: Boolean,
-      saturday: Boolean,
-      sunday: Boolean,
+      monday: { type: Boolean, default: false },
+      tuesday: { type: Boolean, default: false },
+      wednesday: { type: Boolean, default: false },
+      thurday: { type: Boolean, default: false },
+      friday: { type: Boolean, default: false },
+      saturday: { type: Boolean, default: false },
+      sunday: { type: Boolean, default: false },
     },
-    dafault: defaultAvailability,
+    default: defaultAvailability,
   },
   meeting: {
     type: {
@@ -255,6 +254,5 @@ const escortSchema = new Schema<Escort>({
   images: { type: [String], default: [] },
   videos: { type: [String], default: [] },
 });
-
 
 export const Escorts = model<Escort>("Escorts", escortSchema);
