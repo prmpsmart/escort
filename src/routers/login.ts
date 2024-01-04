@@ -74,8 +74,6 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
         const escort = user as Escort;
         const client = user as Client;
 
-        escort.services = ["io", "po"];
-
         let images = await getMediaLinks(client.images);
 
         if (escort.workingName) {
@@ -90,9 +88,9 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
             languages: escort.languages,
             bookingNotes: escort.bookingNotes,
             location: cleanObject(escort.location),
-            price: cleanObject(escort.price, true),
-            availability: cleanObject(escort.availability, true),
-            // meeting: cleanObject(escort.meeting),
+            price: cleanObject(escort.price),
+            availability: cleanObject(escort.availability),
+            meeting: cleanObject(escort.meeting),
             services: escort.services,
             videos: await getMediaLinks(escort.videos),
           };

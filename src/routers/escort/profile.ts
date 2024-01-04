@@ -46,6 +46,9 @@ profileRouter.post("/profile", (req: EditProfileRequest, res: Response) => {
       */
   const escort = req.session?.user as Escort;
 
+  if (req.body.modelName != undefined) {
+    escort.personalDetails.modelName = req.body.modelName;
+  }
   if (req.body.country != undefined) {
     escort.personalDetails.country = req.body.country;
   }

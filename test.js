@@ -203,7 +203,7 @@ async function escortProfile() {
   call(
     axios.post(`${host}/escort/profile/`, profile, {
       headers: {
-        Authorization: "Bearer 659673319ef181c2a6588a95",
+        Authorization: "Bearer 6596b773be9825cdca5b7236",
         // "content-type": "application/json",
       },
     })
@@ -223,8 +223,8 @@ async function seq() {
   //   ladiesStar();
   // });
 
-  escortSignup().then((v) => {
-    // escortLogin().then((v) => {
+  // escortSignup().then((v) => {
+    escortLogin().then((v) => {
       // addImage();
       // setTimeout(escortProfile, 500);
     });
