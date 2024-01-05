@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
 import { Escort, Escorts } from "../models/escorts";
-import { clean } from "../utils";
+import { clean, getMediaLinks } from "../utils";
 
 export const ladiesStarRouter = Router();
 
@@ -22,6 +22,15 @@ ladiesStarRouter.get(
 
     // Execute the query
     const escorts: Escort[] = await Escorts.find();
+
+    escorts.forEach(async (escort) => {
+      if (escort.images.length > 0) {
+        escort.images = await getMediaLinks(escort.images);
+      }
+      if (escort.videos.length > 0) {
+        escort.videos = await getMediaLinks(escort.videos);
+      }
+    });
 
     res.status(200).send(clean({ escorts }));
   }
