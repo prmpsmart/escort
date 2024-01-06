@@ -15,7 +15,7 @@ function _path(response) {
   return `/${s[s.length - 2]}/${s[s.length - 1]}`;
 }
 
-async function call(func) {
+async function call(func, v = false) {
   try {
     const response = await func;
 
@@ -23,12 +23,14 @@ async function call(func) {
       token = response.data.token;
     }
 
-    console.log(
-      Date(),
-      `${_path(response)} :: ${response.status} :: ${
-        response.statusText
-      } :: ${JSON.stringify(response.data)}\n`
-    );
+    if (v)
+      console.log(
+        Date(),
+        `${_path(response)} :: ${response.status} :: ${
+          response.statusText
+        } :: ${JSON.stringify(response.data)}\n`
+      );
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response) {
@@ -48,17 +50,18 @@ async function call(func) {
 }
 
 async function clientLogin() {
-  call(
+  return call(
     axios.post(`${host}/login`, {
       usernameEmail: "client1",
       // usernameEmail: "client1@gmail.com",
       password: "762590",
-    })
+    }),
+    ...arguments
   );
 }
 
 async function escortLogin() {
-  call(
+  return call(
     axios.post(`${host}/login`, {
       // usernameEmail: "escort1",
       usernameEmail: "nana@yahoo.com",
@@ -70,7 +73,7 @@ async function escortLogin() {
   );
 }
 async function clientSignup() {
-  call(
+  return call(
     axios.post(`${host}/client/register`, {
       firstName: "Miracle",
       lastName: "Peter",
@@ -82,7 +85,7 @@ async function clientSignup() {
 }
 
 async function adminLogin() {
-  call(
+  return call(
     axios.post(`${host}/admin/login`, {
       usernameEmail: "prmpsmart",
       // usernameEmail: "prmpsmart@gmail.com",
@@ -93,7 +96,7 @@ async function adminLogin() {
 }
 
 async function escortSignup() {
-  call(
+  return call(
     axios.post(`${host}/escort/signup`, {
       workingName: "nana",
       email: "nana@yahoo.com",
@@ -103,7 +106,7 @@ async function escortSignup() {
 }
 
 async function ladiesStar() {
-  call(
+  return call(
     axios.post(
       `${host}/client/ladiesStars`,
       {
@@ -117,7 +120,7 @@ async function ladiesStar() {
 }
 
 async function packages() {
-  call(
+  return call(
     axios.get(`${host}/admin/packages`, {
       headers: { Authorization: "Bearer 658cff8e0f3bf0029df3d766" },
       params: { name: 7 },
@@ -126,7 +129,7 @@ async function packages() {
 }
 
 async function package() {
-  call(
+  return call(
     axios.post(
       `${host}/admin/package`,
       {
@@ -145,7 +148,7 @@ async function package() {
 }
 
 async function user() {
-  call(
+  return call(
     axios.get(`${host}/admin/users`, {
       headers: { Authorization: "Bearer 658cff8e0f3bf0029df3d766" },
     })
@@ -164,7 +167,7 @@ async function addImage() {
     data: fileToBase64(filePath),
   }));
 
-  call(
+  return call(
     axios.post(
       `${host}/escort/addImage`,
       { images },
@@ -180,7 +183,7 @@ async function escortProfile() {
     modelName: "Alice",
     country: "United States",
     city: "New York",
-    image: "alice.jpg",
+    image: fileToBase64("C:/Users/USER/Pictures/Bracelets/4 bracs.jpg"),
     description: "Experienced model with a passion for fashion.",
     profileType: "Fashion",
     age: 25,
@@ -200,45 +203,28 @@ async function escortProfile() {
     cellPhones: ["123-456-7890", "987-654-3210"],
   };
 
-  call(
-    axios.post(`${host}/escort/profile/`, profile, {
-      headers: {
-        Authorization: "Bearer 6596b773be9825cdca5b7236",
-        // "content-type": "application/json",
-      },
-    })
-    // axios.get(`${host}/escort/profile`, {
-    //   headers: { Authorization: "Bearer 659673319ef181c2a6588a95" },
-    // })
+  return call(
+    // axios.post(`${host}/escort/profile/`, profile, {
+    //   headers: {
+    //     Authorization: "Bearer 658d97609b33e98dd870d760",
+    //     // "content-type": "application/json",
+    //   },
+    // }),
+    axios.get(`${host}/escort/profile`, {
+      headers: { Authorization: "Bearer 658d97609b33e98dd870d760" },
+    }),1
   );
 }
 // clientSignup();
 // escortSignup();
 
 async function seq() {
-  // await adminLogin();
+  // escortSignup();
+  escortLogin().then((v) => {
+    console.log(v.token);
 
-  // clientLogin().then(async (value) => {
-  //   await addImage();
-  //   ladiesStar();
-  // });
-
-  // escortSignup().then((v) => {
-    escortLogin().then((v) => {
-      // addImage();
-      // setTimeout(escortProfile, 500);
-    });
-  // });
-  // setTimeout(escortProfile, 500);
-
-  // setTimeout(addImage, 2000);
-  // setTimeout(packages, 1000);
-  // setTimeout(user, 1000);
+    setTimeout(escortProfile, 500);
+  });
 }
 
 seq();
-// call(
-//   axios.post(`${host}/upload`, {
-//     pvt: "prmpsmart-alsknalkncaxcj akxcjakxcjakxjcajx",
-//   })
-// );

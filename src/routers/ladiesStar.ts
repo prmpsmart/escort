@@ -24,12 +24,11 @@ ladiesStarRouter.get(
     const escorts: Escort[] = await Escorts.find();
 
     escorts.forEach(async (escort) => {
-      if (escort.images.length > 0) {
-        escort.images = await getMediaLinks(escort.images);
-      }
-      if (escort.videos.length > 0) {
-        escort.videos = await getMediaLinks(escort.videos);
-      }
+      escort.personalDetails.image = (
+        await getMediaLinks([escort.personalDetails.image])
+      )[0];
+      escort.images = await getMediaLinks(escort.images);
+      escort.videos = await getMediaLinks(escort.videos);
     });
 
     res.status(200).send(clean({ escorts }));

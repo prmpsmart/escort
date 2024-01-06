@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express";
 import { Error } from "mongoose";
 import { Clients } from "../../models/clients";
 import { Sessions, UserType } from "../../services/sessions";
-import { getUser } from "../../utils";
+import { getMediaLinks, getUser } from "../../utils";
 
 export const loginRouter = Router();
 
@@ -99,7 +99,7 @@ loginRouter.post(
             firstName: client.firstName,
             lastName: client.lastName,
             username: client.username,
-            images: client.images,
+            images: await getMediaLinks(client.images),
 
             token: session.id,
             message: "Signup Successful",
@@ -133,11 +133,11 @@ loginRouter.post(
          required: true,
         schema: { $ref: "#/components/schemas/RecoverPasswordRequest" }
     }
-  
+
     #swagger.responses[200] = {
       schema:  { $ref: "#/components/schemas/Response" }
     }
-    
+
     #swagger.responses[400] = {
        schema: { $ref: '#/definitions/BadRequest' }
     }
@@ -176,11 +176,11 @@ loginRouter.post(
        required: true,
        schema: { $ref: "#/components/schemas/ChangePasswordRequest" }
       }
-  
+
     #swagger.responses[200] = {
       schema:  { $ref: "#/components/schemas/Response" }
      }
-    
+
     #swagger.responses[400] = {
        schema: { $ref: '#/definitions/BadRequest' }
     }

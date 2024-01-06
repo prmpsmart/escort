@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { Escorts } from "../models/escorts";
-import { clean, objectId } from "../utils";
+import { Escort, Escorts } from "../models/escorts";
+import { clean, getMediaLinks, objectId } from "../utils";
 
 export const singleEscortRouter = Router();
 
@@ -25,8 +25,17 @@ singleEscortRouter.get(
       }
        */
 
-    const escort = await Escorts.findOne({ _id: objectId(req.params.id) });
+    let escort: Escort | null = await Escorts.findOne({
+      _id: objectId(req.params.id),
+    });
     if (escort) {
+      escort = escort as Escort;
+      escort.personalDetails.image = (
+        await getMediaLinks([escort.personalDetails.image])
+      )[0];
+      escort.images = await getMediaLinks(escort.images);
+      escort.videos = await getMediaLinks(escort.videos);
+
       res.status(200).send({ escort: clean(escort) });
     } else res.status(404).json({ message: "Escort not found" });
   }
