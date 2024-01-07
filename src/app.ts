@@ -62,6 +62,13 @@ io.on("connection", (socket) => {
   }
 });
 
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
+
 mongoose
   .connect(`${process.env.mongoUri}`)
   .then(async (value) => {
@@ -75,12 +82,6 @@ mongoose
     console.log(`Connection to Mongo Server error ${reason}`);
   });
 
-app.use(
-  cors({
-    origin: "*",
-    optionsSuccessStatus: 200,
-  })
-);
 
 app.use(bodyParser.json({ limit: "50mb" }));
 
