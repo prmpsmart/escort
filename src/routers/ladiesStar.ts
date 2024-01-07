@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
 import { Escort, Escorts, IEscort } from "../models/escorts";
-import { clean, cleanEscort, getMediaLinks } from "../utils";
+import { cleanEscort } from "../utils";
 
 export const ladiesStarRouter = Router();
 
@@ -19,7 +19,6 @@ ladiesStarRouter.get(
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
-
     const escorts: Escort[] = await Escorts.find();
 
     const jsons: IEscort[] = [];
