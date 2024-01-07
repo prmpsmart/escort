@@ -1,4 +1,6 @@
 import { Request, Response, Router } from "express";
+import { Escort, Escorts, IEscort } from "../../models/escorts";
+import { cleanEscort } from "../../utils";
 
 export const homeRouter = Router();
 
@@ -62,7 +64,7 @@ interface UsersResponse {
   users: [User?];
 }
 
-homeRouter.get("/getUsers", (req: Request, res: Response) => {
+homeRouter.get("/getUsers", async (req: Request, res: Response) => {
   /**
       #swagger.responses[200] = {
           schema: { $ref: '#/components/schemas/UsersResponse' }
@@ -72,8 +74,13 @@ homeRouter.get("/getUsers", (req: Request, res: Response) => {
       }
        */
 
-  let users: UsersResponse = {
-    users: [{ image: "", location: "", name: "", age: "", id: 8989778 }],
-  };
-  res.status(200).json(users);
+  const escorts: Escort[] = await Escorts.find();
+
+  const jsons: IEscort[] = [];
+
+  escorts.forEach(async (escort) => {
+    jsons.push(await cleanEscort(escort));
+  });
+
+  res.status(200).send(JSON.stringify({ users: jsons }));
 });
