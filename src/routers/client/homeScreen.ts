@@ -53,21 +53,24 @@ homeRouter.post("/findMatches", (req: FindMatchesRequest, res: Response) => {
   }
 });
 
-interface User {
-  image: string;
-  location: string;
-  name: string;
-  age: string;
-  id: number;
-}
-interface UsersResponse {
-  users: [User?];
-}
+// interface User {
+//   image: string;
+//   location: string;
+//   name: string;
+//   age: string;
+//   id: number;
+// }
+// interface UsersResponse {
+//   users: [User?];
+// }
 
 homeRouter.get("/getUsers", async (req: Request, res: Response) => {
   /**
       #swagger.responses[200] = {
-          schema: { $ref: '#/components/schemas/UsersResponse' }
+          schema: { $ref: '#/components/schemas/EscortsProfilesResponse' }
+      }
+      #swagger.responses[401] = {
+          schema: { $ref: '#/definitions/InvalidSession' }
       }
       #swagger.responses[404] = {
           schema: { $ref: '#/definitions/UserNotExists' }
