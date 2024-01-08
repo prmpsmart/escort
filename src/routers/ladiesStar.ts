@@ -19,7 +19,9 @@ ladiesStarRouter.get(
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
+    console.log("Here");
     const escorts: Escort[] = await Escorts.find();
+    console.log("Here2");
 
     const jsons: IEscort[] = [];
 
@@ -27,6 +29,6 @@ ladiesStarRouter.get(
       jsons.push(await cleanEscort(escort));
     });
 
-    res.status(200).send(JSON.stringify({ users: jsons }));
+    res.status(200).send({ users: jsons });
   }
 );

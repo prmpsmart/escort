@@ -97,6 +97,8 @@ export async function getMediaLinks(media: string[]): Promise<string[]> {
 
   for (let index = 0; index < media.length; index++) {
     const image = media[index];
+    if (image.length < 1) continue;
+
     const _image = await storageBucket.file(image).getSignedUrl({
       action: "read",
       expires: expirationDate.toISOString(), // Adjust the expiration date as needed

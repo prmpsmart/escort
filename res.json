@@ -1,13 +1,4 @@
 {
-  "workingName": "nana",
-  "email": "nana@yahoo.com",
-  "images": [
-    "https://storage.googleapis.com/escorts-4607e.appspot.com/backgroud%201.jpg?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704616121&Signature=lT%2FMPDY4siRciaVQ0zDEc%2FcLMPR5LdyS2Wgfbob1N%2BnQJrPp1KvTJ6VL8m%2FVYXdpWLueE2oxIFItBkE1ah955yeFEWRAyMh1qbwKIlAFMqTOjuufeo5XDWIo3lxokv8J09ANsR3PZFEEq%2F5MrgljTy4OpU1fTGnabbYNLm6gMgjxUrzSnL3fNx7C6LNXEuNLiWUW6LzAjswTAbssdNyBg0UXTe2IuXmgzxt2pUcImmYL3NS0XfHzIYpwyWWZmibjtNDfEQKZoO3XUxeu%2FO8w1RkLyW9gieEC9VueEVLJh5rDOqVceYYcSP%2FYx1gCoL8ETG97NqnRA1ncvAc%2B7Xawhw%3D%3D",
-    "https://storage.googleapis.com/escorts-4607e.appspot.com/Screenshot%20%281%29.png?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704616121&Signature=f23%2Bt%2F8Q7joUvTxYqo%2FeSjvlQyOxjtP%2F%2F5jOhnaxsRvuzWAat0rWqC4ooyjorOO%2FyzSwlKV2%2F6F48tYvVoA5%2FiFglkiFVXzvATalGpGdIHqpqp9PikGxF4jPzkxrb%2Bm9bxNCglyCcQcMJtZgLujKkjCZpfp6ryr1dFU4gKbA%2FPW3XV36isyIAOR8n7DofRujikPp%2FVb46scIF%2FAiN1A%2BOubE5LpyhXgN3pwl8D%2BHZJ0NCuq9RUkRC2irUZAZrWdXfJl%2FTF%2B5iAqlqksfNWz3iMcsVwbo0n3G5ecJxdk1KaBp6uX4JeqMr2BPFNTLXsqqT%2BUAv6QE%2B5czCkGD9ec9Hg%3D%3D",
-    "https://storage.googleapis.com/escorts-4607e.appspot.com/Moodboard.png?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704616121&Signature=hnMQezR3Xs6UIoTcEyQPyn08mwxrvhf1lHzThEWmFUmDpTUbgHFukgu6Ze%2FiIPZSd0jMRTzUcu53Q8EOVKPTmAgrYt1OC%2FLFmaCn8KuBL8XKJ3xoUm7s5b1Zhus13ccF07ZGOQSrwfllZYrhsqOFYmJTY%2FMERWc38dvjmmQXXUQ34v5UA2UHfNA%2F%2FmDz4URruLr%2BNayeNlk%2BtWNPDeqC7jBphOiqey33abyPHCr860Cczg6PnhxMreXkxsMagEI2V7yLMqxrZxc0t6K0DvyRkcd1X%2FDURf4QiyF6bRy%2B%2FAkW6oZ298qMtxbZZcXqIwLWFqHuSBfoTE8G9uoehLNwAg%3D%3D"
-  ],
-  "token": "658d97609b33e98dd870d760",
-  "message": "Login Successful",
   "profile": {
     "id": "658d97609b33e98dd870d760",
     "workingName": "nana",
@@ -15,11 +6,68 @@
     "verifiedPhone": false,
     "verifiedEmail": false,
     "createdAt": 1703778144072,
-    "languages": [],
+    "lastSeen": 1703778144072,
+    "personalDetails": {
+      "gender": "Fashion",
+      "sexuality": "",
+      "age": 25,
+      "nationality": "American",
+      "country": "United States",
+      "modelName": "Alice",
+      "image": "https://storage.googleapis.com/escorts-4607e.appspot.com/profile-image?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704979736&Signature=VwZmLA81%2BMdsoTrWNvrhxZ9hmH5BI5G8a17l97dCFDjufkXPC4uYaBUSKY9FYElZpVAMBLqWwZSskdgaZcvAT5V4GyywgbHuH7aFxCmlzmrQTGYb1jGvun5xQB7bTp0jm9RLryvuFuyyRJW4QIF%2FWMHDyr0G011FS5TYB%2FivUAk0fXUlEu%2FvIWhfQpJHIVY2h9L1YpEYnw1RX%2F4j9STm5aZGwgEVBqcdzv1rWxur44OvEFZPjCXkvkBOHOnnEzaQhEJ9wp8G%2B2npFN9VfoonjHh%2FuBJFCSmt5qdP%2FcGixebe9ZAZYUtAMCmVUAq%2Fc%2F2pOnQ7Sn2mjbrkeCKxO2KG7g%3D%3D",
+      "description": "Experienced model with a passion for fashion.",
+      "availableFor": "Photo shoots, Runway, Events",
+      "isPornStar": false
+    },
+    "physicalDetails": {
+      "chest": "",
+      "waist": "",
+      "hips": "",
+      "ethnicity": "",
+      "hairColour": "",
+      "height": 5.8,
+      "weight": 130,
+      "eyeColour": "",
+      "genetalia": "",
+      "cupSize": "",
+      "breastImplant": "",
+      "breastSize": 34,
+      "breastType": "Natural",
+      "bodyType": "",
+      "bodyArt": "No",
+      "piercing": ""
+    },
+    "languages": ["English", "Spanish"],
     "bookingNotes": [],
-    "services": [],
+    "location": {
+      "incall": "New York",
+      "outcall": { "location": "", "iTravelTo": "Available for travel" }
+    },
+    "price": {
+      "incall": { "hour1": 0, "hour2": 0, "hour3": 0 },
+      "outcall": { "hour1": 0, "hour2": 0, "hour3": 0 }
+    },
+    "availability": {
+      "monday": false,
+      "tuesday": false,
+      "wednesday": false,
+      "thurday": false,
+      "friday": false,
+      "saturday": true,
+      "sunday": false
+    },
+    "meeting": {
+      "person": "Clients, Designers",
+      "cellphones": ["123-456-7890", "987-654-3210"]
+    },
+    "services": ["Modeling, Fashion Consultation"],
+    "images": [
+      "https://storage.googleapis.com/escorts-4607e.appspot.com/backgroud%201.jpg?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704979736&Signature=OeoYACBOYYYOT9eFNIwWZJCV%2FYcITZSSwdZd7Yd7Z3JscSzlnrXD%2Fff1qIsHnNGHwm5KbLNIt62csUVk%2FdiV4wiB3T%2BE5b3DxxcrvJrZtAiOjp2maQQES8l%2FgxNjIuHr%2FXCBu0L2mNNNM9nF1PagBxXf9nA3lcnkUJ2daHsnnMQ%2Ff7dsKhvFhlTMjr5LQgRHfpQ8z7wQQw3271EeTGFahthbn3xZTvhZiVQRgO%2Fsj3ria61yI8YpDQ3OLVlMpUS%2FUZxeXokk5TdDtj%2F3hIV%2FHtHJ6vsUAHMbgARFN9G6c7D0E378Mzxldh89q6oQNpaq2VBpPueXI9mz4VJ35%2F5X6g%3D%3D",
+      "https://storage.googleapis.com/escorts-4607e.appspot.com/Screenshot%20%281%29.png?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704979736&Signature=SZv70t0lDjFKFhbRLf%2B2BSfHGFEisUDpB0aYiRgWzwjlt5y%2BxlMATFKLpX0QyMlUjAwQplyA%2BbtCC%2FmFdLVmJbbfUG4SvuGaHTJnlELdayc34NHsPP9zo5IsD8CqJFFW63kZofzuQEBGOj0%2F0zml185FZ7bgD6sLUVrixFm%2BEyfD3jlL5I5zfZaRbNKpSlLEwOvWNVKLzMgBMnR%2FS0x%2BCmIIdDAH1q7V81ZKSI39Xlv8kcM5TDMCV84m3dwR3BjTXA3A8me2PpNBDSW1T8pbHqaT7Ft9qdmX%2FBwRs3ftTcgcXWJsMGd33sQz5vRcw2jfmTt9QtQ6U1he%2Buzu9hEikA%3D%3D",
+      "https://storage.googleapis.com/escorts-4607e.appspot.com/Moodboard.png?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704979736&Signature=BsRw%2B02Gjkh5QQ8fPQzyKbqNs7WgjgIPGHPC1zV6VCgWyUl43zDomXZMTGBfVp1e2tEvWuLHR8LtUcbaAGN6EN27lr2zkn36XbhBfFie0%2FXSpiLWoKoJykKdWyp32XMXae4d1%2F2JO%2FBYfdFzIEiAiMR5HB9IdPyE4P1YV93%2Brn3zIybv3TGOQzON1cc4og6C4eYy1XB5uSrefNHKoago7k41W7ek2413jC9obYkJ%2B%2F2yerBIwmTIkocxDz5Cd7PC67g09jzjgDwjh51FGGQdTe%2BSd%2FfnoXfiysFlW4PmpzQbPu48nZYuSDHH4z2YstDNMrIWm1C2jY1MOhjdwj%2FZ9w%3D%3D"
+    ],
     "videos": [
-      "https://storage.googleapis.com/escorts-4607e.appspot.com/record%20laptop%20screen%20-%20Google%20Search%20-%20Google%20Chrome%202023-01-28%2012-42-18.mp4?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704616121&Signature=BDrZK5s4qtVwO6Panq2KXt7qE70CaSXiG21Wv1Z5KeH%2BLPYnBg4NCrxuZUsnd77xw4Y2TRmUMmxttyNFjTsNE3xz0LIOwycVAbdWkW3Cgf9PVwuPEBxdSh2Rgn%2BfKTESQ4qzu%2FPcBu5ZPFM2QPUtxi0oudVGkM0pbIqqbzFgg3zpQ1mfG2%2FyVrXJB%2Fl4eLf4HjbmQFAcFe0AhaNZMNe7nGnl6Lh0%2FgK0BQxiof4cLpE25Zs1Pu3DevC2DHZvo0Y23j5kAPsbxmO6wXS9YG%2F8rxiKoX%2FACZQvIF8Vz1eIkbWT9Ywj356tJnmzstfnLvc%2Bqyqw6RC7lHUw5wtaFpuEww%3D%3D"
+      "https://storage.googleapis.com/escorts-4607e.appspot.com/record%20laptop%20screen%20-%20Google%20Search%20-%20Google%20Chrome%202023-01-28%2012-42-18.mp4?GoogleAccessId=firebase-adminsdk-1j60t%40escorts-4607e.iam.gserviceaccount.com&Expires=1704979736&Signature=CanpOAx1P%2B3L68diKY7zR0akszWU9Bp7Yi0Ywybv18aUdpheE7R3Sr2CTLg08Am%2Ft5k6ngpnGUZ4AYJVFZb5IBYKZXTde0eytZp%2BIs2AVmXLaRzJWiqwuDko7q5fu6N81akprNQY5Q10N3AKblmsrjeL0bwkJSE3lZ7AYfqr2nFiI1Azd9Pz1Eyq79TngPmecs2%2FuU8pZcvABTSvGCL1yR2i9m3F7e%2FljEfyJhFfGfGa8l4e6sJT6uiWBXklnYbWSlD2Lzbw7NC4bcfNlolFCxAsJtbjYKuhTZ4usyhut%2FBJL920bDdrPpvaLFiGFR49vHfM%2B0ExHjgufDLEjObeBg%3D%3D"
     ]
   }
 }

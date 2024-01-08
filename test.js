@@ -9,13 +9,14 @@ function fileToBase64(filePath) {
 }
 
 const host = "http://localhost:3000";
+// const host = "https://lazer-escort.onrender.com";
 
 function _path(response) {
   let s = response.config.url.split("/");
   return `/${s[s.length - 2]}/${s[s.length - 1]}`;
 }
 
-async function call(func, v = false) {
+async function call(func, v = true) {
   try {
     const response = await func;
     if (v)
@@ -102,13 +103,13 @@ async function escortSignup() {
 
 async function ladiesStar() {
   return call(
-    axios.post(
-      `${host}/client/ladiesStars`,
-      {
-        workingName: "prmp",
-        email: "prmpsmart@gmail.com",
-        password: "762590",
-      },
+    axios.get(
+      `${host}/ladiesStars`,
+      // {
+      //   workingName: "prmp",
+      //   email: "prmpsmart@gmail.com",
+      //   password: "762590",
+      // },
       { headers: { Authorization: "Bearer 6591b08e5a2a0208d1544520" } }
     )
   );
@@ -205,7 +206,7 @@ async function escortProfile() {
   //   },
   // }),
   const tok =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwiaWF0IjoxNzA0Njk3MzE5LCJleHAiOjE3MDQ3MDA5MTl9.-793aDpmBW7HWQhIki-Gu4Mjx8Xcef0tAgo-akh4yKU";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwiaWF0IjoxNzA0NzIwNTgwLCJleHAiOjE3MDQ3MjQxODB9.RZKogjNHiS2CW_oK7Fe284Gr-QibmV8m1ueYSjR3tlQ";
   return call(
     axios.get(`${host}/escort/profile`, {
       headers: {
@@ -236,7 +237,9 @@ async function seq() {
       token = v.token
       console.log(token);
     }
-    setTimeout(oldChats, 500);
+    setTimeout(ladiesStar, 500);
+    // setTimeout(escortProfile, 500);
+    // setTimeout(oldChats, 500);
   });
   // escortProfile();
 }
