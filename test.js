@@ -18,11 +18,6 @@ function _path(response) {
 async function call(func, v = false) {
   try {
     const response = await func;
-
-    if (response.data.token) {
-      token = response.data.token;
-    }
-
     if (v)
       console.log(
         Date(),
@@ -203,28 +198,35 @@ async function escortProfile() {
     cellPhones: ["123-456-7890", "987-654-3210"],
   };
 
+  // axios.post(`${host}/escort/profile/`, profile, {
+  //   headers: {
+  //     Authorization: "Bearer 658d97609b33e98dd870d760",
+  //     // "content-type": "application/json",
+  //   },
+  // }),
+  const tok =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwiaWF0IjoxNzA0Njk3MzE5LCJleHAiOjE3MDQ3MDA5MTl9.-793aDpmBW7HWQhIki-Gu4Mjx8Xcef0tAgo-akh4yKU";
   return call(
-    // axios.post(`${host}/escort/profile/`, profile, {
-    //   headers: {
-    //     Authorization: "Bearer 658d97609b33e98dd870d760",
-    //     // "content-type": "application/json",
-    //   },
-    // }),
     axios.get(`${host}/escort/profile`, {
-      headers: { Authorization: "Bearer 658d97609b33e98dd870d760" },
-    }),1
+      headers: {
+        Authorization: `Bearer ${tok}`,
+      },
+    }),
+    1
   );
 }
+
 // clientSignup();
 // escortSignup();
 
 async function seq() {
   // escortSignup();
+  // escortLogin();
   escortLogin().then((v) => {
     console.log(v.token);
-
     setTimeout(escortProfile, 500);
   });
+  // escortProfile();
 }
 
 seq();

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Session, Sessions, UserType } from "../services/sessions";
+import { verifyToken } from "./jwtService";
 
 // Extend the Request interface to include the 'token' property
 export interface AuthRequest extends Request {
@@ -24,21 +25,32 @@ export const checkToken = (
     token = authHeader.split(" ")[1];
   }
 
-  // Attach the token to the request for further processing, e.g., authentication
-  if (token && Sessions.sessionsIds.has(token)) {
-    req.session = Sessions.getSessionByID(token) as Session;
-    if (userType != undefined) {
-      if (req.session?.userType == userType) return next();
-      console.log("not seen");
-    } else {
-      next();
-    }
-  }
+  if (token.length > 0) {
+    const session_id = verifyToken(token);
+    //
+    if (session_id.length > 0) {
+      //
+      const session_exists = Sessions.sessionsIds.has(session_id);
 
-  // If no Bearer token is found, return an unauthorized response
-  return res
-    .status(401)
-    .json({ message: "Unauthorized - Bearer token missing or invalid" });
+      if (session_exists) {
+        req.session = Sessions.getSessionByID(session_id);
+      } else {
+        return res.status(401).json({ message: "Session is over." });
+      }
+      //
+      if (userType != undefined) {
+        if (req.session?.userType == userType) return next();
+        else return res.status(401).json({ message: "Invalid User" });
+      } else {
+        return next();
+      }
+      //
+    } else {
+      res.status(401).json({ message: "Authentication failed" });
+    }
+  } else {
+    return res.status(401).json({ message: "No token provided" });
+  }
 };
 
 export const checkClientToken = (

@@ -1,9 +1,11 @@
-import { Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import { Client } from "../models/clients";
 import { Escort } from "../models/escorts";
 import { Sessions, UserType } from "../services/sessions";
-import { clean, cleanObject, getMediaLinks, getUser } from "../utils";
+import { cleanObject, getMediaLinks, getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
+import { createToken, verifyToken } from "../middleware/jwtService";
+import { AuthRequest } from "../middleware/checkToken";
 
 export const loginRouter = Router();
 
@@ -70,6 +72,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           user,
           user.workingName != undefined ? UserType.Escort : UserType.Client
         );
+
         let profile;
         const escort = user as Escort;
         const client = user as Client;
@@ -106,7 +109,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           email: user.email,
           images,
 
-          token: session.id,
+          token: createToken(session.id),
           message: "Login Successful",
           profile: profile,
         };
@@ -124,3 +127,47 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
     }
   }
 });
+
+// interface LoginResponse {
+//   firstName: string;
+//   lastName: string;
+//   username: string;
+//   workingName: string;
+//   email: string;
+
+//   token: string;
+//   message: string;
+//   profile: EscortR;
+// }
+
+interface RefreshTokenRequest extends Request {
+  body: {
+    token: string;
+  };
+}
+
+loginRouter.post(
+  "/refresh_access_token",
+  async (req: RefreshTokenRequest, res: Response) => {
+    /**
+     #swagger.requestBody = {
+       required: true,
+       schema: { $ref: "#/components/schemas/RefreshToken" }
+      }
+
+    #swagger.responses[200] = {
+      schema:  { $ref: "#/components/schemas/RefreshToken" }
+     }
+    #swagger.responses[404] = {
+       schema: { $ref: '#/definitions/InvalidRefreshToken' }
+     }
+     */
+
+    const session_id = verifyToken(req.body.token);
+    if (session_id.length > 0) {
+      return res.json({ accessToken: createToken(session_id) });
+    } else {
+      return res.status(401).json({ message: "Invalid refresh token" });
+    }
+  }
+);

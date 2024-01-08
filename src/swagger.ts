@@ -15,6 +15,9 @@ const doc = {
   components: {
     schemas: {
       // Requests
+      RefreshToken: {
+        $token: "string",
+      },
       LoginRequest: {
         $usernameEmail: "string",
         $password: "string",
@@ -606,6 +609,12 @@ const doc = {
     },
   },
   definitions: {
+    InvalidToken: {
+      message: "Invalid Token",
+    },
+    InvalidRefreshToken: {
+      message: "Invalid Refresh Token",
+    },
     InvalidSession: {
       message: "Invalid Session : Login again",
     },

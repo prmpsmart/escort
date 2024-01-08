@@ -36,6 +36,8 @@ export class _Sessions {
     return this.sessionsEmails.get(email);
   }
   public addSession(user: User, userType: UserType): Session {
+    console.log('addSession', userType);
+    
     const session = new Session(user, userType);
     this.sessionsIds.set(session.id, session);
     this.sessionsEmails.set(user.email, session);
