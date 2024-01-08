@@ -1,23 +1,24 @@
 import { Document, Schema, model } from "mongoose";
 
-interface Chats extends Document {
-  user_id: string;
-  user_1: string;
-  user_2: string;
+export interface IChat {
+  id?: any;
+  user_1_id: string;
+  user_2_id: string;
   user_1_is_client: boolean;
   user_2_is_client: boolean;
+
+  message: string;
+  create_timestamp: number;
 }
 
-const chatsSchema = new Schema<Chats>({
-  user_id: {
+export interface Chat extends IChat, Document {}
+
+const chatsSchema = new Schema<Chat>({
+  user_1_id: {
     type: String,
     required: true,
   },
-  user_1: {
-    type: String,
-    required: true,
-  },
-  user_2: {
+  user_2_id: {
     type: String,
     required: true,
   },
@@ -29,8 +30,16 @@ const chatsSchema = new Schema<Chats>({
     type: Boolean,
     required: true,
   },
+  message: {
+    type: String,
+    required: true,
+  },
+  create_timestamp: {
+    type: Number,
+    default: Date.now,
+  },
 });
 
-const Chats = model<Chats>("Chats", chatsSchema);
+const Chats = model<Chat>("Chats", chatsSchema);
 
 export default Chats;

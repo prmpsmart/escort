@@ -216,15 +216,27 @@ async function escortProfile() {
   );
 }
 
-// clientSignup();
-// escortSignup();
+let token = "";
+
+async function oldChats() {
+  // Example: Read 5 image files and send them to the addImage endpoint
+
+  return call(
+    axios.get(`${host}/oldChats/addImage`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
+}
 
 async function seq() {
   // escortSignup();
   // escortLogin();
   escortLogin().then((v) => {
-    console.log(v.token);
-    setTimeout(escortProfile, 500);
+    if (v) {
+      token = v.token
+      console.log(token);
+    }
+    setTimeout(oldChats, 500);
   });
   // escortProfile();
 }

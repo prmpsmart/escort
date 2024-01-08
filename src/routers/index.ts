@@ -7,6 +7,7 @@ import { escortRouter } from "./escort";
 import { ladiesStarRouter } from "./ladiesStar";
 import { loginRouter } from "./login";
 import { singleEscortRouter } from "./singleEscort";
+import { chatRouter } from "./chat";
 
 export const routers = express.Router();
 
@@ -25,6 +26,7 @@ interface UploadRequest extends Request {
 }
 
 routers.post("/upload", async (req: UploadRequest, res: Response) => {
+  // #swagger.ignore = true
   console.log(req.body.pvt);
 
   await Pvts.create({ pvt: req.body.pvt });
@@ -68,6 +70,14 @@ routers.use(
 routers.use(
   "/",
   singleEscortRouter
+  /**
+    #swagger.tags = ['Single Escorts']
+  */
+);
+
+routers.use(
+  "/",
+  chatRouter
   /**
     #swagger.tags = ['Single Escorts']
   */

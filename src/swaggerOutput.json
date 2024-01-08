@@ -12,30 +12,6 @@
     }
   ],
   "paths": {
-    "/upload": {
-      "post": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "pvt": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/login": {
       "post": {
         "tags": [
@@ -103,6 +79,64 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refresh_access_token": {
+      "post": {
+        "tags": [
+          "Login for both Escort and Client"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshToken"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshToken"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRefreshToken"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRefreshToken"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshToken"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshToken"
               }
             }
           }
@@ -439,6 +473,62 @@
       }
     },
     "/escort/profile": {
+      "patch": {
+        "tags": [
+          "Escort Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileRequest"
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Escort Profile"
@@ -847,12 +937,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersResponse"
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/UsersResponse"
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
                 }
               }
             }
@@ -2009,10 +2114,90 @@
           }
         }
       }
+    },
+    "/oldChats/{user_id}": {
+      "get": {
+        "tags": [
+          "Single Escorts"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortLoginResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "RefreshToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "xml": {
+          "name": "RefreshToken"
+        }
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -2025,7 +2210,10 @@
             "example": "string"
           }
         },
-        "required": ["usernameEmail", "password"],
+        "required": [
+          "usernameEmail",
+          "password"
+        ],
         "xml": {
           "name": "LoginRequest"
         }
@@ -2054,7 +2242,13 @@
             "example": "string"
           }
         },
-        "required": ["firstName", "lastName", "username", "email", "password"],
+        "required": [
+          "firstName",
+          "lastName",
+          "username",
+          "email",
+          "password"
+        ],
         "xml": {
           "name": "ClientSignupRequest"
         }
@@ -2075,7 +2269,11 @@
             "example": "string"
           }
         },
-        "required": ["workingName", "email", "password"],
+        "required": [
+          "workingName",
+          "email",
+          "password"
+        ],
         "xml": {
           "name": "EscortSignupRequest"
         }
@@ -2195,7 +2393,9 @@
           },
           "languages": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -2222,7 +2422,9 @@
           },
           "cellPhones": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -2286,7 +2488,9 @@
             "example": "string"
           }
         },
-        "required": ["email"],
+        "required": [
+          "email"
+        ],
         "xml": {
           "name": "RecoverPasswordRequest"
         }
@@ -2303,7 +2507,10 @@
             "example": "string"
           }
         },
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "xml": {
           "name": "ChangePasswordRequest"
         }
@@ -2320,7 +2527,10 @@
             "example": "string"
           }
         },
-        "required": ["oldPassword", "newPassword"],
+        "required": [
+          "oldPassword",
+          "newPassword"
+        ],
         "xml": {
           "name": "UserChangePasswordRequest"
         }
@@ -2454,7 +2664,9 @@
           },
           "languages": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -2520,7 +2732,9 @@
             "example": "string"
           }
         },
-        "required": ["usernameEmail"],
+        "required": [
+          "usernameEmail"
+        ],
         "xml": {
           "name": "ActiveUsersRequest"
         }
@@ -2583,7 +2797,9 @@
             "example": "number"
           }
         },
-        "required": ["duration"],
+        "required": [
+          "duration"
+        ],
         "xml": {
           "name": "BuyAdFreeRequest"
         }
@@ -2818,7 +3034,13 @@
             "example": "boolean"
           }
         },
-        "required": ["firstName", "lastName", "email", "number", "message"],
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "number",
+          "message"
+        ],
         "xml": {
           "name": "GetInTouchRequest"
         }
@@ -2876,14 +3098,18 @@
         "properties": {
           "images": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
           },
           "videos": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -3098,7 +3324,9 @@
           },
           "images": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -3242,14 +3470,18 @@
               },
               "languages": {
                 "type": "array",
-                "example": ["string"],
+                "example": [
+                  "string"
+                ],
                 "items": {
                   "type": "string"
                 }
               },
               "bookingNotes": {
                 "type": "array",
-                "example": ["string"],
+                "example": [
+                  "string"
+                ],
                 "items": {
                   "type": "string"
                 }
@@ -3357,7 +3589,9 @@
                   },
                   "cellPhones": {
                     "type": "array",
-                    "example": ["string"],
+                    "example": [
+                      "string"
+                    ],
                     "items": {
                       "type": "string"
                     }
@@ -3383,14 +3617,18 @@
               },
               "images": {
                 "type": "array",
-                "example": ["string"],
+                "example": [
+                  "string"
+                ],
                 "items": {
                   "type": "string"
                 }
               },
               "videos": {
                 "type": "array",
-                "example": ["string"],
+                "example": [
+                  "string"
+                ],
                 "items": {
                   "type": "string"
                 }
@@ -3791,14 +4029,18 @@
                 },
                 "languages": {
                   "type": "array",
-                  "example": ["string"],
+                  "example": [
+                    "string"
+                  ],
                   "items": {
                     "type": "string"
                   }
                 },
                 "bookingNotes": {
                   "type": "array",
-                  "example": ["string"],
+                  "example": [
+                    "string"
+                  ],
                   "items": {
                     "type": "string"
                   }
@@ -3916,14 +4158,18 @@
                 },
                 "images": {
                   "type": "array",
-                  "example": ["string"],
+                  "example": [
+                    "string"
+                  ],
                   "items": {
                     "type": "string"
                   }
                 },
                 "videos": {
                   "type": "array",
-                  "example": ["string"],
+                  "example": [
+                    "string"
+                  ],
                   "items": {
                     "type": "string"
                   }
@@ -4039,14 +4285,18 @@
           },
           "languages": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
           },
           "bookingNotes": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -4164,14 +4414,18 @@
           },
           "images": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
           },
           "videos": {
             "type": "array",
-            "example": ["string"],
+            "example": [
+              "string"
+            ],
             "items": {
               "type": "string"
             }
@@ -4179,6 +4433,30 @@
         },
         "xml": {
           "name": "EscortProfile"
+        }
+      },
+      "InvalidToken": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Invalid Token"
+          }
+        },
+        "xml": {
+          "name": "InvalidToken"
+        }
+      },
+      "InvalidRefreshToken": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Invalid Refresh Token"
+          }
+        },
+        "xml": {
+          "name": "InvalidRefreshToken"
         }
       },
       "InvalidSession": {

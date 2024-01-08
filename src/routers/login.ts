@@ -5,7 +5,6 @@ import { Sessions, UserType } from "../services/sessions";
 import { cleanObject, getMediaLinks, getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
 import { createToken, verifyToken } from "../middleware/jwtService";
-import { AuthRequest } from "../middleware/checkToken";
 
 export const loginRouter = Router();
 

@@ -93,6 +93,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/", routers);
+
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 const port = 3000;
