@@ -79,6 +79,6 @@ routers.use(
   "/",
   chatRouter
   /**
-    #swagger.tags = ['Single Escorts']
+    #swagger.tags = ['Chats']
   */
 );
