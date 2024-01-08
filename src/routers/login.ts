@@ -8,22 +8,6 @@ import { createToken, verifyToken } from "../middleware/jwtService";
 
 export const loginRouter = Router();
 
-// interface EscortR extends IEscort {
-//   id: string;
-// }
-
-// interface LoginResponse {
-//   firstName: string;
-//   lastName: string;
-//   username: string;
-//   workingName: string;
-//   email: string;
-
-//   token: string;
-//   message: string;
-//   profile: EscortR;
-// }
-
 loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
   /**
      #swagger.requestBody = {
