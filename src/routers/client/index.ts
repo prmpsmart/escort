@@ -2,7 +2,7 @@ import express from "express";
 import { checkClientToken } from "../../middleware/checkToken";
 import { advertRouter } from "./advert";
 import { contactUsRouter } from "./contactUs";
-import { homeRouter } from "./homeScreen";
+import { homeRouter } from "../homeScreen";
 import { loginRouter } from "./loginScreens";
 import { paymentRouter } from "./payment";
 import { settingsRouter } from "./settings";
@@ -18,15 +18,15 @@ clientRouter.use(
   */
 );
 
-clientRouter.use(checkClientToken);
-
 clientRouter.use(
   "/",
   homeRouter
   /**
-    #swagger.tags = ['Home Screen']
-  */
+   #swagger.tags = ['Home Screen']
+   */
 );
+
+clientRouter.use(checkClientToken);
 
 clientRouter.use(
   "/",

@@ -19,16 +19,18 @@ ladiesStarRouter.get(
         schema: { $ref: '#/definitions/UserNotExists' }
     }
     */
-    console.log("Here");
     const escorts: Escort[] = await Escorts.find();
-    console.log("Here2");
 
     const jsons: IEscort[] = [];
 
-    escorts.forEach(async (escort) => {
-      jsons.push(await cleanEscort(escort));
-    });
+    for (const key in escorts) {
+      if (Object.prototype.hasOwnProperty.call(escorts, key)) {
+        const element = escorts[key];
+        const cleaned = await cleanEscort(element);
+        jsons.push(cleaned);
+      }
+    }
 
-    res.status(200).send({ users: jsons });
+    res.status(200).json({ users: jsons });
   }
 );

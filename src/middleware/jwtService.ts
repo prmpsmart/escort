@@ -18,8 +18,6 @@ export const createToken = (session_id: string): string => {
 export const verifyToken = (token: string): string => {
   try {
     const payload = jwt.verify(token, secretKey) as Payload;
-    console.log(payload);
-
     return payload.session_id;
   } catch (error) {
     return "";

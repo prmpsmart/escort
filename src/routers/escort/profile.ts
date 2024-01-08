@@ -133,5 +133,5 @@ profileRouter.get("/profile", async (req: AuthRequest, res: Response) => {
       }
       */
   const escort = req.session?.user as Escort;
-  res.status(200).send(JSON.stringify({ profile: await cleanEscort(escort) }));
+  res.status(200).json({ profile: await cleanEscort(escort) });
 });

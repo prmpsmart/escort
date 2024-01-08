@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { Escort, Escorts, IEscort } from "../../models/escorts";
-import { cleanEscort } from "../../utils";
+import { Escort, Escorts, IEscort } from "../models/escorts";
+import { cleanEscort } from "../utils";
 
 export const homeRouter = Router();
 
@@ -81,9 +81,13 @@ homeRouter.get("/getUsers", async (req: Request, res: Response) => {
 
   const jsons: IEscort[] = [];
 
-  escorts.forEach(async (escort) => {
-    jsons.push(await cleanEscort(escort));
-  });
+  for (const key in escorts) {
+    if (Object.prototype.hasOwnProperty.call(escorts, key)) {
+      const element = escorts[key];
+      const cleaned = await cleanEscort(element);
+      jsons.push(cleaned);
+    }
+  }
 
-  res.status(200).send(JSON.stringify({ users: jsons }));
+  res.status(200).json({ users: jsons });
 });

@@ -229,6 +229,16 @@ async function oldChats() {
   );
 }
 
+async function getUsers() {
+  // Example: Read 5 image files and send them to the addImage endpoint
+
+  return call(
+    axios.get(`${host}/client/getUsers`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
+}
+
 async function seq() {
   // escortSignup();
   // escortLogin();
@@ -237,8 +247,9 @@ async function seq() {
       token = v.token
       console.log(token);
     }
-    setTimeout(ladiesStar, 500);
+    // setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);
+    setTimeout(getUsers, 500);
     // setTimeout(oldChats, 500);
   });
   // escortProfile();
