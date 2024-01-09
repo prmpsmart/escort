@@ -4,7 +4,11 @@ import { Escort } from "../models/escorts";
 import { Sessions, UserType } from "../services/sessions";
 import { cleanObject, getMediaLinks, getUser } from "../utils";
 import { LoginRequest } from "./client/loginScreens";
-import { createToken, verifyToken } from "../middleware/jwtService";
+import {
+  createToken,
+  verifyToken,
+  refreshToken,
+} from "../middleware/jwtService";
 
 export const loginRouter = Router();
 
@@ -93,6 +97,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           images,
 
           token: createToken(session.id),
+          refreshToken: refreshToken(session.id),
           message: "Login Successful",
           profile: profile,
         };
@@ -111,18 +116,6 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
   }
 });
 
-// interface LoginResponse {
-//   firstName: string;
-//   lastName: string;
-//   username: string;
-//   workingName: string;
-//   email: string;
-
-//   token: string;
-//   message: string;
-//   profile: EscortR;
-// }
-
 interface RefreshTokenRequest extends Request {
   body: {
     token: string;
@@ -130,7 +123,7 @@ interface RefreshTokenRequest extends Request {
 }
 
 loginRouter.post(
-  "/refresh_access_token",
+  "/refreshAccessToken",
   async (req: RefreshTokenRequest, res: Response) => {
     /**
      #swagger.requestBody = {

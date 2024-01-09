@@ -3,6 +3,7 @@ import { Error } from "mongoose";
 import { Clients } from "../../models/clients";
 import { Sessions, UserType } from "../../services/sessions";
 import { getMediaLinks, getUser } from "../../utils";
+import { createToken, refreshToken } from "../../middleware/jwtService";
 
 export const loginRouter = Router();
 
@@ -21,6 +22,7 @@ interface LoginResponse {
   images: string[];
 
   token: string;
+  refreshToken: string;
   message: string;
 }
 
@@ -101,7 +103,8 @@ loginRouter.post(
             username: client.username,
             images: await getMediaLinks(client.images),
 
-            token: session.id,
+            token: createToken(session.id),
+            refreshToken: refreshToken(session.id),
             message: "Signup Successful",
           };
 

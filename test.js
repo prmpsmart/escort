@@ -8,8 +8,9 @@ function fileToBase64(filePath) {
   return fileData.toString("base64");
 }
 
-const host = "http://localhost:3000";
-// const host = "https://lazer-escort.onrender.com";
+let host = "";
+host = "https://lazer-escort.onrender.com";
+host = "http://localhost:3000";
 
 function _path(response) {
   let s = response.config.url.split("/");
@@ -244,12 +245,12 @@ async function seq() {
   // escortLogin();
   escortLogin().then((v) => {
     if (v) {
-      token = v.token
+      token = v.token;
       console.log(token);
     }
-    // setTimeout(ladiesStar, 500);
+    setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);
-    setTimeout(getUsers, 500);
+    // setTimeout(getUsers, 500);
     // setTimeout(oldChats, 500);
   });
   // escortProfile();

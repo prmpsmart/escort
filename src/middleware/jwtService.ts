@@ -8,11 +8,15 @@ export interface Payload {
 }
 
 export const createToken = (session_id: string): string => {
-  const expInSeconds = 5;
-  //   const expirationTime = Math.floor(Date.now() / 1000) + expInSeconds;
   const payload: Payload = { session_id };
 
   return jwt.sign(payload, secretKey, { expiresIn: "1h" });
+};
+
+export const refreshToken = (session_id: string): string => {
+  const payload: Payload = { session_id };
+
+  return jwt.sign(payload, secretKey, { expiresIn: "7d" });
 };
 
 export const verifyToken = (token: string): string => {

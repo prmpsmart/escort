@@ -3,6 +3,7 @@ import { Error } from "mongoose";
 import { Escorts, IEscort } from "../../models/escorts";
 import { Sessions, UserType } from "../../services/sessions";
 import { cleanObject, getUser } from "../../utils";
+import { createToken, refreshToken } from "../../middleware/jwtService";
 
 export const signupAndLoginRouter = Router();
 
@@ -15,6 +16,7 @@ interface LoginResponse {
   email: string;
 
   token: string;
+  refreshToken: string;
   message: string;
   profile: EscortR;
 }
@@ -65,7 +67,8 @@ signupAndLoginRouter.post(
           workingName: escort.workingName,
           email: escort.email,
 
-          token: session.id,
+          token: createToken(session.id),
+          refreshToken: refreshToken(session.id),
           message: "Signup Successful",
           profile: {
             id: escort.id,

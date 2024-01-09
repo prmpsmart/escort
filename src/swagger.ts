@@ -279,6 +279,7 @@ const doc = {
         lastName: "string",
         email: "string",
         token: "string",
+        refreshToken: "string",
         message: "string",
       },
       ActiveUsersResponse: {
@@ -294,6 +295,7 @@ const doc = {
         workingName: "string",
         email: "string",
         token: "string",
+        refreshToken: "string",
         message: "string",
         images: ["string"],
         profile: {
@@ -412,6 +414,7 @@ const doc = {
         createdAt: "number",
 
         token: "string",
+        refreshToken: "string",
         message: "string",
       },
       AdminDashboardResponse: {
