@@ -164,52 +164,6 @@ loginRouter.post(
   }
 );
 
-interface ChangePasswordRequest extends Request {
-  body: {
-    email: string;
-    password: string;
-  };
-}
-
-loginRouter.post(
-  "/changePassword",
-  async (req: ChangePasswordRequest, res: Response) => {
-    /**
-     #swagger.requestBody = {
-       required: true,
-       schema: { $ref: "#/components/schemas/ChangePasswordRequest" }
-      }
-
-    #swagger.responses[200] = {
-      schema:  { $ref: "#/components/schemas/Response" }
-     }
-
-    #swagger.responses[400] = {
-       schema: { $ref: '#/definitions/BadRequest' }
-    }
-    #swagger.responses[404] = {
-      schema: { $ref: '#/definitions/UserNotFound' }
-    }
-    */
-
-    let invalidRequestMessage;
-
-    if (!req.body.email) {
-      invalidRequestMessage = "`email`: `string` not provided";
-    }
-    if (!req.body.password) {
-      invalidRequestMessage = "`password`: `string` not provided";
-    }
-    if (invalidRequestMessage) {
-      res.status(400).json({
-        message: `Bad request:: ${invalidRequestMessage}`,
-      });
-    } else {
-      res.status(200).json({});
-    }
-  }
-);
-
 loginRouter.post("/loginWithFacebook", async (req: Request, res: Response) => {
   res.status(200).json({});
 });

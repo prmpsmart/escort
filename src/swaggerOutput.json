@@ -85,7 +85,7 @@
         }
       }
     },
-    "/refresh_access_token": {
+    "/refreshAccessToken": {
       "post": {
         "tags": [
           "Login for both Escort and Client"
@@ -758,76 +758,6 @@
         }
       }
     },
-    "/client/changePassword": {
-      "post": {
-        "tags": [
-          "Login Screens"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotFound"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotFound"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequest"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordRequest"
-              }
-            }
-          }
-        }
-      }
-    },
     "/client/loginWithFacebook": {
       "post": {
         "tags": [
@@ -913,12 +843,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FindMatchesRequest"
+                "$ref": "#/components/schemas/EscortsProfilesResponse"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/FindMatchesRequest"
+                "$ref": "#/components/schemas/EscortsProfilesResponse"
               }
             }
           }
@@ -1390,9 +1320,6 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -1445,7 +1372,7 @@
       }
     },
     "/client/deleteAccount": {
-      "get": {
+      "delete": {
         "tags": [
           "Settings"
         ],
@@ -1545,6 +1472,73 @@
             "application/xml": {
               "schema": {
                 "$ref": "#/components/schemas/NotificationSettingsRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/changePassword": {
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
               }
             }
           }
@@ -1907,8 +1901,8 @@
         }
       }
     },
-    "/admin/settings": {
-      "post": {
+    "/admin/changePassword": {
+      "patch": {
         "tags": [
           "Admin Settings"
         ],
@@ -1976,6 +1970,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1983,12 +1980,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserChangePasswordRequest"
+                "$ref": "#/components/schemas/ChangePasswordRequest"
               }
             },
             "application/xml": {
               "schema": {
-                "$ref": "#/components/schemas/UserChangePasswordRequest"
+                "$ref": "#/components/schemas/ChangePasswordRequest"
               }
             }
           }
@@ -2118,7 +2115,7 @@
     "/oldChats/{user_id}": {
       "get": {
         "tags": [
-          "Single Escorts"
+          "Chats"
         ],
         "description": "",
         "parameters": [
@@ -2308,9 +2305,29 @@
           "name": "PrivacyRequest"
         }
       },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "example": "string"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "string"
+          }
+        },
+        "xml": {
+          "name": "ChangePasswordRequest"
+        }
+      },
       "ProfileRequest": {
         "type": "object",
         "properties": {
+          "email": {
+            "type": "string",
+            "example": "string"
+          },
           "number": {
             "type": "string",
             "example": "string"
@@ -2326,6 +2343,10 @@
           "adFree": {
             "type": "string",
             "example": "boolean"
+          },
+          "about": {
+            "type": "string",
+            "example": "string"
           }
         },
         "xml": {
@@ -2493,46 +2514,6 @@
         ],
         "xml": {
           "name": "RecoverPasswordRequest"
-        }
-      },
-      "ChangePasswordRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "example": "string"
-          },
-          "password": {
-            "type": "string",
-            "example": "string"
-          }
-        },
-        "required": [
-          "email",
-          "password"
-        ],
-        "xml": {
-          "name": "ChangePasswordRequest"
-        }
-      },
-      "UserChangePasswordRequest": {
-        "type": "object",
-        "properties": {
-          "oldPassword": {
-            "type": "string",
-            "example": "string"
-          },
-          "newPassword": {
-            "type": "string",
-            "example": "string"
-          }
-        },
-        "required": [
-          "oldPassword",
-          "newPassword"
-        ],
-        "xml": {
-          "name": "UserChangePasswordRequest"
         }
       },
       "ContactUsRequest": {
@@ -2808,10 +2789,6 @@
         "type": "object",
         "properties": {
           "gender": {
-            "type": "string",
-            "example": "string"
-          },
-          "interestedGender": {
             "type": "string",
             "example": "string"
           },
@@ -3249,6 +3226,10 @@
             "type": "string",
             "example": "string"
           },
+          "refreshToken": {
+            "type": "string",
+            "example": "string"
+          },
           "message": {
             "type": "string",
             "example": "string"
@@ -3315,6 +3296,10 @@
             "example": "string"
           },
           "token": {
+            "type": "string",
+            "example": "string"
+          },
+          "refreshToken": {
             "type": "string",
             "example": "string"
           },
@@ -3745,6 +3730,10 @@
             "example": "number"
           },
           "token": {
+            "type": "string",
+            "example": "string"
+          },
+          "refreshToken": {
             "type": "string",
             "example": "string"
           },

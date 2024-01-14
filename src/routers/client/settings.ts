@@ -267,15 +267,15 @@ settingsRouter.post(
   }
 );
 
-interface ChangePasswordRequest extends AuthRequest {
+export interface ChangePasswordRequest extends AuthRequest {
   body: {
     oldPassword: string;
     newPassword: string;
   };
 }
 
-settingsRouter.post(
-  "/notification",
+settingsRouter.patch(
+  "/changePassword",
   (req: ChangePasswordRequest, res: Response) => {
     /**
       #swagger.requestBody = {
@@ -305,15 +305,13 @@ settingsRouter.post(
       });
     } else {
       const client = req.session?.user as Client;
-      if (req.body.oldPassword == client.password) {
+      if (req.body.oldPassword === client.password) {
         client.password = req.body.newPassword;
 
         client
           .save()
           .then((value) => {
-            res
-              .status(200)
-              .json({ message: "Notification options updated successfully" });
+            res.status(200).json({ message: "Password updated successfully" });
           })
           .catch((reason) => {
             res.status(500).json({ message: "Internal server error", reason });

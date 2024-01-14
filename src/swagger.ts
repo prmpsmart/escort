@@ -87,14 +87,6 @@ const doc = {
       RecoverPasswordRequest: {
         $email: "string",
       },
-      ChangePasswordRequest: {
-        $email: "string",
-        $password: "string",
-      },
-      UserChangePasswordRequest: {
-        $oldPassword: "string",
-        $newPassword: "string",
-      },
       ContactUsRequest: {
         firstName: "string",
         lastName: "string",

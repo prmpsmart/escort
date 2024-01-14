@@ -1,23 +1,16 @@
 import { Response, Router } from "express";
-import { AuthRequest } from "../../middleware/checkToken";
-import { Admins } from "../../models/admin";
-import { objectId } from "../../utils";
+import { Admin } from "../../models/admin";
+import { ChangePasswordRequest } from "../client/settings";
 
 export const settingsRouter = Router();
-interface UserChangePasswordRequest extends AuthRequest {
-  body: {
-    oldPassword: string;
-    newPassword: string;
-  };
-}
 
-settingsRouter.post(
-  "/settings",
-  async (req: UserChangePasswordRequest, res: Response) => {
+settingsRouter.patch(
+  "/changePassword",
+  async (req: ChangePasswordRequest, res: Response) => {
     /**
     #swagger.requestBody = {
     required: true,
-    schema: { $ref: "#/components/schemas/UserChangePasswordRequest" }
+    schema: { $ref: "#/components/schemas/ChangePasswordRequest" }
     }
     #swagger.responses[200] = {
         schema: { $ref: '#/components/schemas/Response' }
@@ -46,16 +39,21 @@ settingsRouter.post(
         message: `Bad request:: ${invalidRequestMessage}`,
       });
     } else {
-      const admin = await Admins.findOne({ _id: objectId(req.session?.id) });
-      if (admin) {
-        if (req.body.oldPassword === admin.password) {
-          admin.password = req.body.newPassword;
-          admin.save();
-        } else {
-          res.status(409).json({ message: "Old password is incorrect" });
-        }
+      // const admin = await Admins.findOne({ _id: objectId(req.session?.id) });
+      const admin = req.session?.user as Admin;
+
+      if (req.body.oldPassword === admin.password) {
+        admin.password = req.body.newPassword;
+        admin
+          .save()
+          .then((value) => {
+            res.status(200).json({ message: "Password updated successfully" });
+          })
+          .catch((reason) => {
+            res.status(500).json({ message: "Internal server error", reason });
+          });
       } else {
-        res.status(404).json({ message: "Admin does not exist, relogin" });
+        res.status(409).json({ message: "Old password is incorrect" });
       }
     }
   }
