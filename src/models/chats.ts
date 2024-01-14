@@ -2,35 +2,32 @@ import { Document, Schema, model } from "mongoose";
 
 export interface IChat {
   id?: any;
-  user_1_id: string;
-  user_2_id: string;
-  user_1_is_client: boolean;
-  user_2_is_client: boolean;
+  sender_id: string;
+  receiver_id: string;
 
-  message: string;
+  messageType: string;
+  data: string;
+
   create_timestamp: number;
 }
 
 export interface Chat extends IChat, Document {}
 
 const chatsSchema = new Schema<Chat>({
-  user_1_id: {
+  sender_id: {
     type: String,
     required: true,
   },
-  user_2_id: {
+  receiver_id: {
     type: String,
     required: true,
   },
-  user_1_is_client: {
-    type: Boolean,
+  messageType: {
+    type: String,
+    default: "text",
     required: true,
   },
-  user_2_is_client: {
-    type: Boolean,
-    required: true,
-  },
-  message: {
+  data: {
     type: String,
     required: true,
   },

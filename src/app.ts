@@ -13,6 +13,7 @@ import { routers } from "./routers/index";
 import { Session, Sessions } from "./services/sessions";
 import swaggerOutput from "./swaggerOutput.json";
 import { verifyToken } from "./middleware/jwtService";
+import { handleChat } from "./routers/chat";
 
 dotenv.config();
 
@@ -46,9 +47,7 @@ io.on("connect", (socket) => {
     const session_id = verifyToken(token);
     let session: Session | undefined;
 
-    console.log(session_id, session);
-
-    if (session_id) Sessions.getSessionByID(session_id);
+    if (session_id) session = Sessions.getSessionByID(session_id);
 
     if (session) {
       let user = session.isEscort
@@ -58,7 +57,12 @@ io.on("connect", (socket) => {
       user.lastSeen = Date.now();
       user.save();
 
-      io.emit("userStatus", { userId: socket.id, status: "online" });
+      socket.broadcast.emit("userStatus", {
+        userId: user.id,
+        status: "online",
+      });
+
+      handleChat(socket, session);
 
       socket.on("disconnect", () => {
         console.log(`User disconnected: ${socket.id}`);
@@ -66,7 +70,10 @@ io.on("connect", (socket) => {
         user.lastSeen = Date.now();
         user.save();
 
-        io.emit("userStatus", { userId: socket.id, status: "offline" });
+        socket.broadcast.emit("userStatus", {
+          userId: user.id,
+          status: "offline",
+        });
       });
     } else {
       socket.emit("invalid_session", "Login in again");
@@ -119,3 +126,4 @@ server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Swagger is running at http://localhost:${port}/docs`);
 });
+

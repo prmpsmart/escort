@@ -139,7 +139,7 @@ loginRouter.post(
      }
      */
 
-    const session_id = verifyToken(req.body.token);
+    const session_id = verifyToken(req.body.token, true);
     if (session_id.length > 0) {
       return res.json({ accessToken: createToken(session_id) });
     } else {

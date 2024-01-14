@@ -535,6 +535,18 @@ const doc = {
           },
         ],
       },
+      ChatsResponse: {
+        chats: [
+          {
+            id: "string",
+            sender_id: "string",
+            receiver_id: "string",
+            messageType: "string",
+            data: "string",
+            create_timestamp: "number",
+          },
+        ],
+      },
       EscortProfile: {
         id: "string",
         workingName: "string",

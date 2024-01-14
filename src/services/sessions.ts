@@ -23,7 +23,7 @@ export class Session {
   }
 }
 
-export class _Sessions {
+class _Sessions {
   constructor(
     public sessionsIds: Map<string, Session> = new Map(),
     public sessionsEmails: Map<string, Session> = new Map()
