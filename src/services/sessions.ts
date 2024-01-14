@@ -1,3 +1,4 @@
+import { Socket } from "socket.io";
 import { User } from "../utils";
 
 export enum UserType {
@@ -6,7 +7,8 @@ export enum UserType {
   Admin,
 }
 export class Session {
-  public id: string;
+  id: string;
+  socket?: Socket;
 
   constructor(public user: User, public userType: UserType) {
     this.id = user.id;
@@ -21,6 +23,12 @@ export class Session {
   public get isAdmin(): boolean {
     return this.userType == UserType.Admin;
   }
+  // public set socket(soc: Socket) {
+  //   this._socket = soc;
+  // }
+  // public get socket(): Socket | undefined {
+  //   return this._socket;
+  // }
 }
 
 class _Sessions {

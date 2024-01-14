@@ -2,7 +2,11 @@ import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
 import Chats, { Chat, IChat } from "../models/chats";
 import { Socket } from "socket.io";
-import { Session } from "../services/sessions";
+import { Session, Sessions } from "../services/sessions";
+import { Clients } from "../models/clients";
+import { objectId } from "../utils";
+import { Admins } from "../models/admin";
+import { Escorts } from "../models/escorts";
 
 export const chatRouter = Router();
 
@@ -71,6 +75,39 @@ chatRouter.get(
 );
 
 export async function handleChat(socket: Socket, session: Session) {
-
-  
+  socket.on("new_message", async (message: ChatModel): Promise<void> => {
+    if (session.user.id === message.sender_id) {
+      const receiver_session = Sessions.getSessionByID(message.receiver_id);
+      if (receiver_session) {
+        Chats.create(message);
+        receiver_session.socket?.emit("new_message", message);
+      } else {
+        if (message.sender_id != message.receiver_id) {
+          const receiver =
+            (await Clients.findById(objectId(message.receiver_id))) ||
+            (await Escorts.findById(objectId(message.receiver_id))) ||
+            (await Admins.findById(objectId(message.receiver_id)));
+          //
+          if (receiver) {
+            Chats.create(message);
+          } else {
+            socket.emit(
+              "wrong_receiver_id",
+              "Message receiver_id is not a valid user."
+            );
+          }
+        } else {
+          socket.emit(
+            "invalid_message",
+            "sender_id and receiver_id can not be the same."
+          );
+        }
+      }
+    } else {
+      socket.emit(
+        "wrong_sender_id",
+        "Message sender_id is not same as User id"
+      );
+    }
+  });
 }

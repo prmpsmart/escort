@@ -50,6 +50,8 @@ io.on("connect", (socket) => {
     if (session_id) session = Sessions.getSessionByID(session_id);
 
     if (session) {
+      session.socket = socket;
+
       let user = session.isEscort
         ? (session.user as Escort)
         : (session.user as Client);

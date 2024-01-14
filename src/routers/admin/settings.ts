@@ -39,7 +39,6 @@ settingsRouter.patch(
         message: `Bad request:: ${invalidRequestMessage}`,
       });
     } else {
-      // const admin = await Admins.findOne({ _id: objectId(req.session?.id) });
       const admin = req.session?.user as Admin;
 
       if (req.body.oldPassword === admin.password) {

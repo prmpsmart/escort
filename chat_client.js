@@ -3,7 +3,7 @@ const io = require("socket.io-client");
 const serverUrl = "http://localhost:3000";
 
 let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwiaWF0IjoxNzA1MjIwOTQ4LCJleHAiOjE3MDUyMjQ1NDh9.auEFyx9URzmD-jh5NIsqxcC1hBT-Bb-y95fuFXjjE8g";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTIyNDUxOSwiZXhwIjoxNzA1MjI4MTE5fQ.QMMY1ETxdMsaHw4bexjeDnJe-VsOUxLlRmza7zGjnSY";
 
 const socket = io(serverUrl, {
   path: "/ws",

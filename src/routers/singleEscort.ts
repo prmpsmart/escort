@@ -25,9 +25,7 @@ singleEscortRouter.get(
       }
        */
 
-    let escort: Escort | null = await Escorts.findOne({
-      _id: objectId(req.params.id),
-    });
+    let escort: Escort | null = await Escorts.findById(objectId(req.params.id));
     if (escort) {
       escort = escort as Escort;
       res
