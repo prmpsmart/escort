@@ -12,6 +12,7 @@ import { Escort } from "./models/escorts";
 import { routers } from "./routers/index";
 import { Session, Sessions } from "./services/sessions";
 import swaggerOutput from "./swaggerOutput.json";
+import { verifyToken } from "./middleware/jwtService";
 
 dotenv.config();
 
@@ -25,15 +26,29 @@ admin.initializeApp({
 export const app = express();
 
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  // allowEIO3: true,
+  path: "/ws",
+  cors: {
+    origin: "*",
+    // methods: ["GET", "POST"],
+  },
+});
 
-io.on("connection", (socket) => {
-  const token = socket.handshake.query.token as string | undefined;
+io.on("connect", (socket) => {
+  console.log("Client connected.");
+
+  const token = socket.handshake.auth.token as string | undefined;
 
   if (token) {
-    console.log(`User connected with token: ${token}`);
+    console.log("User connected with token");
 
-    let session: Session | undefined = Sessions.getSessionByID(token);
+    const session_id = verifyToken(token);
+    let session: Session | undefined;
+
+    console.log(session_id, session);
+
+    if (session_id) Sessions.getSessionByID(session_id);
 
     if (session) {
       let user = session.isEscort
@@ -42,6 +57,7 @@ io.on("connection", (socket) => {
 
       user.lastSeen = Date.now();
       user.save();
+
       io.emit("userStatus", { userId: socket.id, status: "online" });
 
       socket.on("disconnect", () => {
@@ -53,9 +69,11 @@ io.on("connection", (socket) => {
         io.emit("userStatus", { userId: socket.id, status: "offline" });
       });
     } else {
+      socket.emit("invalid_session", "Login in again");
       socket.disconnect(true);
     }
   } else {
+    socket.emit("invalid_token", "Token is not provided");
     console.log("User connection denied: Invalid or missing token");
     socket.disconnect(true);
   }
@@ -81,7 +99,6 @@ mongoose
     console.log(`Connection to Mongo Server error ${reason}`);
   });
 
-
 app.use(bodyParser.json({ limit: "50mb" }));
 
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
@@ -94,11 +111,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.use("/", routers);
 
-
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 const port = 3000;
-app.listen(port, () => {
+
+server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Swagger is running at http://localhost:${port}/docs`);
 });

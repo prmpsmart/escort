@@ -52,6 +52,7 @@ const doc = {
         ageVerified: "boolean",
         adFree: "boolean",
         about: "string",
+        education: "string",
       },
       EditProfileRequest: {
         $modelName: "string",

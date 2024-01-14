@@ -13,6 +13,8 @@ interface SettingsResponse {
   language: string;
   ageVerified: boolean;
   adFree: boolean;
+  about: string;
+  education: string;
 
   showProfileOnSearchEngine: boolean;
   showProfileOnRandomUsers: boolean;
@@ -47,6 +49,8 @@ settingsRouter.get("/settings", (req: AuthRequest, res: Response) => {
     language: client.language,
     ageVerified: client.ageVerified,
     adFree: client.adFree,
+    about: client.about,
+    education: client.education,
 
     showProfileOnSearchEngine: client.showProfileOnSearchEngine,
     showProfileOnRandomUsers: client.showProfileOnRandomUsers,
@@ -134,6 +138,7 @@ interface ProfileRequest extends AuthRequest {
     ageVerified: boolean;
     adFree: boolean;
     about: string;
+    education: string;
   };
 }
 
@@ -159,6 +164,7 @@ settingsRouter.post("/profile", (req: ProfileRequest, res: Response) => {
   if (req.body.ageVerified) client.ageVerified = req.body.ageVerified;
   if (req.body.adFree) client.adFree = req.body.adFree;
   if (req.body.about) client.about = req.body.about;
+  if (req.body.education) client.education = req.body.education;
 
   client
     .save()

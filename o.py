@@ -1,6 +1,6 @@
 import os
 while 1:
-    print('Launching')
+    print('\nLaunching')
     try:
         os.system('ts-node src/app.ts')
     except KeyboardInterrupt:

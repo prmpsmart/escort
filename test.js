@@ -248,7 +248,7 @@ async function seq() {
       token = v.token;
       console.log(token);
     }
-    setTimeout(ladiesStar, 500);
+    // setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);
     // setTimeout(getUsers, 500);
     // setTimeout(oldChats, 500);

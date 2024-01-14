@@ -13,6 +13,7 @@ interface IClient extends User {
   gender: string;
   birthday: number;
   about: string;
+  education: string;
 
   number: string;
   language: string;
@@ -73,6 +74,10 @@ const clientsSchema = new Schema<Client>({
     default: "",
   },
   about: {
+    type: String,
+    default: "",
+  },
+  education: {
     type: String,
     default: "",
   },
