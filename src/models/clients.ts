@@ -12,6 +12,7 @@ interface IClient extends User {
   country: string;
   gender: string;
   birthday: number;
+  about: string;
 
   number: string;
   language: string;
@@ -71,6 +72,10 @@ const clientsSchema = new Schema<Client>({
     type: String,
     default: "",
   },
+  about: {
+    type: String,
+    default: "",
+  },
   country: {
     type: String,
     default: "",
@@ -122,6 +127,5 @@ const clientsSchema = new Schema<Client>({
     default: true,
   },
 });
-
 
 export const Clients = model<Client>("Clients", clientsSchema);

@@ -1,6 +1,8 @@
 import { Request, Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
-import { Client } from "../../models/clients";
+import { Client, Clients } from "../../models/clients";
+import { objectId } from "../../utils";
+import { Escort, Escorts } from "../../models/escorts";
 
 export const settingsRouter = Router();
 
@@ -126,11 +128,12 @@ settingsRouter.post("/privacy", (req: PrivacyRequest, res: Response) => {
 interface ProfileRequest extends AuthRequest {
   body: {
     // username: string;
-    // email: string;
+    email: string;
     number: string;
     language: string;
     ageVerified: boolean;
     adFree: boolean;
+    about: string;
   };
 }
 
@@ -148,44 +151,29 @@ settingsRouter.post("/profile", (req: ProfileRequest, res: Response) => {
     }
     */
 
-  let invalidRequestMessage;
+  const client = req.session?.user as Client;
 
-  if (!req.body.number) {
-    invalidRequestMessage = "`number`: `string` not provided";
-  }
-  if (!req.body.language) {
-    invalidRequestMessage = "`language`: `string` not provided";
-  }
-  if (req.body.ageVerified == undefined) {
-    invalidRequestMessage = "`ageVerified`: `string` not provided";
-  }
-  if (req.body.adFree == undefined) {
-    invalidRequestMessage = "`adFree`: `string` not provided";
-  }
-  if (invalidRequestMessage) {
-    res.status(400).json({
-      message: `Bad request:: ${invalidRequestMessage}`,
+  if (req.body.email) client.email = req.body.email;
+  if (req.body.number) client.number = req.body.number;
+  if (req.body.language) client.language = req.body.language;
+  if (req.body.ageVerified) client.ageVerified = req.body.ageVerified;
+  if (req.body.adFree) client.adFree = req.body.adFree;
+  if (req.body.about) client.about = req.body.about;
+
+  client
+    .save()
+    .then((value) => {
+      res.status(200).json({ message: "Profile updated successfully" });
+    })
+    .catch((reason) => {
+      res.status(500).json({ message: "Internal server error", reason });
     });
-  } else {
-    const client = req.session?.user as Client;
-    client.number = req.body.number;
-    client.language = req.body.language;
-    client.ageVerified = req.body.ageVerified;
-    client.adFree = req.body.adFree;
-
-    client
-      .save()
-      .then((value) => {
-        res.status(200).json({ message: "Profile updated successfully" });
-      })
-      .catch((reason) => {
-        res.status(500).json({ message: "Internal server error", reason });
-      });
-  }
 });
 
-settingsRouter.get("/deleteAccount", (req: Request, res: Response) => {
-  /**
+settingsRouter.delete(
+  "/deleteAccount",
+  async (req: AuthRequest, res: Response) => {
+    /**
     #swagger.responses[401] = {
         schema: { $ref: '#/definitions/InvalidSession' }
     }
@@ -194,9 +182,19 @@ settingsRouter.get("/deleteAccount", (req: Request, res: Response) => {
     }
     */
 
-  const json = {};
-  res.status(200).json(json);
-});
+    let user = req.session?.user;
+    if (req.session?.isClient) {
+      user = user as Client;
+      await Clients.deleteOne({ _id: objectId(user.id) });
+    } else if (req.session?.isEscort) {
+      user = user as Escort;
+      await Escorts.deleteOne({ _id: objectId(user.id) });
+    }
+
+    const json = {};
+    res.status(200).json(json);
+  }
+);
 
 interface NotificationSettingsRequest extends AuthRequest {
   body: {
@@ -265,6 +263,64 @@ settingsRouter.post(
         .catch((reason) => {
           res.status(500).json({ message: "Internal server error", reason });
         });
+    }
+  }
+);
+
+interface ChangePasswordRequest extends AuthRequest {
+  body: {
+    oldPassword: string;
+    newPassword: string;
+  };
+}
+
+settingsRouter.post(
+  "/notification",
+  (req: ChangePasswordRequest, res: Response) => {
+    /**
+      #swagger.requestBody = {
+      required: true,
+      schema: { $ref: "#/components/schemas/ChangePasswordRequest" }
+      }
+      #swagger.responses[401] = {
+          schema: { $ref: '#/definitions/InvalidSession' }
+      }
+      #swagger.responses[404] = {
+          schema: { $ref: '#/definitions/UserNotExists' }
+      }
+      */
+
+    let invalidRequestMessage;
+
+    if (req.body.oldPassword == undefined) {
+      invalidRequestMessage = "`oldPassword`: `string` not provided";
+    }
+    if (req.body.newPassword == undefined) {
+      invalidRequestMessage = "`newPassword`: `string` not provided";
+    }
+
+    if (invalidRequestMessage) {
+      res.status(400).json({
+        message: `Bad request:: ${invalidRequestMessage}`,
+      });
+    } else {
+      const client = req.session?.user as Client;
+      if (req.body.oldPassword == client.password) {
+        client.password = req.body.newPassword;
+
+        client
+          .save()
+          .then((value) => {
+            res
+              .status(200)
+              .json({ message: "Notification options updated successfully" });
+          })
+          .catch((reason) => {
+            res.status(500).json({ message: "Internal server error", reason });
+          });
+      } else {
+        res.status(406).json({ message: "Invalid oldPassword" });
+      }
     }
   }
 );

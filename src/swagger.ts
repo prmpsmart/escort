@@ -40,13 +40,18 @@ const doc = {
         $showProfileOnFindMatchPage: "boolean",
         $confirmFriendRequest: "boolean",
       },
+      ChangePasswordRequest: {
+        oldPassword: "string",
+        newPassword: "string",
+      },
       ProfileRequest: {
         // username: "string",
-        // email: "string",
+        email: "string",
         number: "string",
         language: "string",
         ageVerified: "boolean",
         adFree: "boolean",
+        about: "string",
       },
       EditProfileRequest: {
         $modelName: "string",
@@ -168,7 +173,6 @@ const doc = {
       },
       FindMatchesRequest: {
         gender: "string",
-        interestedGender: "string",
         ageStart: "number",
         ageEnd: "number",
       },
