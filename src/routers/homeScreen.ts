@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Escort, Escorts, IEscort } from "../models/escorts";
-import { cleanEscort } from "../utils";
+import { cleanEscort, getMediaLinks } from "../utils";
+import { AuthRequest } from "../middleware/checkToken";
 
 export const homeRouter = Router();
 
@@ -97,3 +98,55 @@ homeRouter.get("/getUsers", async (req: Request, res: Response) => {
 
   res.status(200).json({ users: jsons });
 });
+
+interface SearchRequest extends AuthRequest {
+  params: {
+    searchName: string;
+  };
+}
+
+interface UserSearch {
+  id: string;
+  location: string;
+  age: number;
+  image: string;
+}
+
+homeRouter.get(
+  "/escorts/:searchName",
+  async (req: SearchRequest, res: Response) => {
+    /**
+  #swagger.responses[200] = {
+    schema:  { $ref: "#/components/schemas/UserSearch" }
+   }
+  #swagger.responses[404] = {
+     schema: { $ref: '#/definitions/UserNotFound' }
+   }
+  #swagger.responses[406] = {
+     schema: { $ref: '#/definitions/InvalidCredentials' }
+   }
+  */
+
+    const escorts: Escort[] = await Escorts.find({
+      workingName: req.params.searchName,
+      modelName: req.params.searchName,
+    });
+
+    const jsons: UserSearch[] = [];
+
+    for (const key in escorts) {
+      if (Object.prototype.hasOwnProperty.call(escorts, key)) {
+        const element: Escort = escorts[key];
+        // const cleaned = await cleanEscort(element);
+        jsons.push({
+          id: element.id,
+          location: element.location.incall,
+          age: element.personalDetails.age,
+          image: (await getMediaLinks([element.personalDetails.image]))[0],
+        });
+      }
+    }
+
+    res.status(200).json({ users: jsons });
+  }
+);
