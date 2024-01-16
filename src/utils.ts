@@ -79,16 +79,20 @@ export async function uploadMedia(
 
 export async function getMediaLink(media: string): Promise<string> {
   if (media.length < 1) return "";
-  const storageBucket = admin.storage().bucket();
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 3);
+  try {
+    const storageBucket = admin.storage().bucket();
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 3);
 
-  const mediaLink = await storageBucket.file(media).getSignedUrl({
-    action: "read",
-    expires: expirationDate.toISOString(),
-  });
+    const mediaLink = await storageBucket.file(media).getSignedUrl({
+      action: "read",
+      expires: expirationDate.toISOString(),
+    });
 
-  return mediaLink[0];
+    return mediaLink[0];
+  } catch {
+    return "";
+  }
 }
 
 export async function getMediaLinks(media: string[]): Promise<string[]> {
