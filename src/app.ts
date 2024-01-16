@@ -28,11 +28,11 @@ export const app = express();
 
 app.use(
   cors({
-    origin: "*",
-    optionsSuccessStatus: 200,
-    preflightContinue: true,
+    origin: "https://lazerescort.netlify.app",
+    // origin: "*",
   })
 );
+
 // const server = http.createServer((req, res) => {
 //   // Set CORS headers
 //   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -55,9 +55,8 @@ const server = http.createServer(app);
 const io = new Server(server, {
   path: "/ws",
   cors: {
-    origin: "*",
-    optionsSuccessStatus: 200,
-    preflightContinue: true,
+    origin: "https://lazerescort.netlify.app",
+    // origin: "*",
   },
 });
 
