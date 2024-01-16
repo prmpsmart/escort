@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import * as admin from "firebase-admin";
-import http from "http";
+import { createServer } from "http";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import swaggerUi from "swagger-ui-express";
@@ -28,7 +28,11 @@ export const app = express();
 
 app.use(
   cors({
-    origin: "https://lazerescort.netlify.app",
+    origin: [
+      "https://lazerescort.netlify.app",
+      "http://localhost:3000",
+      "http://localhost:8000",
+    ],
     // origin: "*",
   })
 );
@@ -51,13 +55,17 @@ app.use(
 //   // Continue with your regular request handling logic
 //   // ...
 // });
-const server = http.createServer(app);
+const server = createServer(app);
 const io = new Server(server, {
-  path: "/ws",
   cors: {
-    origin: "https://lazerescort.netlify.app",
+    origin: [
+      "https://lazerescort.netlify.app",
+      "http://localhost:3000",
+      "http://localhost:8000",
+    ],
     // origin: "*",
   },
+  path: "/ws",
 });
 
 io.on("connect", (socket) => {

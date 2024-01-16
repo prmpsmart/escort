@@ -3,7 +3,7 @@ const io = require("socket.io-client");
 const serverUrl = "http://localhost:3000";
 
 let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTIyNDUxOSwiZXhwIjoxNzA1MjI4MTE5fQ.QMMY1ETxdMsaHw4bexjeDnJe-VsOUxLlRmza7zGjnSY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTQ0MTQ2MSwiZXhwIjoxNzA1NDQ1MDYxfQ.Ljn-ESpa0WbilujIvvqcoZFblh0_gPFkiCQc_wjXusw";
 
 const socket = io(serverUrl, {
   path: "/ws",
@@ -46,3 +46,5 @@ setInterval(() => {
   const dummyMessage = `Dummy User: Message at ${new Date().toLocaleTimeString()}`;
   socket.emit("message", dummyMessage);
 }, 500);
+
+// curl "http://localhost:3000/ws/?EIO=4&transport=polling"
