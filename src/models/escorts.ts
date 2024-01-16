@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../utils";
+import { User, chatModelSchema } from "./common";
 
 interface PersonalDetails {
   gender: string;
@@ -160,6 +160,7 @@ const escortSchema = new Schema<Escort>({
   password: { type: String, required: true },
   createdAt: { type: Number, default: Date.now },
   lastSeen: { type: Number, default: Date.now },
+  contacts: { type: Map, of: chatModelSchema },
 
   personalDetails: {
     type: {

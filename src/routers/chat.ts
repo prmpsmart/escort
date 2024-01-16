@@ -7,6 +7,7 @@ import { Clients } from "../models/clients";
 import { objectId } from "../utils";
 import { Admins } from "../models/admin";
 import { Escorts } from "../models/escorts";
+import { ChatModel } from "../models/common";
 
 export const chatRouter = Router();
 
@@ -14,19 +15,6 @@ interface ChatRequest extends AuthRequest {
   params: {
     user_id: string;
   };
-}
-
-interface ChatModel {
-  id: string;
-  sender_id: string;
-  receiver_id: string;
-  messageType: string;
-  data: string;
-  create_timestamp: number;
-}
-
-interface ChatsResponse {
-  chats: ChatModel[];
 }
 
 chatRouter.get(

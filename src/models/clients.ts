@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../utils";
+import { User, chatModelSchema } from "./common";
 
 interface IClient extends User {
   firstName: string;
@@ -57,6 +57,7 @@ const clientsSchema = new Schema<Client>({
     type: Number,
     default: Date.now,
   },
+  contacts: { type: Map, of: chatModelSchema },
   height: {
     type: Number,
     default: Date.now,
