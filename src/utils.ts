@@ -78,6 +78,7 @@ export async function uploadMedia(
 }
 
 export async function getMediaLink(media: string): Promise<string> {
+  if (media.length < 1) return "";
   const storageBucket = admin.storage().bucket();
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 3);
