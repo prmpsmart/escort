@@ -5,7 +5,7 @@ import path from "path";
 import { v4 } from "uuid";
 import { Admins } from "./models/admin";
 import { Clients } from "./models/clients";
-import { Escort, Escorts, IEscort } from "./models/escorts";
+import { Escorts } from "./models/escorts";
 
 export interface User {
   id?: any;
@@ -46,168 +46,57 @@ export function dbError(res: Response) {
   };
 }
 
-export async function upload(pvt: string) {
-  const storageBucket = admin.storage().bucket();
-
-  const fileBuffer = Buffer.from(pvt);
-
-  // Upload the file to Firebase Cloud Storage
-  await storageBucket.file(`pvt-${pvt}`).save(fileBuffer, {
-    metadata: {
-      contentType: `file/txt`,
-    },
-  });
-}
-
 export async function uploadMedia(
   id: string,
   media: Media[]
 ): Promise<string[]> {
   const storageBucket = admin.storage().bucket();
 
-  const filenames: string[] = [];
+  const uploadPromises: Promise<string>[] = [];
 
-  for (let index = 0; index < media.length; index++) {
-    const file = media[index];
-    let newFilename = `${v4()}---${id}---${file.filename}`;
-    newFilename = file.filename;
+  media.forEach((file) => {
+    // Generate a unique identifier for each file
+    // Create a filename combining the original filename and the unique identifier
+    const newFilename = `${id}_${v4()}_${file.filename}`;
     const ext = path.extname(newFilename).slice(1);
 
     // Decode base64 file data
     const fileBuffer = Buffer.from(file.data, "base64");
 
     // Upload the file to Firebase Cloud Storage
-    await storageBucket.file(newFilename).save(fileBuffer, {
-      metadata: {
-        contentType: `file/${ext}`,
-      },
-    });
-    filenames.push(newFilename);
-    console.log(`File ${newFilename} uploaded successfully.`);
-  }
+    const uploadPromise = storageBucket
+      .file(newFilename)
+      .save(fileBuffer, {
+        metadata: {
+          contentType: `file/${ext}`,
+        },
+      })
+      .then(() => {
+        console.log(`File ${newFilename} uploaded successfully.`);
+        // Get the URL of the uploaded file
+        return storageBucket.file(newFilename).getSignedUrl({
+          action: "read",
+          expires: "03-09-2023", // Adjust the expiration date as needed
+        });
+      })
+      .then((url) => url[0]);
 
-  return filenames;
-}
-
-export async function getMediaLink(media: string): Promise<string> {
-  const storageBucket = admin.storage().bucket();
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 3);
-
-  const mediaLink = await storageBucket.file(media).getSignedUrl({
-    action: "read",
-    expires: expirationDate.toISOString(),
+    uploadPromises.push(uploadPromise);
   });
 
-  return mediaLink[0];
-}
-
-export async function getMediaLinks(media: string[]): Promise<string[]> {
-  const mediaLinks: string[] = [];
-  for (let index = 0; index < media.length; index++) {
-    const image = media[index];
-    if (image.length < 1) continue;
-
-    const _image = await getMediaLink(image);
-    mediaLinks.push(_image);
-  }
-  return mediaLinks;
+  // Wait for all image uploads to complete
+  return await Promise.all(uploadPromises);
 }
 
 export function log(...p: any) {
   console.log(...p);
 }
 
-export function clean(object: any): string {
-  return JSON.stringify(object, (key, value) => {
-    if (key === "_id" || key === "password" || key === "__v") return;
-    return value;
-  });
-}
-
-export function cleanObject(object: any, log: boolean = false): any {
-  const obj = clean(object) ?? "{}";
-  if (log) console.log(object, obj);
-
-  return JSON.parse(obj);
-}
-
-export async function cleanEscort(escort: Escort): Promise<IEscort> {
-  const json: IEscort = {
-    id: escort.id,
-    workingName: escort.workingName,
-    email: escort.email,
-    verifiedPhone: escort.verifiedPhone,
-    verifiedEmail: escort.verifiedEmail,
-    createdAt: escort.createdAt,
-    lastSeen: escort.lastSeen,
-    personalDetails: {
-      gender: escort.personalDetails.gender,
-      sexuality: escort.personalDetails.sexuality,
-      age: escort.personalDetails.age,
-      nationality: escort.personalDetails.nationality,
-      country: escort.personalDetails.country,
-      modelName: escort.personalDetails.modelName,
-      image: await getMediaLink(escort.personalDetails.image),
-      description: escort.personalDetails.description,
-      availableFor: escort.personalDetails.availableFor,
-      isPornStar: escort.personalDetails.isPornStar,
-    },
-    physicalDetails: {
-      chest: escort.physicalDetails.chest,
-      waist: escort.physicalDetails.waist,
-      hips: escort.physicalDetails.hips,
-      ethnicity: escort.physicalDetails.ethnicity,
-      hairColour: escort.physicalDetails.hairColour,
-      height: escort.physicalDetails.height,
-      weight: escort.physicalDetails.weight,
-      eyeColour: escort.physicalDetails.eyeColour,
-      genetalia: escort.physicalDetails.genetalia,
-      cupSize: escort.physicalDetails.cupSize,
-      breastImplant: escort.physicalDetails.breastImplant,
-      breastSize: escort.physicalDetails.breastSize,
-      breastType: escort.physicalDetails.breastType,
-      bodyType: escort.physicalDetails.bodyType,
-      bodyArt: escort.physicalDetails.bodyArt,
-      piercing: escort.physicalDetails.piercing,
-    },
-    languages: escort.languages,
-    bookingNotes: escort.bookingNotes,
-    location: {
-      incall: escort.location.incall,
-      outcall: {
-        location: escort.location.outcall.location,
-        iTravelTo: escort.location.outcall.iTravelTo,
-      },
-    },
-    price: {
-      incall: {
-        hour1: escort.price.incall.hour1,
-        hour2: escort.price.incall.hour2,
-        hour3: escort.price.incall.hour3,
-      },
-      outcall: {
-        hour1: escort.price.outcall.hour1,
-        hour2: escort.price.outcall.hour2,
-        hour3: escort.price.outcall.hour3,
-      },
-    },
-    availability: {
-      monday: escort.availability.monday,
-      tuesday: escort.availability.tuesday,
-      wednesday: escort.availability.wednesday,
-      thurday: escort.availability.thurday,
-      friday: escort.availability.friday,
-      saturday: escort.availability.saturday,
-      sunday: escort.availability.sunday,
-    },
-    meeting: {
-      person: escort.meeting.person,
-      cellphones: escort.meeting.cellphones,
-    },
-    services: escort.services,
-    images: await getMediaLinks(escort.images),
-    videos: await getMediaLinks(escort.videos),
-  };
-  return json;
+export function cleanItem(item: any): any {
+  let obj = item.toObject();
+  obj.id = obj._id;
+  delete obj.password;
+  delete obj._id;
+  delete obj.__v;
+  return obj;
 }
