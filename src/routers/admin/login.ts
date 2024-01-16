@@ -1,9 +1,10 @@
 import { Response, Router } from "express";
 import { Admins } from "../../models/admin";
 import { Sessions, UserType } from "../../services/sessions";
-import { User, dbError } from "../../utils";
+import { dbError } from "../../utils";
 import { LoginRequest } from "../client/loginScreens";
 import { createToken, refreshToken } from "../../middleware/jwtService";
+import { User } from "../../models/common";
 
 export const loginRouter = Router();
 

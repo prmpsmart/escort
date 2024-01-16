@@ -1,7 +1,6 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../utils";
 
-export interface IPvt extends User {
+export interface IPvt {
   pvt: string;
   timestamp: number;
 }
@@ -18,6 +17,5 @@ const adminSchema = new Schema<Pvt>({
     default: Date.now,
   },
 });
-
 
 export const Pvts = model<Pvt>("Pvts", adminSchema);

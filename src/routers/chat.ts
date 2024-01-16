@@ -70,8 +70,10 @@ export async function handleChat(socket: Socket, session: Session) {
         Chats.create(message);
         receiver_session.socket?.emit("new_message", message);
 
-        session.user.contacts[receiver_session.user.id] = message;
-        receiver_session.user.contacts[session.user.id] = message;
+        if (session.user.contacts)
+          session.user.contacts[receiver_session.user.id] = message;
+        if (receiver_session.user.contacts)
+          receiver_session.user.contacts[session.user.id] = message;
       } else {
         if (message.sender_id != message.receiver_id) {
           const receiver: User | null =
@@ -82,8 +84,9 @@ export async function handleChat(socket: Socket, session: Session) {
           if (receiver) {
             Chats.create(message);
 
-            session.user.contacts[receiver.id] = message;
-            receiver.contacts[session.user.id] = message;
+            if (session.user.contacts)
+              session.user.contacts[receiver.id] = message;
+            if (receiver.contacts) receiver.contacts[session.user.id] = message;
           } else {
             socket.emit(
               "wrong_receiver_id",

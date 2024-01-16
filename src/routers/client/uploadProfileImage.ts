@@ -1,7 +1,8 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
 import { Client } from "../../models/clients";
-import { Media, uploadMedia } from "../../utils";
+import { Media } from "../../models/common";
+import { uploadMedia } from "../../utils";
 
 export const upgradeProRouter = Router();
 
@@ -24,7 +25,7 @@ upgradeProRouter.post(
             required: true,
             schema: { $ref: "#/components/schemas/UpgradeProRequest" }
         }
-    
+
         #swagger.responses[400] = {
             schema: { $ref: '#/definitions/BadRequest' }
         }

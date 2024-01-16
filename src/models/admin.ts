@@ -1,5 +1,5 @@
 import { Document, Schema, model } from "mongoose";
-import { User } from "../utils";
+import { User } from "./common";
 
 export interface IAdmin extends User {
   name: string;

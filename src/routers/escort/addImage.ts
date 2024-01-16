@@ -1,7 +1,8 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
 import { Escort } from "../../models/escorts";
-import { Media, uploadMedia } from "../../utils";
+import { uploadMedia } from "../../utils";
+import { Media } from "../../models/common";
 
 export const addImageRouter = Router();
 

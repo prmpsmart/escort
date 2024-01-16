@@ -15,7 +15,7 @@ export interface User {
   password?: string;
   createdAt?: number;
   lastSeen?: number;
-  contacts: Record<string, ChatModel>;
+  contacts?: Record<string, ChatModel>;
 }
 
 export interface Media {
