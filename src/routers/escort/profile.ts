@@ -1,7 +1,7 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../../middleware/checkToken";
-import { Escort, Escorts, IEscort } from "../../models/escorts";
-import { cleanEscort, getMediaLinks, uploadMedia } from "../../utils";
+import { Escort } from "../../models/escorts";
+import { cleanEscort, uploadMedia } from "../../utils";
 
 export const profileRouter = Router();
 

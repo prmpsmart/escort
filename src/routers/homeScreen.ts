@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Escort, Escorts, IEscort } from "../models/escorts";
-import { cleanEscort, getMediaLinks } from "../utils";
+import { cleanEscort, getMediaLink } from "../utils";
 import { AuthRequest } from "../middleware/checkToken";
 
 export const homeRouter = Router();
@@ -29,7 +29,6 @@ homeRouter.post(
       }
        */
 
-    let invalidRequestMessage;
     const filter: any = {};
     const age: any = {};
 
@@ -142,7 +141,7 @@ homeRouter.get(
           id: element.id,
           location: element.location.incall,
           age: element.personalDetails.age,
-          image: (await getMediaLinks([element.personalDetails.image]))[0],
+          image: await getMediaLink(element.personalDetails.image),
         });
       }
     }

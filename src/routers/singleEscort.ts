@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
-import { Escort, Escorts, IEscort } from "../models/escorts";
-import { clean, cleanEscort, getMediaLinks, objectId } from "../utils";
+import { Escort, Escorts } from "../models/escorts";
+import { cleanEscort, objectId } from "../utils";
 
 export const singleEscortRouter = Router();
 

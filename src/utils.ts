@@ -89,21 +89,27 @@ export async function uploadMedia(
   return filenames;
 }
 
-export async function getMediaLinks(media: string[]): Promise<string[]> {
-  const mediaLinks: string[] = [];
+export async function getMediaLink(media: string): Promise<string> {
   const storageBucket = admin.storage().bucket();
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 3);
 
+  const mediaLink = await storageBucket.file(media).getSignedUrl({
+    action: "read",
+    expires: expirationDate.toISOString(),
+  });
+
+  return mediaLink[0];
+}
+
+export async function getMediaLinks(media: string[]): Promise<string[]> {
+  const mediaLinks: string[] = [];
   for (let index = 0; index < media.length; index++) {
     const image = media[index];
     if (image.length < 1) continue;
 
-    const _image = await storageBucket.file(image).getSignedUrl({
-      action: "read",
-      expires: expirationDate.toISOString(), // Adjust the expiration date as needed
-    });
-    mediaLinks.push(_image[0]);
+    const _image = await getMediaLink(image);
+    mediaLinks.push(_image);
   }
   return mediaLinks;
 }
@@ -142,7 +148,7 @@ export async function cleanEscort(escort: Escort): Promise<IEscort> {
       nationality: escort.personalDetails.nationality,
       country: escort.personalDetails.country,
       modelName: escort.personalDetails.modelName,
-      image: (await getMediaLinks([escort.personalDetails.image]))[0],
+      image: await getMediaLink(escort.personalDetails.image),
       description: escort.personalDetails.description,
       availableFor: escort.personalDetails.availableFor,
       isPornStar: escort.personalDetails.isPornStar,
@@ -205,4 +211,3 @@ export async function cleanEscort(escort: Escort): Promise<IEscort> {
   };
   return json;
 }
-
