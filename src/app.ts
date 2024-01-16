@@ -26,44 +26,44 @@ admin.initializeApp({
 
 export const app = express();
 
-app.use(
-  cors({
-    origin: [
-      "https://lazerescort.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:8000",
-    ],
-    // origin: "*",
-  })
-);
+// app.use(
+//   cors({
+//     // origin: [
+//     //   "https://lazerescort.netlify.app",
+//     //   "http://localhost:3000",
+//     //   "http://localhost:8000",
+//     // ],
+//     // origin: ["*"],
+//   })
+// );
 
-// const server = http.createServer((req, res) => {
-//   // Set CORS headers
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
-//   // Add other necessary headers
+app.use(cors());
 
-//   // Your existing code handling routes or other logic
-
-//   // For any preflight requests, respond early and prevent further processing
+// app.use(function (req: Request, res: Response, next: NextFunction) {
+//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+//   res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin,*");
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   res.header("Access-Control-Allow-Origin", [
+//     "https://lazerescort.netlify.app",
+//     "http://localhost:3000",
+//     "http://localhost:8000",
+//   ]);
 //   if (req.method === "OPTIONS") {
-//     res.writeHead(200);
-//     res.end();
-//     return;
+//     res.status(200);
 //   }
-
-//   // Continue with your regular request handling logic
-//   // ...
+//   next();
 // });
+
 const server = createServer(app);
+
 const io = new Server(server, {
   cors: {
-    origin: [
-      "https://lazerescort.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:8000",
-    ],
-    // origin: "*",
+    // origin: [
+    //   "https://lazerescort.netlify.app",
+    //   "http://localhost:3000",
+    //   "http://localhost:8000",
+    // ],
+    origin: ["*"],
   },
   path: "/ws",
 });
@@ -137,7 +137,6 @@ app.use(bodyParser.json({ limit: "50mb" }));
 
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-// Error-handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something went wrong!");
