@@ -26,13 +26,20 @@ admin.initializeApp({
 
 export const app = express();
 
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200,
+  })
+);
+
 const server = http.createServer(app);
 const io = new Server(server, {
   // allowEIO3: true,
   path: "/ws",
   cors: {
     origin: "*",
-    // methods: ["GET", "POST"],
+    methods: ["GET", "POST"],
   },
 });
 
@@ -88,13 +95,6 @@ io.on("connect", (socket) => {
   }
 });
 
-app.use(
-  cors({
-    origin: "*",
-    optionsSuccessStatus: 200,
-  })
-);
-
 mongoose
   .connect(`${process.env.mongoUri}`)
   .then(async (value) => {
@@ -128,4 +128,3 @@ server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
   console.log(`Swagger is running at http://localhost:${port}/docs`);
 });
-
