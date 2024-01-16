@@ -30,16 +30,34 @@ app.use(
   cors({
     origin: "*",
     optionsSuccessStatus: 200,
+    preflightContinue: true,
   })
 );
+// const server = http.createServer((req, res) => {
+//   // Set CORS headers
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+//   // Add other necessary headers
 
+//   // Your existing code handling routes or other logic
+
+//   // For any preflight requests, respond early and prevent further processing
+//   if (req.method === "OPTIONS") {
+//     res.writeHead(200);
+//     res.end();
+//     return;
+//   }
+
+//   // Continue with your regular request handling logic
+//   // ...
+// });
 const server = http.createServer(app);
 const io = new Server(server, {
-  // allowEIO3: true,
   path: "/ws",
   cors: {
     origin: "*",
-    methods: ["GET", "POST"],
+    optionsSuccessStatus: 200,
+    preflightContinue: true,
   },
 });
 
