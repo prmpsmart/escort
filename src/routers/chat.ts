@@ -7,7 +7,7 @@ import { Clients } from "../models/clients";
 import { objectId } from "../utils";
 import { Admins } from "../models/admin";
 import { Escorts } from "../models/escorts";
-import { ChatModel } from "../models/common";
+import { ChatModel, User } from "../models/common";
 
 export const chatRouter = Router();
 
@@ -69,15 +69,21 @@ export async function handleChat(socket: Socket, session: Session) {
       if (receiver_session) {
         Chats.create(message);
         receiver_session.socket?.emit("new_message", message);
+
+        session.user.contacts[receiver_session.user.id] = message;
+        receiver_session.user.contacts[session.user.id] = message;
       } else {
         if (message.sender_id != message.receiver_id) {
-          const receiver =
+          const receiver: User | null =
             (await Clients.findById(objectId(message.receiver_id))) ||
             (await Escorts.findById(objectId(message.receiver_id))) ||
             (await Admins.findById(objectId(message.receiver_id)));
           //
           if (receiver) {
             Chats.create(message);
+
+            session.user.contacts[receiver.id] = message;
+            receiver.contacts[session.user.id] = message;
           } else {
             socket.emit(
               "wrong_receiver_id",

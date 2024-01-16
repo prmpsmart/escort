@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
-import { User } from "../utils";
+import { User } from "../models/common";
+
 
 export enum UserType {
   Client,
