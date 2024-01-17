@@ -28,12 +28,12 @@ export const app = express();
 
 app.use(
   cors({
-    origin: [
-      "https://lazerescort.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:8000",
-    ],
-    // origin: ["*"],
+    // origin: [
+    //   "https://lazerescort.netlify.app",
+    //   "http://localhost:3000",
+    //   "http://localhost:8000",
+    // ],
+    origin: "*",
   })
 );
 
@@ -43,12 +43,12 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: [
-      "https://lazerescort.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:8000",
-    ],
-    // origin: ["*"],
+    // origin: [
+    //   "https://lazerescort.netlify.app",
+    //   "http://localhost:3000",
+    //   "http://localhost:8000",
+    // ],
+    origin: "*",
   },
   path: "/ws",
 });
