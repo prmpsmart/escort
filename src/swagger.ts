@@ -380,6 +380,18 @@ const doc = {
           videos: ["string"],
         },
       },
+      ContactsResponse: {
+        contacts: {
+          user_id: {
+            id: "string",
+            sender_id: "string",
+            receiver_id: "string",
+            messageType: "string",
+            data: "string",
+            create_timestamp: "number",
+          },
+        },
+      },
       DashboardResponse: {
         remainingInterests: "number",
         remainingContactView: "number",

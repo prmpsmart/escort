@@ -4,10 +4,11 @@ import Chats, { Chat, IChat } from "../models/chats";
 import { Socket } from "socket.io";
 import { Session, Sessions } from "../services/sessions";
 import { Clients } from "../models/clients";
-import { objectId } from "../utils";
+import { cleanObject, objectId } from "../utils";
 import { Admins } from "../models/admin";
 import { Escorts } from "../models/escorts";
 import { ChatModel, User } from "../models/common";
+import _ from "lodash";
 
 export const chatRouter = Router();
 
@@ -63,7 +64,23 @@ chatRouter.get(
 );
 
 chatRouter.get("contacts", (req: AuthRequest, res: Response) => {
-  const contacts = req.session?.user.contacts;
+  /**
+   #swagger.responses[200] = {
+     schema:  { $ref: "#/components/schemas/ContactsResponse" }
+    }
+   */
+  let _contacts: Record<string, ChatModel> | undefined = _.cloneDeep(
+    req.session?.user.contacts
+  );
+
+  const contacts: Record<string, ChatModel> = {};
+
+  if (_contacts) {
+    for (const [contactId, chatModel] of Object.entries(_contacts)) {
+      chatModel.id = contactId;
+      _contacts[contactId] = cleanObject(chatModel);
+    }
+  }
   return res.status(200).json({ contacts });
 });
 
