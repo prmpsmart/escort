@@ -1,11 +1,14 @@
 const io = require("socket.io-client");
 
-const serverUrl = "http://localhost:3000";
+
+let host = "";
+host = "https://lazer-escort.onrender.com";
+host = "http://localhost:3000";
 
 let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTQ0MTQ2MSwiZXhwIjoxNzA1NDQ1MDYxfQ.Ljn-ESpa0WbilujIvvqcoZFblh0_gPFkiCQc_wjXusw";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTUwOTc5OSwiZXhwIjoxNzA1NTEzMzk5fQ.95HSlocoLaS5OVQfFJDfZhduY4ogPk7X_JCsiwZnar8";
 
-const socket = io(serverUrl, {
+const socket = io(host, {
   path: "/ws",
   auth: { token },
 });
