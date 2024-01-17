@@ -62,6 +62,11 @@ chatRouter.get(
   }
 );
 
+chatRouter.get("contacts", (req: AuthRequest, res: Response) => {
+  const contacts = req.session?.user.contacts;
+  return res.status(200).json({ contacts });
+});
+
 export async function handleChat(socket: Socket, session: Session) {
   socket.on("new_message", async (message: ChatModel): Promise<void> => {
     if (session.user.id === message.sender_id) {

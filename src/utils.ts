@@ -134,7 +134,7 @@ export async function cleanEscort(escort: Escort): Promise<IEscort> {
     verifiedEmail: escort.verifiedEmail,
     createdAt: escort.createdAt,
     lastSeen: escort.lastSeen,
-    contacts: escort.contacts,
+    contacts: {},
     personalDetails: {
       gender: escort.personalDetails.gender,
       sexuality: escort.personalDetails.sexuality,
