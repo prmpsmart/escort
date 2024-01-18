@@ -48,10 +48,12 @@ const io = new Server(server, {
     //   "http://localhost:3000",
     //   "http://localhost:8000",
     // ],
-    origin: "*",
+    origin: "*:*",
+    // origin: "*",
   },
   path: "/ws",
 });
+
 
 io.on("connect", (socket) => {
   console.log("Client connected.");
