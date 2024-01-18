@@ -43,18 +43,23 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    // origin: [
-    //   "https://lazerescort.netlify.app",
-    //   "http://localhost:3000",
-    //   "http://localhost:8000",
-    // ],
-    origin: "*:*",
-    // origin: "*",
+    origin: "*",
+    methods: ["GET", "POST"],
   },
   path: "/ws",
 });
 
+if (process.env.NODE_ENV === "development") {
+  io.engine.on("initial_headers", (headers, req) => {
+    headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Credentials"] = true;
+  });
 
+  io.engine.on("headers", (headers, req) => {
+    headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Credentials"] = true;
+  });
+}
 io.on("connect", (socket) => {
   console.log("Client connected.");
 
