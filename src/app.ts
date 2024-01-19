@@ -37,18 +37,18 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(
-//   cors({
-//     // origin: [
-//     //   "https://lazerescort.netlify.app",
-//     //   "http://localhost:3000",
-//     //   "http://localhost:8000",
-//     // ],
-//     origin: "*",
-//   })
-// );
+app.use(
+  cors({
+    // origin: [
+    //   "https://lazerescort.netlify.app",
+    //   "http://localhost:3000",
+    //   "http://localhost:8000",
+    // ],
+    origin: "*",
+  })
+);
 
-// app.use(cors());
+app.use(cors());
 
 const server = createServer(app);
 
