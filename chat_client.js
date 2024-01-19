@@ -6,7 +6,7 @@ host = "https://lazer-escort.onrender.com";
 host = "http://localhost:3000";
 
 let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTUwOTc5OSwiZXhwIjoxNzA1NTEzMzk5fQ.95HSlocoLaS5OVQfFJDfZhduY4ogPk7X_JCsiwZnar8";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTcwNzAwNCwiZXhwIjoxNzA1NzEwNjA0fQ.QijPhgdd5CA5Dz3aOWWz8hS0gHC0PapCZgO4xWOg2uk";
 
 const socket = io(host, {
   path: "/ws",

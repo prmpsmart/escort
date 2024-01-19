@@ -27,9 +27,12 @@ admin.initializeApp({
 export const app = express();
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
   // res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
@@ -82,6 +85,8 @@ io.on("connect", (socket) => {
     if (session_id) session = Sessions.getSessionByID(session_id);
 
     if (session) {
+      console.log("Session is valid");
+
       session.socket = socket;
 
       let user = session.isEscort
