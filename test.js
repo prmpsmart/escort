@@ -9,8 +9,8 @@ function fileToBase64(filePath) {
 }
 
 let host = "";
-host = "https://lazer-escort.onrender.com";
 host = "http://localhost:3000";
+host = "https://lazer-escort.onrender.com";
 
 function _path(response) {
   let s = response.config.url.split("/");

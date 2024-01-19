@@ -52,6 +52,15 @@ app.use(function (req, res, next) {
 
 const server = createServer(app);
 
+server.on("request", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+});
+
 const io = new Server(server, {
   cors: {
     origin: "*",
