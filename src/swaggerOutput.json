@@ -143,6 +143,184 @@
         }
       }
     },
+    "/findMatches": {
+      "post": {
+        "tags": [
+          "Home Screen"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortsProfilesResponse"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/EscortsProfilesResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getUsers": {
+      "get": {
+        "tags": [
+          "Home Screen"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/EscortsProfilesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidSession"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotExists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/escorts/{searchName}": {
+      "get": {
+        "tags": [
+          "Home Screen"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "searchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSearch"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSearch"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNotFound"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/escort/signup": {
       "post": {
         "tags": [
@@ -793,119 +971,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/client/findMatches": {
-      "post": {
-        "tags": [
-          "Home Screen"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EscortsProfilesResponse"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/EscortsProfilesResponse"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/client/getUsers": {
-      "get": {
-        "tags": [
-          "Home Screen"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EscortsProfilesResponse"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/EscortsProfilesResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvalidSession"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserNotExists"
-                }
-              }
-            }
           }
         }
       }
@@ -2134,12 +2199,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EscortLoginResponse"
+                  "$ref": "#/components/schemas/ChatsResponse"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/EscortLoginResponse"
+                  "$ref": "#/components/schemas/ChatsResponse"
                 }
               }
             }
@@ -2170,6 +2235,31 @@
               "application/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/InvalidCredentials"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "tags": [
+          "Chats"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactsResponse"
                 }
               }
             }
@@ -2345,6 +2435,10 @@
             "example": "boolean"
           },
           "about": {
+            "type": "string",
+            "example": "string"
+          },
+          "education": {
             "type": "string",
             "example": "string"
           }
@@ -3625,6 +3719,48 @@
           "name": "EscortLoginResponse"
         }
       },
+      "ContactsResponse": {
+        "type": "object",
+        "properties": {
+          "contacts": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "sender_id": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "receiver_id": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "messageType": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "data": {
+                    "type": "string",
+                    "example": "string"
+                  },
+                  "create_timestamp": {
+                    "type": "string",
+                    "example": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "ContactsResponse"
+        }
+      },
       "DashboardResponse": {
         "type": "object",
         "properties": {
@@ -4169,6 +4305,46 @@
         },
         "xml": {
           "name": "EscortsProfilesResponse"
+        }
+      },
+      "ChatsResponse": {
+        "type": "object",
+        "properties": {
+          "chats": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "sender_id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "receiver_id": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "messageType": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "data": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "create_timestamp": {
+                  "type": "string",
+                  "example": "number"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "ChatsResponse"
         }
       },
       "EscortProfile": {

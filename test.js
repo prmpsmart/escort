@@ -9,8 +9,8 @@ function fileToBase64(filePath) {
 }
 
 let host = "";
-host = "http://localhost:3000";
 host = "https://lazer-escort.onrender.com";
+host = "http://localhost:3000";
 
 function _path(response) {
   let s = response.config.url.split("/");
@@ -240,6 +240,22 @@ async function getUsers() {
   );
 }
 
+async function search(token) {
+  return call(
+    axios.get(`${host}/escorts/nana`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
+}
+
+async function contacts(token) {
+  return call(
+    axios.get(`${host}/contacts`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+  );
+}
+
 async function seq() {
   // escortSignup();
   // escortLogin();
@@ -247,6 +263,7 @@ async function seq() {
     if (v) {
       token = v.token;
       console.log(token);
+      contacts(token);
     }
     // setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);

@@ -18,13 +18,6 @@ clientRouter.use(
   */
 );
 
-clientRouter.use(
-  "/",
-  homeRouter
-  /**
-   #swagger.tags = ['Home Screen']
-   */
-);
 
 clientRouter.use(checkClientToken);
 

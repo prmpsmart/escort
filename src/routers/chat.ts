@@ -63,7 +63,7 @@ chatRouter.get(
   }
 );
 
-chatRouter.get("contacts", (req: AuthRequest, res: Response) => {
+chatRouter.get("/contacts", (req: AuthRequest, res: Response) => {
   /**
    #swagger.responses[200] = {
      schema:  { $ref: "#/components/schemas/ContactsResponse" }

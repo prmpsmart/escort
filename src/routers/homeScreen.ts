@@ -126,9 +126,15 @@ homeRouter.get(
    }
   */
 
+    // const escorts: Escort[] = await Escorts.find({
+    //   workingName: req.params.searchName,
+    //   modelName: req.params.searchName,
+    // });
     const escorts: Escort[] = await Escorts.find({
-      workingName: req.params.searchName,
-      modelName: req.params.searchName,
+      $or: [
+        { workingName: { $regex: req.params.searchName, $options: "i" } },
+        { modelName: { $regex: req.params.searchName, $options: "i" } },
+      ],
     });
 
     const jsons: UserSearch[] = [];

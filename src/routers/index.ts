@@ -8,6 +8,7 @@ import { ladiesStarRouter } from "./ladiesStar";
 import { loginRouter } from "./login";
 import { singleEscortRouter } from "./singleEscort";
 import { chatRouter } from "./chat";
+import { homeRouter } from "./homeScreen";
 
 export const routers = express.Router();
 
@@ -17,6 +18,14 @@ routers.use(
   /**
     #swagger.tags = ['Login for both Escort and Client']
      */
+);
+
+routers.use(
+  "/",
+  homeRouter
+  /**
+   #swagger.tags = ['Home Screen']
+   */
 );
 
 interface UploadRequest extends Request {
