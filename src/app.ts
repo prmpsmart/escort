@@ -100,6 +100,7 @@ io.on("connect", (socket) => {
         userId: user.id,
         status: "online",
       });
+      socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
       handleChat(socket, session);
 

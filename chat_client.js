@@ -1,12 +1,11 @@
 const io = require("socket.io-client");
-
+const fs = require("fs");
 
 let host = "";
 host = "https://lazer-escort.onrender.com";
 host = "http://localhost:3000";
 
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uX2lkIjoiNjU4ZDk3NjA5YjMzZTk4ZGQ4NzBkNzYwIiwicmVmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNTcwNzAwNCwiZXhwIjoxNzA1NzEwNjA0fQ.QijPhgdd5CA5Dz3aOWWz8hS0gHC0PapCZgO4xWOg2uk";
+const token = fs.readFileSync("t.txt", "utf8");
 
 const socket = io(host, {
   path: "/ws",
@@ -23,6 +22,10 @@ socket.on("connect", () => {
 
 socket.on("userStatus", (data) => {
   console.log(`User ${data.userId} is ${data.status}`);
+});
+
+socket.on("acknowledgement", (data) => {
+  console.log(data);
 });
 
 socket.on("invalid_session", (data) => {

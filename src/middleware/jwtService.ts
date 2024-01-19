@@ -23,15 +23,15 @@ export const verifyToken = (
   token: string,
   refresh: boolean = false
 ): string => {
-  try {
-    const payload = jwt.verify(token, secretKey) as Payload;
-    if (refresh) {
-      if (!payload.refresh) {
-        return "";
-      }
+  // try {
+  const payload = jwt.verify(token, secretKey) as Payload;
+  if (refresh) {
+    if (!payload.refresh) {
+      return "";
     }
-    return payload.session_id;
-  } catch (error) {
-    return "";
   }
+  return payload.session_id;
+  // } catch (error) {
+  //   return "";
+  // }
 };

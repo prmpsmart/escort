@@ -262,7 +262,7 @@ async function seq() {
   escortLogin().then((v) => {
     if (v) {
       token = v.token;
-      console.log(token);
+      fs.writeFileSync('t.txt', token)
       contacts(token);
     }
     // setTimeout(ladiesStar, 500);
