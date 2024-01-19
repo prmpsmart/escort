@@ -26,16 +26,24 @@ admin.initializeApp({
 
 export const app = express();
 
-app.use(
-  cors({
-    // origin: [
-    //   "https://lazerescort.netlify.app",
-    //   "http://localhost:3000",
-    //   "http://localhost:8000",
-    // ],
-    origin: "*",
-  })
-);
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  // res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
+// app.use(
+//   cors({
+//     // origin: [
+//     //   "https://lazerescort.netlify.app",
+//     //   "http://localhost:3000",
+//     //   "http://localhost:8000",
+//     // ],
+//     origin: "*",
+//   })
+// );
 
 // app.use(cors());
 
