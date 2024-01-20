@@ -70,6 +70,10 @@ const clientsSchema = new Schema<Client>({
     type: String,
     required: true,
   },
+  userType: {
+    type: String,
+    default: "client",
+  },
   hairColor: {
     type: String,
     default: "",

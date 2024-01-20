@@ -16,6 +16,7 @@ export interface User {
   createdAt?: number;
   lastSeen?: number;
   contacts?: Record<string, ChatModel>;
+  userType?: string;
 }
 
 export interface Media {

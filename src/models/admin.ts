@@ -23,6 +23,10 @@ const adminSchema = new Schema<Admin>({
     required: true,
     unique: true,
   },
+  userType: {
+    type: String,
+    default: "admin",
+  },
   password: {
     type: String,
     required: true,
@@ -36,6 +40,5 @@ const adminSchema = new Schema<Admin>({
     default: Date.now,
   },
 });
-
 
 export const Admins = model<Admin>("Admins", adminSchema);

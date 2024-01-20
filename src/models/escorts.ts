@@ -161,7 +161,10 @@ const escortSchema = new Schema<Escort>({
   createdAt: { type: Number, default: Date.now },
   lastSeen: { type: Number, default: Date.now },
   contacts: { type: Map, of: chatModelSchema },
-
+  userType: {
+    type: String,
+    default: "escort",
+  },
   personalDetails: {
     type: {
       gender: String,

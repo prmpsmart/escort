@@ -2,11 +2,11 @@ import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
 import Chats, { Chat, IChat } from "../models/chats";
 import { Socket } from "socket.io";
-import { Session, Sessions } from "../services/sessions";
-import { Clients } from "../models/clients";
+import { Session, Sessions, UserType } from "../services/sessions";
+import { Client, Clients } from "../models/clients";
 import { cleanObject, objectId } from "../utils";
-import { Admins } from "../models/admin";
-import { Escorts } from "../models/escorts";
+import { Admin, Admins } from "../models/admin";
+import { Escort, Escorts } from "../models/escorts";
 import { ChatModel, User } from "../models/common";
 import _ from "lodash";
 
@@ -92,23 +92,52 @@ export async function handleChat(socket: Socket, session: Session) {
         Chats.create(message);
         receiver_session.socket?.emit("new_message", message);
 
-        if (session.user.contacts)
-          session.user.contacts[receiver_session.user.id] = message;
-        if (receiver_session.user.contacts)
-          receiver_session.user.contacts[session.user.id] = message;
+        save_user_last_chat(
+          session.user,
+          session.userType,
+          receiver_session.user.id,
+          message
+        );
+
+        save_user_last_chat(
+          receiver_session.user,
+          receiver_session.userType,
+          session.user.id,
+          message
+        );
       } else {
         if (message.sender_id != message.receiver_id) {
+          let oId;
+          try {
+            oId = objectId(message.receiver_id);
+          } catch (error) {
+            socket.emit(
+              "wrong_receiver_id",
+              "Message receiver_id is not a valid user."
+            );
+            return;
+          }
+
           const receiver: User | null =
-            (await Clients.findById(objectId(message.receiver_id))) ||
-            (await Escorts.findById(objectId(message.receiver_id))) ||
-            (await Admins.findById(objectId(message.receiver_id)));
+            (await Clients.findById(oId)) ||
+            (await Escorts.findById(oId)) ||
+            (await Admins.findById(oId));
           //
           if (receiver) {
             Chats.create(message);
 
-            if (session.user.contacts)
-              session.user.contacts[receiver.id] = message;
-            if (receiver.contacts) receiver.contacts[session.user.id] = message;
+            save_user_last_chat(
+              session.user,
+              session.userType,
+              receiver.id,
+              message
+            );
+
+            let userType: UserType = UserType.Admin;
+            if (receiver.userType == "client") userType = UserType.Client;
+            else if (receiver.userType == "escort") userType = UserType.Escort;
+
+            save_user_last_chat(receiver, userType, session.user.id, message);
           } else {
             socket.emit(
               "wrong_receiver_id",
@@ -129,4 +158,19 @@ export async function handleChat(socket: Socket, session: Session) {
       );
     }
   });
+}
+
+function save_user_last_chat(
+  user: User,
+  userType: UserType,
+  is: string,
+  message: ChatModel
+) {
+  if (user.contacts == null) user.contacts = {};
+
+  user.contacts[user.id] = message;
+
+  if (userType == UserType.Client) (user as Client).save();
+  else if (userType == UserType.Escort) (user as Escort).save();
+  else if (userType == UserType.Admin) (user as Admin).save();
 }
