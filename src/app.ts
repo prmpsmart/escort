@@ -139,7 +139,14 @@ mongoose
     console.log(`Connection to Mongo Server error ${reason}`);
   });
 
-app.use(bodyParser.json({ limit: "50mb" }));
+app.use((req: Request, res: Response, next: NextFunction): void => {
+  if (req.originalUrl === "/stripe_webhook") {
+    next();
+  } else {
+    bodyParser.json({ limit: "50mb" })(req, res, next);
+  }
+});
+// app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 

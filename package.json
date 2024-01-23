@@ -81,6 +81,7 @@
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.4",
     "statuses": "^2.0.1",
+    "stripe": "^14.13.0",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0",
     "toidentifier": "^1.0.1",
