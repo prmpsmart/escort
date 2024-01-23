@@ -3,7 +3,7 @@ import express, { Router } from "express";
 
 export const stripeRouter = Router();
 
-const stripe = new Stripe(`${process.env.stripe_secret_key}`, {
+export const stripe = new Stripe(`${process.env.stripe_secret_key}`, {
   typescript: true,
 });
 
