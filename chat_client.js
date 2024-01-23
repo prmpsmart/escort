@@ -3,7 +3,7 @@ const fs = require("fs");
 
 let host = "";
 host = "https://lazer-escort.onrender.com";
-host = "http://localhost:3000";
+host = "http://localhost:3001";
 
 const token = fs.readFileSync("t.txt", "utf8");
 

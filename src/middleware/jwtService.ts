@@ -23,7 +23,7 @@ export const verifyToken = (
   token: string,
   refresh: boolean = false
 ): string => {
-  // try {
+  try {
   const payload = jwt.verify(token, secretKey) as Payload;
   if (refresh) {
     if (!payload.refresh) {
@@ -31,7 +31,7 @@ export const verifyToken = (
     }
   }
   return payload.session_id;
-  // } catch (error) {
-  //   return "";
-  // }
+  } catch (error) {
+    return "";
+  }
 };

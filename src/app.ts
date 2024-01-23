@@ -159,7 +159,7 @@ app.use("/", routers);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
-const port = 3000;
+const port = 3001;
 
 server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
