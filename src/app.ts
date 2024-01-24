@@ -117,6 +117,7 @@ io.on("connect", (socket) => {
       });
     } else {
       socket.emit("invalid_session", "Login in again");
+      console.log("User connection denied: Invalid provided token");
       socket.disconnect(true);
     }
   } else {
