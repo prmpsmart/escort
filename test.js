@@ -9,8 +9,8 @@ function fileToBase64(filePath) {
 }
 
 let host = "";
-host = "https://lazer-escort.onrender.com";
 host = "http://localhost:3001";
+host = "https://lazer-escort.onrender.com";
 
 function _path(response) {
   let s = response.config.url.split("/");
@@ -263,7 +263,7 @@ async function seq() {
     if (v) {
       token = v.token;
       fs.writeFileSync('t.txt', token)
-      contacts(token);
+      // contacts(token);
     }
     // setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);
