@@ -93,8 +93,8 @@ io.on("connect", (socket) => {
         ? (session.user as Escort)
         : (session.user as Client);
 
-      user.lastSeen = Date.now();
-      user.save();
+      // user.lastSeen = Date.now();
+      // user.save();
 
       socket.broadcast.emit("userStatus", {
         userId: user.id,
@@ -107,8 +107,8 @@ io.on("connect", (socket) => {
       socket.on("disconnect", () => {
         console.log(`User disconnected: ${socket.id}`);
 
-        user.lastSeen = Date.now();
-        user.save();
+        // user.lastSeen = Date.now();
+        // user.save();
 
         socket.broadcast.emit("userStatus", {
           userId: user.id,
