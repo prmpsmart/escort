@@ -86,6 +86,7 @@ chatRouter.get("/contacts", (req: AuthRequest, res: Response) => {
 
 export async function handleChat(socket: Socket, session: Session) {
   socket.on("new_message", async (message: ChatModel): Promise<void> => {
+    console.log(socket.id, message);
     if (session.user.id === message.sender_id) {
       const receiver_session = Sessions.getSessionByID(message.receiver_id);
       if (receiver_session) {
@@ -160,17 +161,21 @@ export async function handleChat(socket: Socket, session: Session) {
   });
 }
 
-function save_user_last_chat(
+async function save_user_last_chat(
   user: User,
   userType: UserType,
   is: string,
   message: ChatModel
 ) {
-  if (user.contacts == null) user.contacts = {};
+  try {
+    if (user.contacts == null) user.contacts = {};
 
-  user.contacts[user.id] = message;
+    user.contacts[user.id] = message;
 
-  if (userType == UserType.Client) (user as Client).save();
-  else if (userType == UserType.Escort) (user as Escort).save();
-  else if (userType == UserType.Admin) (user as Admin).save();
+    if (userType == UserType.Client) await(user as Client).save();
+    else if (userType == UserType.Escort) await(user as Escort).save();
+    else if (userType == UserType.Admin) await(user as Admin).save();
+  } catch (error) {
+    console.log(error);
+  }
 }
