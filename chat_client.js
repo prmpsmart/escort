@@ -2,8 +2,8 @@ const io = require("socket.io-client");
 const fs = require("fs");
 
 let host = "";
-host = "https://lazer-escort.onrender.com";
 host = "http://localhost:3001";
+host = "https://lazer-escort.onrender.com";
 
 const token = fs.readFileSync("t.txt", "utf8");
 
