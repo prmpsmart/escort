@@ -13,10 +13,10 @@ export async function getUser(usernameEmail: string): Promise<any> {
   return (
     (await Escorts.findOne({
       $or: [{ email: usernameEmail }, { workingName: usernameEmail }],
-    })) ||
+    })) ??
     (await Clients.findOne({
       $or: [{ email: usernameEmail }, { username: usernameEmail }],
-    })) ||
+    })) ??
     (await Admins.findOne({
       $or: [{ email: usernameEmail }, { username: usernameEmail }],
     }))
@@ -25,8 +25,8 @@ export async function getUser(usernameEmail: string): Promise<any> {
 
 export async function getUserByID(id: string): Promise<any> {
   return (
-    (await Escorts.findById(objectId(id))) ||
-    (await Clients.findById(objectId(id))) ||
+    (await Escorts.findById(objectId(id))) ??
+    (await Clients.findById(objectId(id))) ??
     (await Admins.findById(objectId(id)))
   );
 }

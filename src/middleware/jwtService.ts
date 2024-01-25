@@ -29,7 +29,10 @@ export const verifyToken = async (
     const payload = jwt.verify(token, secretKey) as Payload;
     let session = Sessions.getSessionByID(payload.session_id);
     if (!session) {
+      console.log("user", payload);
       const user = await getUserByID(payload.session_id);
+      console.log(user);
+
       if (user) {
         session = Sessions.addSession(user);
       }
