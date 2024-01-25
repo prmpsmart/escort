@@ -76,6 +76,9 @@ io.on("connect", async (socket) => {
   console.log("Client connected.", socket.id);
 
   const token = socket.handshake.auth.token as string | undefined;
+
+  console.log("Provided token : ", token);
+
   let user: Escort | Client;
 
   socket.on("disconnect", () => {
@@ -116,13 +119,13 @@ io.on("connect", async (socket) => {
 
       // handleChat(socket, session);
     } else {
-      socket.emit("invalid_session", "Login in again");
       console.log("User connection denied: Invalid provided token");
+      socket.emit("invalid_session", "Login in again");
       socket.disconnect(true);
     }
   } else {
-    socket.emit("invalid_token", "Token is not provided");
     console.log("User connection denied: Invalid or missing token");
+    socket.emit("invalid_token", "Token is not provided");
     socket.disconnect(true);
   }
 });
