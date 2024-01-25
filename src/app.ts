@@ -71,60 +71,65 @@ if (process.env.NODE_ENV === "development") {
     headers["Access-Control-Allow-Credentials"] = true;
   });
 }
+
 io.on("connect", (socket) => {
-  console.log("Client connected.");
+  console.log("Client connected.", socket.id);
 
   const token = socket.handshake.auth.token as string | undefined;
 
-  if (token) {
-    console.log("User connected with token");
+  socket.on("disconnect", (reason) => {
+    console.log("Client disconnected: ", socket.id, reason);
+  });
 
-    const session_id = verifyToken(token);
-    let session: Session | undefined;
+  // if (token) {
+  //   console.log("User connected with token");
 
-    if (session_id) session = Sessions.getSessionByID(session_id);
+  //   const session_id = verifyToken(token);
+  //   let session: Session | undefined;
 
-    if (session) {
-      console.log("Session is valid");
+  //   if (session_id) session = Sessions.getSessionByID(session_id);
 
-      session.socket = socket;
+  //   if (session) {
+  //     console.log("Session is valid");
 
-      let user = session.isEscort
-        ? (session.user as Escort)
-        : (session.user as Client);
+  //     session.socket = socket;
 
-      // user.lastSeen = Date.now();
-      // user.save();
+  //     let user = session.isEscort
+  //       ? (session.user as Escort)
+  //       : (session.user as Client);
 
-      socket.broadcast.emit("userStatus", {
-        userId: user.id,
-        status: "online",
-      });
-      socket.emit("acknowledgement", "Connection to Server is Acknowledged");
+  //     // user.lastSeen = Date.now();
+  //     // user.save();
 
-      handleChat(socket, session);
+  //     socket.broadcast.emit("userStatus", {
+  //       userId: user.id,
+  //       status: "online",
+  //     });
+  //     socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
-      socket.on("disconnect", () => {
-        console.log(`User disconnected: ${socket.id}`);
+  //     handleChat(socket, session);
 
-        // user.lastSeen = Date.now();
-        // user.save();
+  //     socket.on("disconnect", () => {
+  //       console.log(`User disconnected: ${socket.id}`);
 
-        socket.broadcast.emit("userStatus", {
-          userId: user.id,
-          status: "offline",
-        });
-      });
-    } else {
-      socket.emit("invalid_session", "Login in again");
-      console.log("User connection denied: Invalid provided token");
-      socket.disconnect(true);
-    }
-  } else {
-    socket.emit("invalid_token", "Token is not provided");
-    console.log("User connection denied: Invalid or missing token");
-    socket.disconnect(true);
-  }
+  //       // user.lastSeen = Date.now();
+  //       // user.save();
+
+  //       socket.broadcast.emit("userStatus", {
+  //         userId: user.id,
+  //         status: "offline",
+  //       });
+  //     });
+  //   } else {
+  //     socket.emit("invalid_session", "Login in again");
+  //     console.log("User connection denied: Invalid provided token");
+  //     socket.disconnect(true);
+  //   }
+  // } else {
+  //   socket.emit("invalid_token", "Token is not provided");
+  //   console.log("User connection denied: Invalid or missing token");
+  //   socket.disconnect(true);
+  // }
 });
 
 mongoose
