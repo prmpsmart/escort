@@ -102,19 +102,19 @@ io.on("connect", async (socket) => {
     if (session) {
       console.log("Session is valid");
 
-      session.socket = socket;
+      // session.socket = socket;
 
-      user = session.isEscort
-        ? (session.user as Escort)
-        : (session.user as Client);
+      // user = session.isEscort
+      //   ? (session.user as Escort)
+      //   : (session.user as Client);
 
-      socket.broadcast.emit("userStatus", {
-        userId: user.id,
-        status: "online",
-      });
-      socket.emit("acknowledgement", "Connection to Server is Acknowledged");
+      // socket.broadcast.emit("userStatus", {
+      //   userId: user.id,
+      //   status: "online",
+      // });
+      // socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
-      handleChat(socket, session);
+      // handleChat(socket, session);
     } else {
       socket.emit("invalid_session", "Login in again");
       console.log("User connection denied: Invalid provided token");
