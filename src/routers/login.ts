@@ -55,10 +55,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
 
     if (user) {
       if (user.password == req.body.password) {
-        session = Sessions.addSession(
-          user,
-          user.workingName != undefined ? UserType.Escort : UserType.Client
-        );
+        session = Sessions.addSession(user);
 
         let profile;
         const escort = user as Escort;
@@ -139,9 +136,9 @@ loginRouter.post(
      }
      */
 
-    const session_id = verifyToken(req.body.token, true);
-    if (session_id.length > 0) {
-      return res.json({ accessToken: createToken(session_id) });
+    const session = await verifyToken(req.body.token, true);
+    if (session) {
+      return res.json({ accessToken: createToken(session.id) });
     } else {
       return res.status(401).json({ message: "Invalid refresh token" });
     }

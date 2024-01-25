@@ -7,6 +7,7 @@ import { Admins } from "./models/admin";
 import { Clients } from "./models/clients";
 import { Escort, Escorts, IEscort } from "./models/escorts";
 import { Media } from "./models/common";
+import { UserType } from "./services/sessions";
 
 export async function getUser(usernameEmail: string): Promise<any> {
   return (
@@ -19,6 +20,14 @@ export async function getUser(usernameEmail: string): Promise<any> {
     (await Admins.findOne({
       $or: [{ email: usernameEmail }, { username: usernameEmail }],
     }))
+  );
+}
+
+export async function getUserByID(id: string): Promise<any> {
+  return (
+    (await Escorts.findById(objectId(id))) ||
+    (await Clients.findById(objectId(id))) ||
+    (await Admins.findById(objectId(id)))
   );
 }
 
@@ -123,6 +132,12 @@ export function cleanObject(object: any, log: boolean = false): any {
   if (log) console.log(object, obj);
 
   return JSON.parse(obj);
+}
+export function getUserType(userType: string): UserType {
+  if (userType === "client") return UserType.Client;
+  else if (userType === "escort") return UserType.Escort;
+  else if (userType === "admin") return UserType.Admin;
+  return UserType.Client;
 }
 
 export async function cleanEscort(escort: Escort): Promise<IEscort> {

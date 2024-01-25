@@ -8,7 +8,7 @@ export interface AuthRequest extends Request {
 }
 
 // Middleware to check for Bearer token
-export const checkToken = (
+export const checkToken = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
@@ -26,17 +26,9 @@ export const checkToken = (
   }
 
   if (token.length > 0) {
-    const session_id = verifyToken(token);
+    req.session = await verifyToken(token);
     //
-    if (session_id.length > 0) {
-      //
-      const session_exists = Sessions.sessionsIds.has(session_id);
-
-      if (session_exists) {
-        req.session = Sessions.getSessionByID(session_id);
-      } else {
-        return res.status(401).json({ message: "Session is over." });
-      }
+    if (req.session) {
       //
       if (userType != undefined) {
         if (req.session?.userType == userType) return next();

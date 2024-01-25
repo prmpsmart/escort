@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import { Session, Sessions, UserType } from "../services/sessions";
+import { getUser, getUserByID } from "../utils";
 
 const secretKey = `${process.env.jwt_key}`;
 
@@ -19,19 +21,24 @@ export const refreshToken = (session_id: string): string => {
   return jwt.sign(payload, secretKey, { expiresIn: "7d" });
 };
 
-export const verifyToken = (
+export const verifyToken = async (
   token: string,
   refresh: boolean = false
-): string => {
+): Promise<Session | undefined> => {
   try {
-  const payload = jwt.verify(token, secretKey) as Payload;
-  if (refresh) {
-    if (!payload.refresh) {
-      return "";
+    const payload = jwt.verify(token, secretKey) as Payload;
+    let session = Sessions.getSessionByID(payload.session_id);
+    if (!session) {
+      const user = await getUserByID(payload.session_id);
+      if (user) {
+        session = Sessions.addSession(user);
+      }
     }
-  }
-  return payload.session_id;
-  } catch (error) {
-    return "";
-  }
+    if (session)
+      if (refresh) {
+        if (payload.refresh) {
+          return session;
+        }
+      } else return session;
+  } catch (error) {}
 };

@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { User } from "../models/common";
-
+import { getUserType } from "../utils";
 
 export enum UserType {
   Client,
@@ -44,8 +44,8 @@ class _Sessions {
   public getSessionByEmail(email: string): Session | undefined {
     return this.sessionsEmails.get(email);
   }
-  public addSession(user: User, userType: UserType): Session {
-    const session = new Session(user, userType);
+  public addSession(user: User): Session {
+    const session = new Session(user, getUserType(user.userType ?? ""));
     this.sessionsIds.set(session.id, session);
     this.sessionsEmails.set(user.email, session);
     return session;

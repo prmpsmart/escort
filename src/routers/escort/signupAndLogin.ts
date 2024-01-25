@@ -61,7 +61,7 @@ signupAndLoginRouter.post(
           password: req.body.password,
         });
 
-        const session = Sessions.addSession(escort, UserType.Escort);
+        const session = Sessions.addSession(escort);
 
         const json: LoginResponse = {
           workingName: escort.workingName,

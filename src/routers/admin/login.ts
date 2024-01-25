@@ -54,7 +54,7 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
       ],
     }).then((admin) => {
       if (admin) {
-        const session = Sessions.addSession(admin, UserType.Admin);
+        const session = Sessions.addSession(admin);
         if (admin.password == req.body.password) {
           const json: LoginResponse = {
             id: admin.id,

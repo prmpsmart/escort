@@ -94,7 +94,7 @@ loginRouter.post(
             password: req.body.password,
           });
 
-          const session = Sessions.addSession(client, UserType.Client);
+          const session = Sessions.addSession(client);
 
           const json: LoginResponse = {
             email: client.email,
