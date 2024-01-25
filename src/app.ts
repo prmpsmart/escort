@@ -81,55 +81,56 @@ io.on("connect", (socket) => {
     console.log("Client disconnected: ", socket.id, reason);
   });
 
-  // if (token) {
-  //   console.log("User connected with token");
+  if (token) {
+    console.log("User connected with token");
 
-  //   const session_id = verifyToken(token);
-  //   let session: Session | undefined;
+    const session_id = verifyToken(token);
+    let session: Session | undefined;
 
-  //   if (session_id) session = Sessions.getSessionByID(session_id);
+    if (session_id) session = Sessions.getSessionByID(session_id);
+    console.log(session?.user.email);
 
-  //   if (session) {
-  //     console.log("Session is valid");
+    //   if (session) {
+    //     console.log("Session is valid");
 
-  //     session.socket = socket;
+    //     session.socket = socket;
 
-  //     let user = session.isEscort
-  //       ? (session.user as Escort)
-  //       : (session.user as Client);
+    //     let user = session.isEscort
+    //       ? (session.user as Escort)
+    //       : (session.user as Client);
 
-  //     // user.lastSeen = Date.now();
-  //     // user.save();
+    //     // user.lastSeen = Date.now();
+    //     // user.save();
 
-  //     socket.broadcast.emit("userStatus", {
-  //       userId: user.id,
-  //       status: "online",
-  //     });
-  //     socket.emit("acknowledgement", "Connection to Server is Acknowledged");
+    //     socket.broadcast.emit("userStatus", {
+    //       userId: user.id,
+    //       status: "online",
+    //     });
+    //     socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
-  //     handleChat(socket, session);
+    //     handleChat(socket, session);
 
-  //     socket.on("disconnect", () => {
-  //       console.log(`User disconnected: ${socket.id}`);
+    //     socket.on("disconnect", () => {
+    //       console.log(`User disconnected: ${socket.id}`);
 
-  //       // user.lastSeen = Date.now();
-  //       // user.save();
+    //       // user.lastSeen = Date.now();
+    //       // user.save();
 
-  //       socket.broadcast.emit("userStatus", {
-  //         userId: user.id,
-  //         status: "offline",
-  //       });
-  //     });
-  //   } else {
-  //     socket.emit("invalid_session", "Login in again");
-  //     console.log("User connection denied: Invalid provided token");
-  //     socket.disconnect(true);
-  //   }
-  // } else {
-  //   socket.emit("invalid_token", "Token is not provided");
-  //   console.log("User connection denied: Invalid or missing token");
-  //   socket.disconnect(true);
-  // }
+    //       socket.broadcast.emit("userStatus", {
+    //         userId: user.id,
+    //         status: "offline",
+    //       });
+    //     });
+    //   } else {
+    //     socket.emit("invalid_session", "Login in again");
+    //     console.log("User connection denied: Invalid provided token");
+    //     socket.disconnect(true);
+    //   }
+  } else {
+    socket.emit("invalid_token", "Token is not provided");
+    console.log("User connection denied: Invalid or missing token");
+    socket.disconnect(true);
+  }
 });
 
 mongoose
