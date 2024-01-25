@@ -4,7 +4,7 @@ import Chats, { Chat, IChat } from "../models/chats";
 import { Socket } from "socket.io";
 import { Session, Sessions, UserType } from "../services/sessions";
 import { Client, Clients } from "../models/clients";
-import { cleanObject, objectId } from "../utils";
+import { cleanObject, getUserByID, getUserType, objectId } from "../utils";
 import { Admin, Admins } from "../models/admin";
 import { Escort, Escorts } from "../models/escorts";
 import { ChatModel, User } from "../models/common";
@@ -84,66 +84,45 @@ chatRouter.get("/contacts", (req: AuthRequest, res: Response) => {
   return res.status(200).json({ contacts });
 });
 
-export async function handleChat(socket: Socket, session: Session) {
+export async function handleChat(session: Session) {
+  const socket = session.socket as Socket;
+
   socket.on("new_message", async (message: ChatModel): Promise<void> => {
     console.log(socket.id, message);
     if (session.user.id === message.sender_id) {
       const receiver_session = Sessions.getSessionByID(message.receiver_id);
+      socket?.emit("new_message", message);
       if (receiver_session) {
         Chats.create(message);
+
         receiver_session.socket?.emit("new_message", message);
 
-        save_user_last_chat(
+        console.log("emitted back to users");
+
+        await save_user_last_chat(
           session.user,
-          session.userType,
           receiver_session.user.id,
           message
         );
-
-        save_user_last_chat(
+        await save_user_last_chat(
           receiver_session.user,
-          receiver_session.userType,
           session.user.id,
           message
         );
       } else {
         if (message.sender_id != message.receiver_id) {
-          let oId;
-          try {
-            oId = objectId(message.receiver_id);
-          } catch (error) {
-            socket.emit(
-              "wrong_receiver_id",
-              "Message receiver_id is not a valid user."
-            );
-            return;
-          }
-
-          const receiver: User | null =
-            (await Clients.findById(oId)) ||
-            (await Escorts.findById(oId)) ||
-            (await Admins.findById(oId));
-          //
+          const receiver: User | null = await getUserByID(message.receiver_id);
           if (receiver) {
             Chats.create(message);
 
-            save_user_last_chat(
-              session.user,
-              session.userType,
-              receiver.id,
-              message
-            );
-
-            let userType: UserType = UserType.Admin;
-            if (receiver.userType == "client") userType = UserType.Client;
-            else if (receiver.userType == "escort") userType = UserType.Escort;
-
-            save_user_last_chat(receiver, userType, session.user.id, message);
+            await save_user_last_chat(session.user, receiver.id, message);
+            await save_user_last_chat(receiver, session.user.id, message);
           } else {
             socket.emit(
               "wrong_receiver_id",
               "Message receiver_id is not a valid user."
             );
+            return;
           }
         } else {
           socket.emit(
@@ -161,16 +140,12 @@ export async function handleChat(socket: Socket, session: Session) {
   });
 }
 
-async function save_user_last_chat(
-  user: User,
-  userType: UserType,
-  is: string,
-  message: ChatModel
-) {
+async function save_user_last_chat(user: User, is: string, message: ChatModel) {
   try {
     if (user.contacts == null) user.contacts = {};
 
     user.contacts[user.id] = message;
+    const userType = getUserType(user.userType ?? "");
 
     if (userType == UserType.Client) await(user as Client).save();
     else if (userType == UserType.Escort) await(user as Escort).save();

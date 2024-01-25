@@ -117,7 +117,7 @@ io.on("connect", async (socket) => {
       });
       socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
-      handleChat(socket, session);
+      handleChat(session);
     } else {
       console.log("User connection denied: Invalid provided token");
       socket.emit("invalid_session", "Login in again");

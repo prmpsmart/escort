@@ -2,8 +2,8 @@ const io = require("socket.io-client");
 const fs = require("fs");
 
 let host = "";
-host = "http://localhost:3001";
 host = "https://lazer-escort.onrender.com";
+host = "http://localhost:3001";
 
 const token = fs.readFileSync("t.txt", "utf8");
 
@@ -18,8 +18,14 @@ socket.onAny((event, ...args) => {
 
 socket.on("connect", () => {
   console.log(`Connected`);
-  setTimeout(() => {},
-  socket.emit("new_message", { sender_id: "asas", receiver_id: "paspos", messageType: "text", data: "I love you Kenny" }));
+  setInterval(() => {
+    socket.emit("new_message", {
+      sender_id: "658d97609b33e98dd870d760",
+      receiver_id: "659169bdbf60e784775f1a41",
+      messageType: "text",
+      data: "I love you Kenny",
+    });
+  }, 1000);
 });
 
 socket.on("userStatus", (data) => {
@@ -27,6 +33,10 @@ socket.on("userStatus", (data) => {
 });
 
 socket.on("acknowledgement", (data) => {
+  console.log(data);
+});
+
+socket.on("new_message", (data) => {
   console.log(data);
 });
 

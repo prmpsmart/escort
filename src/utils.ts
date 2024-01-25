@@ -24,11 +24,13 @@ export async function getUser(usernameEmail: string): Promise<any> {
 }
 
 export async function getUserByID(id: string): Promise<any> {
-  return (
-    (await Escorts.findById(objectId(id))) ??
-    (await Clients.findById(objectId(id))) ??
-    (await Admins.findById(objectId(id)))
-  );
+  try {
+    return (
+      (await Escorts.findById(objectId(id))) ??
+      (await Clients.findById(objectId(id))) ??
+      (await Admins.findById(objectId(id)))
+    );
+  } catch (error) {}
 }
 
 export function objectId(id?: string): mongoose.Types.ObjectId {
