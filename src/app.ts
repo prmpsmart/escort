@@ -78,13 +78,19 @@ io.on("connect", async (socket) => {
   const token = socket.handshake.auth.token as string | undefined;
   let user: Escort | Client;
 
-  socket.on("disconnect", (reason) => {
+  socket.on("disconnect", () => {
+    console.log(`Client disconnected: ${socket.id}`);
     if (user) {
+      console.log(`User disconnected: ${socket.id}`);
+
       user.lastSeen = Date.now();
       user.save();
-    }
 
-    console.log("Client disconnected: ", socket.id, reason);
+      socket.broadcast.emit("userStatus", {
+        userId: user.id,
+        status: "offline",
+      });
+    }
   });
 
   if (token) {
@@ -109,18 +115,6 @@ io.on("connect", async (socket) => {
       socket.emit("acknowledgement", "Connection to Server is Acknowledged");
 
       handleChat(socket, session);
-
-      socket.on("disconnect", () => {
-        console.log(`User disconnected: ${socket.id}`);
-
-        // user.lastSeen = Date.now();
-        // user.save();
-
-        socket.broadcast.emit("userStatus", {
-          userId: user.id,
-          status: "offline",
-        });
-      });
     } else {
       socket.emit("invalid_session", "Login in again");
       console.log("User connection denied: Invalid provided token");
