@@ -30,7 +30,7 @@ singleEscortRouter.get(
       escort = escort as Escort;
       res
         .status(200)
-        .json(JSON.stringify({ profile: await cleanEscort(escort) }));
+        .json({ profile: await cleanEscort(escort) });
     } else res.status(404).json({ message: "Escort not found" });
   }
 );

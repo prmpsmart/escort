@@ -1,8 +1,14 @@
 import { Request, Response, Router } from "express";
-import { Client } from "../models/clients";
-import { Escort } from "../models/escorts";
+import { Client, Clients } from "../models/clients";
+import { Escort, Escorts } from "../models/escorts";
 import { Sessions, UserType } from "../services/sessions";
-import { cleanObject, getMediaLinks, getUser } from "../utils";
+import {
+  cleanEscort,
+  cleanObject,
+  getMediaLinks,
+  getUser,
+  objectId,
+} from "../utils";
 import { LoginRequest } from "./client/loginScreens";
 import {
   createToken,
@@ -144,3 +150,39 @@ loginRouter.post(
     }
   }
 );
+
+interface GetUserProfileRequest extends Request {
+  params: {
+    id: string;
+  };
+}
+
+loginRouter.get("/user/:id", async (req: GetUserProfileRequest, res) => {
+  let escort: Escort | null = await Escorts.findById(objectId(req.params.id));
+  if (escort) {
+    escort = escort as Escort;
+    return res.status(200).json({ user: await cleanEscort(escort) });
+  }
+  let client: Client | null = await Clients.findById(objectId(req.params.id));
+  if (client) {
+    client = client as Client;
+    return res.status(200).json({
+      firstName: client.firstName,
+      lastName: client.lastName,
+      username: client.username,
+      images: client.images,
+
+      height: client.height,
+      hairColor: client.hairColor,
+      country: client.country,
+      gender: client.gender,
+      birthday: client.birthday,
+      about: client.about,
+      education: client.education,
+
+      number: client.number,
+      language: client.language,
+      ageVerified: client.ageVerified,
+    });
+  }
+});
