@@ -236,6 +236,17 @@ const doc = {
         ],
       },
       // Responses
+      UserSearch: {
+        users: [
+          {
+            id: "string",
+            location: "string",
+            age: "number",
+            image: "string",
+            name: "string",
+          },
+        ],
+      },
       ViewGalleryResponse: {
         images: ["string"],
         videos: ["string"],

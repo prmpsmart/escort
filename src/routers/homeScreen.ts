@@ -109,6 +109,7 @@ interface UserSearch {
   location: string;
   age: number;
   image: string;
+  name: string;
 }
 
 homeRouter.get(
@@ -147,6 +148,7 @@ homeRouter.get(
           id: element.id,
           location: element.location.incall,
           age: element.personalDetails.age,
+          name: element.workingName,
           image: await getMediaLink(element.personalDetails.image),
         });
       }
