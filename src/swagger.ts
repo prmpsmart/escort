@@ -383,12 +383,16 @@ const doc = {
       ContactsResponse: {
         contacts: {
           user_id: {
-            id: "string",
-            sender_id: "string",
-            receiver_id: "string",
-            messageType: "string",
-            data: "string",
-            create_timestamp: "number",
+            name: "string",
+            image: "string",
+            last_chat: {
+              id: "string",
+              sender_id: "string",
+              receiver_id: "string",
+              messageType: "string",
+              data: "string",
+              create_timestamp: "number",
+            },
           },
         },
       },

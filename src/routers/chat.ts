@@ -4,7 +4,13 @@ import Chats, { Chat, IChat } from "../models/chats";
 import { Socket } from "socket.io";
 import { Session, Sessions, UserType } from "../services/sessions";
 import { Client, Clients } from "../models/clients";
-import { cleanObject, getUserByID, getUserType, objectId } from "../utils";
+import {
+  cleanObject,
+  getMediaLink,
+  getUserByID,
+  getUserType,
+  objectId,
+} from "../utils";
 import { Admin, Admins } from "../models/admin";
 import { Escort, Escorts } from "../models/escorts";
 import { ChatModel, User } from "../models/common";
@@ -63,7 +69,13 @@ chatRouter.get(
   }
 );
 
-chatRouter.get("/contacts", (req: AuthRequest, res: Response) => {
+interface Contact {
+  last_chat: ChatModel;
+  image: string;
+  name: string;
+}
+
+chatRouter.get("/contacts", async (req: AuthRequest, res: Response) => {
   /**
    #swagger.responses[200] = {
      schema:  { $ref: "#/components/schemas/ContactsResponse" }
@@ -73,12 +85,36 @@ chatRouter.get("/contacts", (req: AuthRequest, res: Response) => {
     req.session?.user.contacts
   );
 
-  const contacts: Record<string, ChatModel> = {};
+  const contacts: Record<string, Contact> = {};
 
   if (_contacts) {
     for (const [contactId, chatModel] of Object.entries(_contacts)) {
       chatModel.id = contactId;
-      _contacts[contactId] = cleanObject(chatModel);
+
+      let user = await getUserByID(contactId);
+      if (user) {
+        let name = "";
+        let image = "";
+        const userType = getUserType(user.userType as string);
+        if (userType == UserType.Client) {
+          user = user as Client;
+          name = user.username;
+          image = await getMediaLink(user.images[0]);
+        } else if (userType == UserType.Escort) {
+          user = user as Escort;
+          name = user.workingName;
+          image = await getMediaLink(user.personalDetails.image);
+        } else if (userType == UserType.Admin) {
+          name = (user as Admin).username;
+        }
+
+        const contact: Contact = {
+          name: name,
+          image: image,
+          last_chat: cleanObject(chatModel),
+        };
+        contacts[contactId] = contact;
+      }
     }
   }
   return res.status(200).json({ contacts });
@@ -147,9 +183,9 @@ async function save_user_last_chat(user: User, is: string, message: ChatModel) {
     user.contacts[user.id] = message;
     const userType = getUserType(user.userType ?? "");
 
-    if (userType == UserType.Client) await(user as Client).save();
-    else if (userType == UserType.Escort) await(user as Escort).save();
-    else if (userType == UserType.Admin) await(user as Admin).save();
+    if (userType == UserType.Client) await (user as Client).save();
+    else if (userType == UserType.Escort) await (user as Escort).save();
+    else if (userType == UserType.Admin) await (user as Admin).save();
   } catch (error) {
     console.log(error);
   }

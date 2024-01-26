@@ -89,7 +89,7 @@ export async function uploadMedia(
 }
 
 export async function getMediaLink(media: string): Promise<string> {
-  if (media.length < 1) return "";
+  if (media == undefined || media.length < 1) return "";
   try {
     const storageBucket = admin.storage().bucket();
     const expirationDate = new Date();
