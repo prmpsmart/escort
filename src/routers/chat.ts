@@ -70,7 +70,7 @@ chatRouter.get(
 );
 
 interface Contact {
-  last_chat: ChatModel;
+  last_chat: string;
   image: string;
   id: string;
   name: string;
@@ -113,7 +113,7 @@ chatRouter.get("/contacts", async (req: AuthRequest, res: Response) => {
           name: name,
           id: contactId,
           image: image,
-          last_chat: cleanObject(chatModel),
+          last_chat: chatModel.data,
         };
         contacts.push(contact);
       }

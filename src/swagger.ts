@@ -385,17 +385,26 @@ const doc = {
           {
             name: "string",
             image: "string",
-            last_chat: {
-              id: "string",
-              sender_id: "string",
-              receiver_id: "string",
-              messageType: "string",
-              data: "string",
-              create_timestamp: "number",
-            },
+            last_chat: "string",
           },
         ],
       },
+      // ContactsResponse: {
+      //   contacts: [
+      //     {
+      //       name: "string",
+      //       image: "string",
+      //       last_chat: {
+      //         id: "string",
+      //         sender_id: "string",
+      //         receiver_id: "string",
+      //         messageType: "string",
+      //         data: "string",
+      //         create_timestamp: "number",
+      //       },
+      //     },
+      //   ],
+      // },
       DashboardResponse: {
         remainingInterests: "number",
         remainingContactView: "number",
