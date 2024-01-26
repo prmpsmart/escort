@@ -72,6 +72,7 @@ chatRouter.get(
 interface Contact {
   last_chat: ChatModel;
   image: string;
+  id: string;
   name: string;
 }
 
@@ -85,7 +86,7 @@ chatRouter.get("/contacts", async (req: AuthRequest, res: Response) => {
     req.session?.user.contacts
   );
 
-  const contacts: Record<string, Contact> = {};
+  const contacts: Contact[] = [];
 
   if (_contacts) {
     for (const [contactId, chatModel] of Object.entries(_contacts)) {
@@ -110,10 +111,11 @@ chatRouter.get("/contacts", async (req: AuthRequest, res: Response) => {
 
         const contact: Contact = {
           name: name,
+          id: contactId,
           image: image,
           last_chat: cleanObject(chatModel),
         };
-        contacts[contactId] = contact;
+        contacts.push(contact);
       }
     }
   }

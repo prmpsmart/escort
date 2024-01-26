@@ -381,8 +381,8 @@ const doc = {
         },
       },
       ContactsResponse: {
-        contacts: {
-          user_id: {
+        contacts: [
+          {
             name: "string",
             image: "string",
             last_chat: {
@@ -394,7 +394,7 @@ const doc = {
               create_timestamp: "number",
             },
           },
-        },
+        ],
       },
       DashboardResponse: {
         remainingInterests: "number",
