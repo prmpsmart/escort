@@ -28,6 +28,8 @@ export const verifyToken = async (
   try {
     const payload = jwt.verify(token, secretKey) as Payload;
     let session = Sessions.getSessionByID(payload.session_id);
+    console.log(payload);
+
     if (!session) {
       const user = await getUserByID(payload.session_id);
 
@@ -41,5 +43,8 @@ export const verifyToken = async (
           return session;
         }
       } else return session;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    
+  }
 };

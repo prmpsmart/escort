@@ -99,6 +99,7 @@ io.on("connect", async (socket) => {
   if (token) {
     console.log("User connected with token");
 
+    console.log(token);
     const session = await verifyToken(token);
     console.log("User connected using WS ", session?.user.email);
 
@@ -163,7 +164,7 @@ app.use("/", routers);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
-const port = 3001;
+const port = 3000;
 
 server.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);

@@ -1,2 +1,2 @@
 @echo off
-ts-node test.js
+node test.js
