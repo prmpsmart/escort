@@ -29,9 +29,7 @@ export interface User {
   password?: string;
   createdAt?: number;
   lastSeen?: number;
-  // contacts?: Object;
   contacts?: Map<string, IChat>;
-  // contacts?: { [key: string]: ChatModel };
   userType?: string;
 }
 
