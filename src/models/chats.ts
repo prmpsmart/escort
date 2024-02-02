@@ -1,19 +1,9 @@
 import { Document, Schema, model } from "mongoose";
-
-export interface IChat {
-  id?: any;
-  sender_id: string;
-  receiver_id: string;
-
-  messageType: string;
-  data: string;
-
-  create_timestamp: number;
-}
+import { IChat } from "./common";
 
 export interface Chat extends IChat, Document {}
 
-const chatsSchema = new Schema<Chat>({
+export const chatsSchema = new Schema<Chat>({
   sender_id: {
     type: String,
     required: true,
@@ -39,4 +29,28 @@ const chatsSchema = new Schema<Chat>({
 
 const Chats = model<Chat>("Chats", chatsSchema);
 
+
 export default Chats;
+
+
+/**
+ *
+ *
+ *
+// Define the child schema for the map
+interface MapItem {
+  key: string;
+  value: string;
+}
+
+const MapItemSchema = new Schema<MapItem>({
+  key: String,
+  value: String,
+});
+
+// Define the parent schema with the map as a child
+interface Parent extends Document {
+  name: string;
+  myMap: Map<string, MapItem>;
+}
+ */

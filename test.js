@@ -242,7 +242,7 @@ async function getUsers() {
 
 async function search(token) {
   return call(
-    axios.get(`${host}/escorts/nana`, {
+    axios.get(`${host}/escorts/na`, {
       headers: { Authorization: `Bearer ${token}` },
     })
   );
@@ -263,7 +263,8 @@ async function seq() {
     if (v) {
       token = v.token;
       fs.writeFileSync('t.txt', token)
-      // contacts(token);
+      contacts(token);
+      // search(token);
     }
     // setTimeout(ladiesStar, 500);
     // setTimeout(escortProfile, 500);

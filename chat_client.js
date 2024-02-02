@@ -20,8 +20,10 @@ socket.on("connect", () => {
   console.log(`Connected`);
   setInterval(() => {
     socket.emit("new_message", {
-      sender_id: "658d97609b33e98dd870d760",
-      receiver_id: "659169bdbf60e784775f1a41",
+      // sender_id: "658d97609b33e98dd870d760",
+      // receiver_id: "659169bdbf60e784775f1a41",
+      sender_id: "65b02683134554c8ea43541e",
+      receiver_id: "658d195887a96ab09d655191",
       messageType: "text",
       data: "I love you Kenny",
     });

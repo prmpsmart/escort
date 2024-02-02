@@ -8,12 +8,14 @@ export interface AuthRequest extends Request {
 }
 
 // Middleware to check for Bearer token
-export const checkToken = async (
+const _checkToken = async (
   req: AuthRequest,
   res: Response,
   next: NextFunction,
   userType?: UserType
 ) => {
+  console.log("Checking Authorization Bearer Token");
+
   // Get the Authorization header
   const authHeader = req.headers.authorization;
 
@@ -45,12 +47,20 @@ export const checkToken = async (
   }
 };
 
+export const checkToken = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  return _checkToken(req, res, next);
+};
+
 export const checkClientToken = (
   req: AuthRequest,
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, UserType.Client);
+  return _checkToken(req, res, next, UserType.Client);
 };
 
 export const checkEscortToken = (
@@ -58,7 +68,7 @@ export const checkEscortToken = (
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, UserType.Escort);
+  return _checkToken(req, res, next, UserType.Escort);
 };
 
 export const checkAdminToken = (
@@ -66,5 +76,5 @@ export const checkAdminToken = (
   res: Response,
   next: NextFunction
 ) => {
-  return checkToken(req, res, next, UserType.Admin);
+  return _checkToken(req, res, next, UserType.Admin);
 };

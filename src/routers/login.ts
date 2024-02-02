@@ -94,6 +94,8 @@ loginRouter.post("/login", async (req: LoginRequest, res: Response) => {
           firstName: client.firstName,
           lastName: client.lastName,
           username: client.username,
+          contacts: user.contacts,
+
 
           workingName: escort.workingName,
           email: user.email,

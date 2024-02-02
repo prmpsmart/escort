@@ -1,5 +1,6 @@
-import { Document, Schema, model } from "mongoose";
-import { User, chatModelSchema } from "./common";
+import mongoose, { Document, Schema, model } from "mongoose";
+import { IChat, User } from "./common";
+import { chatsSchema } from "./chats";
 
 interface PersonalDetails {
   gender: string;
@@ -148,7 +149,7 @@ export interface IEscort extends User {
 
 export interface Escort extends IEscort, Document {}
 
-const escortSchema = new Schema<Escort>({
+const escortSchema = new Schema({
   workingName: {
     type: String,
     required: true,
@@ -160,7 +161,7 @@ const escortSchema = new Schema<Escort>({
   password: { type: String, required: true },
   createdAt: { type: Number, default: Date.now },
   lastSeen: { type: Number, default: Date.now },
-  contacts: { type: Map, of: chatModelSchema },
+  contacts: Map<string, IChat>,
   userType: {
     type: String,
     default: "escort",

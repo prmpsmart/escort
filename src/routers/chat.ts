@@ -1,6 +1,6 @@
 import { Response, Router } from "express";
 import { AuthRequest } from "../middleware/checkToken";
-import Chats, { Chat, IChat } from "../models/chats";
+import Chats, { Chat } from "../models/chats";
 import { Socket } from "socket.io";
 import { Session, Sessions, UserType } from "../services/sessions";
 import { Client, Clients } from "../models/clients";
@@ -13,7 +13,7 @@ import {
 } from "../utils";
 import { Admin, Admins } from "../models/admin";
 import { Escort, Escorts } from "../models/escorts";
-import { ChatModel, User } from "../models/common";
+import { IChat, User } from "../models/common";
 import _ from "lodash";
 
 export const chatRouter = Router();
@@ -53,7 +53,7 @@ chatRouter.get(
     for (const key in _chats) {
       if (Object.prototype.hasOwnProperty.call(_chats, key)) {
         const _element = _chats[key];
-        const element: ChatModel = {
+        const element: IChat = {
           id: _element.id,
           sender_id: _element.sender_id,
           receiver_id: _element.receiver_id,
@@ -82,51 +82,64 @@ chatRouter.get("/contacts", async (req: AuthRequest, res: Response) => {
      schema:  { $ref: "#/components/schemas/ContactsResponse" }
     }
    */
-  let _contacts: Record<string, ChatModel> | undefined = _.cloneDeep(
-    req.session?.user.contacts
-  );
+
+  let _contacts: Object | undefined =
+    // let _contacts: { [key: string]: ChatModel } | undefined =
+    req.session?.user.contacts;
+
+  // const chats = await Chats.find({ sender_id: req.session?.user.id });
+  console.log(req.session?.user.contacts);
 
   const contacts: Contact[] = [];
 
   if (_contacts) {
-    for (const [contactId, chatModel] of Object.entries(_contacts)) {
-      chatModel.id = contactId;
-
-      let user = await getUserByID(contactId);
-      if (user) {
-        let name = "";
-        let image = "";
-        const userType = getUserType(user.userType as string);
-        if (userType == UserType.Client) {
-          user = user as Client;
-          name = user.username;
-          image = await getMediaLink(user.images[0]);
-        } else if (userType == UserType.Escort) {
-          user = user as Escort;
-          name = user.workingName;
-          image = await getMediaLink(user.personalDetails.image);
-        } else if (userType == UserType.Admin) {
-          name = (user as Admin).username;
-        }
-
-        const contact: Contact = {
-          name: name,
-          id: contactId,
-          image: image,
-          last_chat: chatModel.data,
-        };
-        contacts.push(contact);
-      }
-    }
+    // for (const [key, value] of contacts) {
+    //   console.log(`Key: ${key}, Value: ${value}`);
+    // }
+    // _contacts.forEach((value, key) => {
+    //   console.log(`Key: ${key}, Value: ${value}`);
+    // });
+    // for (const contactId in _contacts) {
+    //   const value = _contacts[contactId];
+    //   console.log(contactId + ": " + value);
+    // }
+    // for (const [contactId, chatModel] of Object.entries(_contacts)) {
+    //   console.log(contactId, chatModel);
+    // chatModel.id = contactId;
+    // let user = await getUserByID(contactId);
+    // if (user) {
+    //   let name = "";
+    //   let image = "";
+    //   const userType = getUserType(user.userType as string);
+    //   if (userType == UserType.Client) {
+    //     user = user as Client;
+    //     name = user.username;
+    //     image = await getMediaLink(user.images[0]);
+    //   } else if (userType == UserType.Escort) {
+    //     user = user as Escort;
+    //     name = user.workingName;
+    //     image = await getMediaLink(user.personalDetails.image);
+    //   } else if (userType == UserType.Admin) {
+    //     name = (user as Admin).username;
+    //   }
+    //   const contact: Contact = {
+    //     name: name,
+    //     id: contactId,
+    //     image: image,
+    //     last_chat: chatModel.data,
+    //   };
+    //   contacts.push(contact);
+    // }
   }
+  // }
   return res.status(200).json({ contacts });
 });
 
 export async function handleChat(session: Session) {
   const socket = session.socket as Socket;
 
-  socket.on("new_message", async (message: ChatModel): Promise<void> => {
-    console.log(socket.id, message);
+  socket.on("new_message", async (message: IChat): Promise<void> => {
+    console.log(socket.id, message, session.user.id);
     if (session.user.id === message.sender_id) {
       const receiver_session = Sessions.getSessionByID(message.receiver_id);
       socket?.emit("new_message", message);
@@ -134,8 +147,6 @@ export async function handleChat(session: Session) {
         Chats.create(message);
 
         receiver_session.socket?.emit("new_message", message);
-
-        console.log("emitted back to users");
 
         await save_user_last_chat(
           session.user,
@@ -178,16 +189,27 @@ export async function handleChat(session: Session) {
   });
 }
 
-async function save_user_last_chat(user: User, is: string, message: ChatModel) {
+async function save_user_last_chat(user: User, id: string, message: IChat) {
   try {
-    if (user.contacts == null) user.contacts = {};
+    console.log("save_user_last_chat", user.contacts);
+    user.contacts?.set(id, message);
+    console.log("save_user_last_chat\n");
 
-    user.contacts[user.id] = message;
     const userType = getUserType(user.userType ?? "");
 
-    if (userType == UserType.Client) await (user as Client).save();
-    else if (userType == UserType.Escort) await (user as Escort).save();
-    else if (userType == UserType.Admin) await (user as Admin).save();
+    if (userType == UserType.Client) {
+      const _user = await(user as Client);
+      _user.markModified("contacts");
+      _user.save();
+    } else if (userType == UserType.Escort) {
+      const _user = await(user as Escort);
+      _user.markModified("contacts");
+      _user.save();
+    } else if (userType == UserType.Admin) {
+      const _user = await(user as Admin);
+      _user.markModified("contacts");
+      _user.save();
+    }
   } catch (error) {
     console.log(error);
   }
